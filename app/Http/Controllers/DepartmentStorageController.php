@@ -23,15 +23,12 @@ class DepartmentStorageController extends Controller
     public function create()
     {
         $currentUserDepartment = auth()->user()->department;
-        //$categories = $currentUserDepartment->categories;
-        $categories=Category::where('department_id', $currentUserDepartment->id)->first();
-
+        $categories = Category::where('department_id', $currentUserDepartment->id)->get();
         $fileTypes = FileType::all();
-    
-        return view('dashboard.layouts.uploadFile')
-        ->with([
-            'categories',$categories, 
-            'fileTypes',$fileTypes
+        
+        return view('dashboard.layouts.uploadFile', [
+            'categories' => $categories, 
+            'fileTypes' => $fileTypes
         ]);
     }
     
