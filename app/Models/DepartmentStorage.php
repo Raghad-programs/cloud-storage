@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepartmentStorage extends Model
 {
-    use HasFactory;
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function categorys()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function fileType()
+    {
+        return $this->belongsTo(FileType::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }

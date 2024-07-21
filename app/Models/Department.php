@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function categorys()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function departmentStorages()
+    {
+        return $this->hasMany(DepartmentStorage::class);
+    }
 }
