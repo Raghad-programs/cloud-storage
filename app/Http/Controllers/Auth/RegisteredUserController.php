@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
+use App\Models\Department;
 class RegisteredUserController extends Controller
 {
     /**
@@ -19,8 +19,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
-    }
+        $departments = Department::all();
+
+        return view('dashboard.auth.register')->with(
+        "departments",$departments
+        );
+    }    
 
     /**
      * Handle an incoming registration request.
@@ -33,12 +37,18 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone_number' => ['required'],
+            'department' => ['required', 'exists:departments,id'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_pic' => '-',
+            'phone_number' => $request->phone_number,
+            'Depatrment_id' => $request->department,
+            'role_id' => 2
         ]);
 
         event(new Registered($user));

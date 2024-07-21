@@ -20,7 +20,7 @@
         <select class="form-control" id="file_type" name="file_type">
             <option value="">Select File Type</option>
             @foreach ($fileTypes as $fileType)
-                <option value="{{ $fileType->id }}">{{ $fileType->name }}</option>
+                <option value="{{ $fileType->id }}">{{ $fileType->type }}</option>
             @endforeach
         </select>
     </div>
