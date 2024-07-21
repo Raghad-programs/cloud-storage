@@ -13,7 +13,7 @@ class Department extends Model
         return $this->hasMany(User::class);
     }
 
-    public function categorys()
+    public function categories()
     {
         return $this->hasMany(Category::class);
     }

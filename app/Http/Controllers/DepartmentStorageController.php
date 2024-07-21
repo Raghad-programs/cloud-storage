@@ -6,6 +6,7 @@ use App\Http\Requests\StoreDepartmentStorageRequest;
 use App\Http\Requests\UpdateDepartmentStorageRequest;
 use App\Models\DepartmentStorage;
 use App\Models\FileType;
+use App\Models\Category;
 class DepartmentStorageController extends Controller
 {
     /**
@@ -22,12 +23,14 @@ class DepartmentStorageController extends Controller
     public function create()
     {
         $currentUserDepartment = auth()->user()->department;
-        $categories = $currentUserDepartment->sections;
+        //$categories = $currentUserDepartment->categories;
+        $categories=Category::where('department_id', $currentUserDepartment->id)->first();
+
         $fileTypes = FileType::all();
     
-        return view('dashboardlayouts.uploadFile')
+        return view('dashboard.layouts.uploadFile')
         ->with([
-            'sections',$categories, 
+            'categories',$categories, 
             'fileTypes',$fileTypes
         ]);
     }
@@ -49,7 +52,7 @@ class DepartmentStorageController extends Controller
         $departmentStorage = DepartmentStorage::create([
             'title'=>$request->title,
             'department_id' => auth()->user()->department_id,
-             'user_id' => auth()->id(),
+            'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'file_type' => $fileType,
             'file' => $filePath,
