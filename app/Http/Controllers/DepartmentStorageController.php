@@ -24,9 +24,9 @@ class DepartmentStorageController extends Controller
     public function create()
     {
         
-        $currentUserDepartment = auth()->user()->department;
-        $categories = Category::where('department_id', $currentUserDepartment->id)->get();
-        $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment->id)->get();
+        $currentUserDepartment = auth()->user()->Depatrment_id ;
+        $categories = Category::where('department_id', $currentUserDepartment)->get();
+        $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)->get();
         
         $fileTypes = FileType::all();
         
@@ -65,8 +65,8 @@ class DepartmentStorageController extends Controller
     }
     public function showfile()
     {
-        $currentUserDepartment = auth()->user()->department;
-        $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment->id)
+        $currentUserDepartment = auth()->user()->Depatrment_id ;
+        $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)
                             ->where('user_id', auth()->id())
                             ->get();
                             $userName = auth()->user()->name;

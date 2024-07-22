@@ -15,6 +15,6 @@ class TableController extends Controller
        
         // dd($users);
 
-        return view('dashboard.table')->with('users',$users);
+        return view('dashboard.layouts.table')->with('users',$users);
     }
 }
