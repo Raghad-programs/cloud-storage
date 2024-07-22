@@ -19,7 +19,8 @@ class UserMiddleware
         if(Auth::check() && Auth::user()->role_id == 2){
             return $next($request);
         }else{
-            return redirect(route("login"));
-        }
+            flash()->error('you need to login');
+            return redirect(route('login'));  
+          }
     }
 }

@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Auth;
-
-class HeadMiddleware
+class LoginCheckMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,13 +15,11 @@ class HeadMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        if(Auth::check() && Auth::user()->role_id == 1){
-            return $next($request);
+
+        if(Auth::check()){
+        return $next($request);
         }else{
-            flash()->error('you need to login');
-            return redirect(route('login'));     
-           }
-    
+            return redirect(route('login'))->with(flash()->error('you need to login'));
+        }
     }
 }

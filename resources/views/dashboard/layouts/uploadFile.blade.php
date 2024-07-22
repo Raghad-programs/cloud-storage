@@ -21,9 +21,9 @@
                                 <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
                             </div>
                             @if (auth()->user()->role_id == 1)
-            <form class="user" action="{{ route('/upload-file') }}" method="POST" enctype="multipart/form-data">
+            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
             @else
-            <form class="user" action="{{ route('/upload-file') }}" method="POST" enctype="multipart/form-data">
+            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
             @endif
                                             @csrf
                                 <div class="form-group">

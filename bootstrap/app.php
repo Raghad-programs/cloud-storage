@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'user-auth'=>App\Http\Middleware\UserMiddleware::class,
             'head-auth'=> App\Http\Middleware\HeadMiddleware::class,
+            'auth-check'=> App\Http\Middleware\LoginCheckMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
