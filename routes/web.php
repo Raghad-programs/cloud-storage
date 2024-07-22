@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentStorageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TableController;
 
 Route::get('/', function () {
     return view('dashboard.layouts.home');
@@ -21,7 +22,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/upload-file' , [DepartmentStorageController::class , 'create'])->name('upload-file');
 
-
+Route::get('/table',[TableController::class,'table']);
 
 
 require __DIR__.'/auth.php';
