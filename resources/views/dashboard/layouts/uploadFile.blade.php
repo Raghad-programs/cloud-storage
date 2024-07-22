@@ -22,6 +22,15 @@
                     <div class="col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
+                            @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                     @endif
                                 <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
                             </div>
                             <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">

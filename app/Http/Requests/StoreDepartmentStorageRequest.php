@@ -23,8 +23,6 @@ class StoreDepartmentStorageRequest extends FormRequest
     {
         return [
             'title'=>'required|string|max:100',
-            'department_id'=> 'required|exists:departments,id',
-            'user_id'=> 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'file_type' => 'required|exists:file_types,id',
             $this->container->make(FileType::class)->find($this->input('file_type'))->extensions

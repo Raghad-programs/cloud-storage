@@ -38,19 +38,26 @@ class DepartmentStorageController extends Controller
     }
     public function store(StoreDepartmentStorageRequest $request)
     {
-    $validatedData = $request->validated();
+        
+        $validatedData = $request->validated();
+
+        $fileType = FileType::find($validatedData['file_type']);
+        $folderName = strtolower($fileType->type);
+        $filePath = $request->file('file')->store("department_storage/{$folderName}");
+        $departmentId = auth()->user()->Depatrment_id;
+        
+        // dd($request->all(), $departmentId,$fileType);
+      
+        $departmentStorage = DepartmentStorage::create([
+            'title'=>$request->title,
+            'department_id' => $departmentId,
+            'user_id' => auth()->id(),
+            'category_id' => $request->category_id,
+            'file_type' => $fileType->id,
+            'file' => $filePath,
+        ]);
+
     
-    $fileType = FileType::find($validatedData['file_type']);
-    $folderName = strtolower($fileType->type);
-    $filePath = $request->file('file')->store("department_storage/{$folderName}");
-    $departmentStorage = DepartmentStorage::create([
-        'title' => $request->title,
-        'department_id' => auth()->user()->department_id,
-        'user_id' => auth()->id(),
-        'category_id' => $request->category_id,
-        'file_type' => $validatedData['file_type'],
-        'file' => $filePath,
-    ]);
 
     flash()->success('The file is saved successfully!!');
     return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
