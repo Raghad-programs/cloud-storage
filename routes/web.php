@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/upload-file' , [DepartmentStorageController::class , 'create'])->name('upload-file');
+Route::post('/upload-file' , [DepartmentStorageController::class , 'store'])->name('upload-file');
 
 
 

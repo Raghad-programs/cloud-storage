@@ -11,7 +11,7 @@ class StoreDepartmentStorageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,6 @@ class StoreDepartmentStorageRequest extends FormRequest
     {
         return [
             'title'=>'required|string|max:100',
-            'departmen_id'=> 'required|exists:departments,id',
-            'user_id'=> 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'file_type' => 'required|exists:file_types,id',
             $this->container->make(FileType::class)->find($this->input('file_type'))->extensions
