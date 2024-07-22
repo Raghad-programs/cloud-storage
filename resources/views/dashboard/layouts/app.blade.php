@@ -128,10 +128,18 @@
     </a>
     <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href={{route('register')}}>category</a>
+        @foreach ($categories as $category)
+        <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
+            {{ $category->name }}
+        </a>
+
+        <form id="category-form-{{ $category->id }}" action="{{ route('category.show', ['id' => $category->id]) }}" method="GET" style="display: none;">
+            @csrf
+        </form>
+        @endforeach
         </div>
     </div>
-</li>
+    
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
