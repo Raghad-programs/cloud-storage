@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class DepartmentStorage extends Model
 {
+
+    // protected $fillable = [
+    //     'title',
+    //     'department_id',
+    //     'user_id',
+    //     'category_id',
+    //     'file_type_id',
+    //     'file_path',
+    // ];
+
+    protected $guarded;
     public function department()
     {
         return $this->belongsTo(Department::class);

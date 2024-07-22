@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\DepartmentStorageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
+
 
 Route::get('/', function () {
     return view('dashboard.layouts.home');
@@ -21,6 +24,11 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/upload-file' , [DepartmentStorageController::class , 'create'])->name('upload-file');
+Route::post('/upload-file' , [DepartmentStorageController::class , 'store'])->name('upload-file');
+
+Route::get('/show-file' , [DepartmentStorageController::class , 'showfile'])->name('show-file');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+
 
 Route::get('/table',[TableController::class,'table']);
 

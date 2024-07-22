@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('department_id')->constrained('departments');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->foreignId('file_type')->constrained('file_types');
             $table->string('file');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
