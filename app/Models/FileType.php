@@ -11,6 +11,6 @@ class FileType extends Model
 
     public function departmentStorages()
     {
-        return $this->hasMany(DepartmentStorage::class);
+        return $this->hasMany(DepartmentStorage::class, 'file_type', 'id');
     }
 }
