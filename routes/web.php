@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -31,6 +32,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 
 Route::get('/table',[TableController::class,'table']);
+
+
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
 
 require __DIR__.'/auth.php';
