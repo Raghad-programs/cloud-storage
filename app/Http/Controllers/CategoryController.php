@@ -21,4 +21,17 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function search(Request $request, $categoryId)
+    {
+        $search = $request->input('search');
+        $category = Category::findOrFail($categoryId);
+        $storageItems = DepartmentStorage::where('category_id', $categoryId)
+                        ->when($search, function ($query) use ($search) {
+                            $query->where('title', 'like', '%'.$search.'%');
+                        })
+                        ->get();
+
+        return view('dashboard.layouts.category', compact('category', 'storageItems'));
+    }
+
 }
