@@ -12,13 +12,14 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="backend/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="backend/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -132,34 +133,25 @@
     </div>
 </li>
 
-           
-
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-            @if (auth()->user()->role_id == 1)
-                <a class="nav-link" href="{{ route('upload-file') }}">
-            @elseif (auth()->user()->role_id == 2)
-                <a class="nav-link" href="{{ route('upload-file') }}">
-            @endif
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Upload File</span>
-            </a>
+                <a class="nav-link" href="{{route('upload-file')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>upload file</span></a>
             </li>
 
              <!-- Nav Item - Charts -->
              <li class="nav-item">
-                <a class="nav-link" href="{{ route('table') }}">
+                <a class="nav-link" href="/table">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Employees</span></a>
             </li>
+
+            <!-- Nav Item - Tables -->
             <li class="nav-item">
-            @if (auth()->user()->role_id == 1)
-                <a class="nav-link" href="{{ route('show-file') }}">
-            @elseif (auth()->user()->role_id == 2)
-                <a class="nav-link" href="{{ route('show-file') }}">
-            @endif
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>my archival</span>
-            </a>
+                <a class="nav-link" href="/show-file">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>my archival</span></a>
             </li>
 
             <!-- Divider -->
@@ -210,21 +202,21 @@
    
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('backend/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="backend/vendor/jquery/jquery.min.js"></script>
     <script src="backend/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="backend/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{asset('backend/js/sb-admin-2.min.js')}}"></script>
+    <script src="backend/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="{{asset('backend/vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="backend/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{asset('backend/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('backend/js/demo/chart-pie-demo.js')}}"></script>
+    <script src="backend/js/demo/chart-area-demo.js"></script>
+    <script src="backend/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
