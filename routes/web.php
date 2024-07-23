@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentStorageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\CategoryController;
@@ -33,6 +34,9 @@ Route::middleware(['auth-check'])->group(function () {
     Route::get('/table',[TableController::class,'table'])->name('table');
 
     Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
+
+    Route::get('/search',[SearchController::class , 'index'])->name('search');
+
 });
 
 

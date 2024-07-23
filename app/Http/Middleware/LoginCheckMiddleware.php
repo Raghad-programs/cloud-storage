@@ -19,7 +19,8 @@ class LoginCheckMiddleware
         if(Auth::check()){
         return $next($request);
         }else{
-            return redirect(route('login'))->with(flash()->error('you need to login'));
+            flash()->error('you need to login');
+            return redirect(route('login'));
         }
     }
 }
