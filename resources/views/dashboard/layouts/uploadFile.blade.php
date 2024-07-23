@@ -20,8 +20,12 @@
                      @endif
                                 <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
                             </div>
-                            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                            @if (auth()->user()->role_id == 1)
+            <form class="user" action="{{ route('/upload-file') }}" method="POST" enctype="multipart/form-data">
+            @else
+            <form class="user" action="{{ route('/upload-file') }}" method="POST" enctype="multipart/form-data">
+            @endif
+                                            @csrf
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="title" placeholder="File Title" required>
                                 </div>

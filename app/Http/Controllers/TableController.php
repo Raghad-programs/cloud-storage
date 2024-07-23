@@ -10,11 +10,7 @@ class TableController extends Controller
 {
     public function table()
     {
-        
         $users = User::all();
-       
-        // dd($users);
-
         return view('dashboard.layouts.table')->with('users',$users);
     }
 }

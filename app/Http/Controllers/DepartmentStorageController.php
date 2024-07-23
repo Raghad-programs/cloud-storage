@@ -60,7 +60,12 @@ class DepartmentStorageController extends Controller
     
 
     flash()->success('The file is saved successfully!!');
-    return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
+
+    if (auth()->user()->role_id == 1) {
+        return redirect(route('/upload-file'))->with('success', 'Department storage created successfully.');
+    } else {
+        return redirect(route('/upload-file'))->with('success', 'Department storage created successfully.');
+    }
 
     }
     public function showfile()
@@ -71,9 +76,16 @@ class DepartmentStorageController extends Controller
                             ->get();
                             $userName = auth()->user()->name;
 
-        return view('dashboard.layouts.showfile')
-        ->with('departmentStorages', $departmentStorages)
-        ->with('userName', $userName);
+        
+        if (auth()->user()->role_id == 1) {
+            return view('dashboard.layouts.showfile')
+            ->with('departmentStorages', $departmentStorages)
+            ->with('userName', $userName);
+        } else {
+            return view('dashboard.layouts.showfile')
+            ->with('departmentStorages', $departmentStorages)
+            ->with('userName', $userName);
+        }
     }
     
 
