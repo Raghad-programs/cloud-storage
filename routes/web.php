@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdministrationController;
+
 
 
 Route::middleware('auth')->group(function () {
@@ -36,7 +38,10 @@ Route::middleware(['auth-check'])->group(function () {
     Route::get('category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
-
+    
+    Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
+    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
+    
     // Route::get('/category/{categoryId}', [CategoryController::class, 'search'])->name('your-route-name.index');
     Route::get('/category/{categoryId}/search', [CategoryController::class, 'search'])->name('category.search');
 

@@ -47,6 +47,12 @@ class CategoryController extends Controller
 
         return view('dashboard.layouts.category', compact('category', 'storageItems', 'fileTypes'));
     }
+    public function showall()
+    {
+    $storageItems = DepartmentStorage::with('user',)->get();
+    return view('dashboard.layouts.allcategory')
+    ->with('storageItems',$storageItems);
+    }
 
 
 }

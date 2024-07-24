@@ -131,6 +131,9 @@
     </a>
     <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+        <a href="{{ route('category.show.all') }}" class="collapse-item">
+                All Files
+            </a>
         @foreach ($categories as $category)
         <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
             {{ $category->name }}
@@ -164,6 +167,15 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>my archival</span></a>
             </li>
+
+            @if (Auth::user()->role_id == 1)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('administration.files') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>All Files</span>
+                </a>
+            </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
