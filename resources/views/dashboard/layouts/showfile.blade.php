@@ -29,7 +29,7 @@
         <tr>
             <td>{{ $storage->title }}</td>
             <td>{{ $storage->department->department }}</td>
-            <td>{{ optional($storage->category)->name ?? '-' }}</td>
+            <td>{{ $storage->category }}</td>
             <td>
                 @if ($storage->file_type == 1)
                     Document

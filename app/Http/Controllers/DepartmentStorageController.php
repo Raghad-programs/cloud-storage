@@ -8,6 +8,7 @@ use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Category;
 use App\Http\Controllers\Request;
+
 class DepartmentStorageController extends Controller
 {
     /**
@@ -43,7 +44,7 @@ class DepartmentStorageController extends Controller
 
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = strtolower($fileType->type);
-        $filePath = $request->file('file')->store("department_storage/{$folderName}");
+        $filePath = $request->file('file')->store("public/department_storage/{$folderName}");
         $departmentId = auth()->user()->Depatrment_id;
         
         // dd($request->all(), $departmentId,$fileType);
@@ -62,9 +63,9 @@ class DepartmentStorageController extends Controller
     flash()->success('The file is saved successfully!!');
 
     if (auth()->user()->role_id == 1) {
-        return redirect(route('/upload-file'))->with('success', 'Department storage created successfully.');
+        return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
     } else {
-        return redirect(route('/upload-file'))->with('success', 'Department storage created successfully.');
+        return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
     }
 
     }
