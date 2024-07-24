@@ -15,24 +15,28 @@ class CategoryController extends Controller
         ->with('user')        
         ->get();
     
+        $search =request()->search;
+
+        $storageItems = DepartmentStorage::where(function ($query) use ($search, $categoryId) {
+            $sq = $search;
+            if (isset($sq) && $sq != null) {
+                $query->where("category_id", $categoryId)
+                    ->where(function ($q) use ($sq) {
+                        $q->where('title', 'like', '%'.$sq.'%');
+                    });
+            }
+        })
+        ->with('user')
+        ->get();
+
+        
+
         return view('dashboard.layouts.category', [
             'category' => $category,
             'storageItems' => $storageItems,
         ]);
     }
 
-    public function search(Request $request, $categoryId)
-    {
-        $search = $request->input('search');
-        $category = Category::findOrFail($categoryId);
-        $storageItems = DepartmentStorage::where('category_id', $categoryId)
-                        ->when($search, function ($query) use ($search) {
-                            $query->where('title', 'like', '%'.$search.'%');
-                        })
-                        ->get();
-
-        return view('dashboard.layouts.category', compact('category', 'storageItems'));
-    }
     public function showall()
     {
     $storageItems = DepartmentStorage::with('user',)->get();
