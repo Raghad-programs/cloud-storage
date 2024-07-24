@@ -71,8 +71,8 @@
     <br>
     <small class="text-muted">Department : {{ $item->department->department }}</small>
     <br>
-    @if ($item->Category)
-    <small class="text-muted">Section : {{ $item->Category->name }}</small>
+    @if ($item->categories)
+    <small class="text-muted">Section : {{ $item->categories->name }}</small>
     <br>
     @endif
     <small class="text-muted">Created At : {{ $item->created_at }}</small>
