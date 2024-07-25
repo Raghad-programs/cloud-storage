@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\DepartmentStorage;
+use App\Models\FileType;
+
 class CategoryController extends Controller
 {
-    public function show($categoryId)
+    public function show($categoryId, Request $request)
     {
         $category = Category::findOrFail($categoryId);
-       
+        $fileTypes = FileType::all();
+
+        $query = DepartmentStorage::where('category_id', $categoryId);
+
+        if ($request->has('file_type') && $request->file_type !== 'all') {
+            $query->where('file_type', $request->file_type);
+        }
+
         $storageItems = DepartmentStorage::where("category_id" , $categoryId)
         ->with('user')        
         ->get();
+        
     
         $search =request()->search;
 
@@ -34,6 +44,7 @@ class CategoryController extends Controller
         return view('dashboard.layouts.category', [
             'category' => $category,
             'storageItems' => $storageItems,
+            'fileTypes' => $fileTypes
         ]);
     }
 
