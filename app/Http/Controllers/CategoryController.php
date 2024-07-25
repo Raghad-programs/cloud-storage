@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\DepartmentStorage;
-use App\Models\FileType;
-
 class CategoryController extends Controller
 {
-    public function show($categoryId, Request $request)
+    public function show($categoryId)
     {
         $category = Category::findOrFail($categoryId);
         $fileTypes = FileType::all();
@@ -45,7 +43,6 @@ class CategoryController extends Controller
         return view('dashboard.layouts.category', [
             'category' => $category,
             'storageItems' => $storageItems,
-            'fileTypes' => $fileTypes
         ]);
     }
 
@@ -57,6 +54,5 @@ class CategoryController extends Controller
     return view('dashboard.layouts.allcategory')
     ->with('storageItems',$storageItems);
     }
-
 
 }
