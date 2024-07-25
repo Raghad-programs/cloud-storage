@@ -50,7 +50,7 @@ class CategoryController extends Controller
     }
 
 
-    }
+    
     public function showall()
     {
     $storageItems = DepartmentStorage::with('user',)->get();
