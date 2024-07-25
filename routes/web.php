@@ -35,7 +35,7 @@ Route::middleware(['auth-check'])->group(function () {
  
     Route::get('/table',[TableController::class,'table'])->name('table');
 
-    Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
+    Route::get('category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     

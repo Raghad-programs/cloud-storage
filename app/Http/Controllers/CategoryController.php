@@ -20,7 +20,7 @@ class CategoryController extends Controller
             $query->where('file_type', $request->file_type);
         }
 
-        $storageItems = DepartmentStorage::where("category_id" , $categoryId)
+         $storageItems = DepartmentStorage::where("category_id" , $categoryId)
         ->with('user')        
         ->get();
         
@@ -39,7 +39,8 @@ class CategoryController extends Controller
         ->with('user')
         ->get();
 
-        
+        $storageItems = $query->with('user')->get();
+
 
         return view('dashboard.layouts.category', [
             'category' => $category,
@@ -48,11 +49,14 @@ class CategoryController extends Controller
         ]);
     }
 
+
+    }
     public function showall()
     {
     $storageItems = DepartmentStorage::with('user',)->get();
     return view('dashboard.layouts.allcategory')
     ->with('storageItems',$storageItems);
     }
+
 
 }

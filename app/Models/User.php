@@ -21,8 +21,10 @@ class User extends Authenticatable
         'email',
         'password',
         'Depatrment_id',
+        'depatrment',
         'role_id'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,7 +56,7 @@ class User extends Authenticatable
 
     public function department()
     {
-        return $this->belongsTo(Department::class,'Department_id','id');
+        return $this->belongsTo(Department::class, 'Depatrment_id', 'id');
     }
 
     public function departmentStorages()

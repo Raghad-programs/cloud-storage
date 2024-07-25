@@ -12,6 +12,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Department</th>
                             <th>email</th>
                             <th>created_at</th>
                         </tr>
@@ -21,6 +22,7 @@
                         @if ($user->role_id == 2)
                         <tr>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->department->department }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at ? $user->created_at->format('Y-m-d') : '-' }}</td>
                         </tr>
