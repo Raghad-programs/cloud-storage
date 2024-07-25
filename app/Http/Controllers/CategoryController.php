@@ -46,6 +46,7 @@ class CategoryController extends Controller
         return view('dashboard.layouts.category', [
             'category' => $category,
             'storageItems' => $storageItems,
+            'fileTypes' => $fileTypes
         ]);
     
 
