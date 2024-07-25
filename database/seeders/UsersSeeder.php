@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
             "name" => 'shatha',
             "email" => 'shatha7nafel@gmail.com',
             "password" =>Hash::make("12345678"),
+            'department' =>'IT',
             "Depatrment_id" => 2,
             "role_id" => 2,
         ]);
