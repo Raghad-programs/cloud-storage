@@ -29,12 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
    
     View::composer([
-        'dashboard.layouts.app',
-        'dashboard.layouts.category',
-        'dashboard.layouts.home',
-        'dashboard.layouts.showfile',
-        'dashboard.layouts.table',
-        'dashboard.layouts.uploadFile',
+        'dashboard.layouts.*', 
     ], function ($view) {
             $currentUserDepartment = auth()->user()->Depatrment_id;
             $categories = Category::where('department_id', $currentUserDepartment)->get();

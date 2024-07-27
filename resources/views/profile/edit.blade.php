@@ -29,7 +29,7 @@
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" style="width: 80px;" />
               <h5 style="color:black">{{$user->name}}</h5>
-              <p class="text-muted">{{ $user->department }}</p>
+              <p class="text-muted">{{ $user->department->department }}</p>
               <p>Web Designer</p>
               <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-link text-white p-0">
                 <i class="fas fa-pen"></i> Edit

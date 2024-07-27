@@ -102,9 +102,16 @@ class DepartmentStorageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DepartmentStorage $departmentStorage)
+    public function edit($id)
     {
-        //
+        $storage = DepartmentStorage::findOrfail($id);
+        $fileTypes = FileType::all();
+
+        return view('dashboard.layouts.edit-file')
+        ->with([
+             'storage' => $storage,
+    'fileTypes' => $fileTypes,
+        ]);
     }
 
     /**
@@ -112,14 +119,37 @@ class DepartmentStorageController extends Controller
      */
     public function update(UpdateDepartmentStorageRequest $request, DepartmentStorage $departmentStorage)
     {
-        //
+        $validatedData = $request->validated();
+
+        // dd( $validatedData);
+        $fileType = FileType::find($validatedData['file_type']);
+        $folderName = strtolower($fileType->type);
+        $filePath = $request->file('file')->store("public/department_storage/{$folderName}");
+        $departmentId = auth()->user()->Depatrment_id;
+        
+        // dd($request->all(), $departmentId,$fileType);
+        $departmentStorage = DepartmentStorage::find($request->id);
+        $departmentStorage->update([
+            'title'=>$request->title,
+            'department_id' => $departmentId,
+            'user_id' => auth()->id(),
+            'category_id' => $request->category_id,
+            'file_type' => $fileType->id,
+            'file' => $filePath,
+        ]);
+
+        flash()->success('file has been updated');
+        return redirect(route('show-file'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DepartmentStorage $departmentStorage)
+    public function destroy($id)
     {
-        //
+        $Storage = DepartmentStorage::findOrFail($id)->delete();
+        flash()->success('file has been deleted');
+        return redirect(route('show-file'));
     }
+
 }

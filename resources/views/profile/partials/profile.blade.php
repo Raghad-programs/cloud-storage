@@ -116,7 +116,7 @@
                 alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                 <h6>Username</h6>
                 <p class="text-muted">{{ $user->name }}</p>
-                <p class="text-muted">{{ $user->department }}</p>
+                <p class="text-muted">{{ $user->department->department }}</p>
                  
               <i class="far fa-edit mb-5"></i>
             </div>
