@@ -9,6 +9,7 @@ use App\Http\Controllers\TableController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\WelcomeController;
 
 
 
@@ -19,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/' , [WelcomeController::class ,'index'])->name('welcome');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
