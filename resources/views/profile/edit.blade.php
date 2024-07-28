@@ -8,9 +8,7 @@
   <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
       <i class="fa fa-bars"></i>
   </button>
-
-
-
+  
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
 
@@ -104,6 +102,7 @@
             </h6>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
+
                 <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_1.svg")}}" alt="...">
                     <div class="status-indicator bg-success"></div>
                 </div>
@@ -127,6 +126,7 @@
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
                     <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_3.svg")}}"alt="...">
+
                     <div class="status-indicator bg-warning"></div>
                 </div>
                 <div>
@@ -232,4 +232,27 @@
     </div>
   </div>
 </section>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="btn btn-primary">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 @endsection

@@ -1,11 +1,8 @@
 @extends('dashboard.layouts.app')
-@section("title", "Profile")  
-@section('content')  
-<!-- Main Content -->
-<div id="content">
+@section("title", "Edit profile")  
+@section('content') 
 
-  <!-- Topbar Navbar -->
-  <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
   <!-- Sidebar Toggle (Topbar) -->
   <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -107,7 +104,7 @@
             </h6>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_1.svg")}}" alt="...">
+                <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_1.svg")}}" alt="...">
                     <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="font-weight-bold">
@@ -118,7 +115,7 @@
             </a>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_2.svg")}}"alt="...">
+                    <img class="rounded-circle" src="backend/img/undraw_profile_2.svg" alt="...">
                     <div class="status-indicator"></div>
                 </div>
                 <div>
@@ -129,7 +126,7 @@
             </a>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_3.svg")}}" alt="...">
+                    <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_3.svg")}}"alt="...">
                     <div class="status-indicator bg-warning"></div>
                 </div>
                 <div>
@@ -187,47 +184,46 @@
 </ul>
 
 </nav>
-                <!-- Begin Page Content -->
-      <section class="vh-50" style="background-color: #f4f5f7;">
+
+
+<section class="vh-50" style="background-color: #f4f5f7;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-6 mb-4 mb-lg-0">
+      <div class="col col-lg-8 mb-4 mb-lg-0">
         <div class="card mb-3" style="border-radius: .5rem;">
           <div class="row g-0">
-            <div class="col-md-4 gradient-custom text-center text-white"
+            <div class="col-md-4 gradient-custom text-center text-white mt-5"
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                <h6>Username</h6>
-                <p class="text-muted">{{ $user->name }}</p>
-                <p class="text-muted">{{ $user->department->department }}</p>
-                 
-              <i class="far fa-edit mb-5"></i>
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" style="width: 80px;" />
+              <h5 style="color:black">{{$user->name}}</h5>
+              <p class="text-muted">{{ $user->department->department }}</p>
+              <p>Web Designer</p>
+              <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-link text-white p-0">
+                <i class="fas fa-pen"></i> Edit
+              </a>
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
-                <h6>Information</h6>
-                <hr class="mt-0 mb-4">
-                <div class="row pt-1">
-                  <div class="col-6 mb-3">
-                    <h6>Email</h6>
-                    <p class="text-muted">{{ $user->email }}</p>
-                  </div>
-                  
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6>Edit Information</h6>
                 </div>
-                <h6>Projects</h6>
                 <hr class="mt-0 mb-4">
-                <div class="row pt-1">
-                  <div class="col-6 mb-3">
-                    <h6>Recent</h6>
-                    <p class="text-muted">Lorem ipsum</p>
+                <form action="{{ route('profile.update', $user->id) }}" method="POST">
+                  @csrf
+                  @method('PUT')
+                  <div class="form-group mb-3">
+                    <label for="name"><h6>Name</h6></label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                   </div>
-                  <div class="col-6 mb-3">
-                    <h6>Most Viewed</h6>
-                    <p class="text-muted">Dolor sit amet</p>
+                  <div class="form-group mb-3">
+                    <label for="email"><h6>Email</h6></label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                   </div>
-                </div>
-                
+                  <div class="d-flex justify-content-start mb-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                  </div>
+                </form>
+                <hr class="mt-0 mb-4">
               </div>
             </div>
           </div>
@@ -236,9 +232,4 @@
     </div>
   </div>
 </section>
- <!-- /.container-fluid -->
-
- </div>
-
-
-    @endsection
+@endsection
