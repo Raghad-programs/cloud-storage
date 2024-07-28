@@ -32,8 +32,8 @@
         <section id="header">
             <div class="inner">
                 <span class="icon solid major fa-cloud"></span>
-                <h1>Hi, Welcome to the <strong>Cloud Machine!</strong><br />
-                <a href="http://html5up.net">HTML5 UP</a>.</h1>
+                <h1>Hi, Welcome to the <strong>Archive Cloud!</strong><br />
+               </h1>
                 <p>Your powerful, on-demand computing resource is ready to help you achieve your goals.</p>
                 <ul class="actions special">
                     <li><a href="#one" class="button scrolly">Discover</a></li>
@@ -47,12 +47,10 @@
         <div class="row gtr-150 justify-content-center">
             <div class="col-6 col-12-medium">
                 <header class="major">
-                    <h2>Are you an admin or an employee?</h2>
+                    <h2>Do you have an account?</h2>
                 </header>
-                <p>select your role please</p>
                 <ul class="actions special">
-                    <li><a href="/login" class="button wide primary">Admain</a></li>
-                    <li><a href="/login" class="button wide">Employee</a></li>
+                    <li><a href="/login" class="button wide primary">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -79,9 +77,14 @@
 							<header class="major">
 								<h2>About our company </h2>
 							</header>
-							<p>Adipiscing a commodo ante nunc accumsan interdum mi ante adipiscing. A nunc lobortis non nisl amet vis volutpat aclacus nascetur ac non. Lorem curae eu ante amet sapien in tempus ac. Adipiscing id accumsan adipiscing ipsum.</p>
-							<p>Blandit faucibus proin. Ac aliquam integer adipiscing enim non praesent vis commodo nunc phasellus cubilia ac risus accumsan. Accumsan blandit. Lobortis phasellus non lobortis dit varius mi varius accumsan lobortis. Blandit ante aliquam lacinia lorem lobortis semper morbi col faucibus vitae integer placerat accumsan orci eu mi odio tempus adipiscing adipiscing adipiscing curae consequat feugiat etiam dolore.</p>
-							<p>Adipiscing a commodo ante nunc accumsan interdum mi ante adipiscing. A nunc lobortis non nisl amet vis volutpat aclacus nascetur ac non. Lorem curae eu ante amet sapien in tempus ac. Adipiscing id accumsan adipiscing ipsum.</p>
+							<p>About us
+							Qassim Technical Association aims to enrich technical content, and create an environment and forum for those interested in technology. It was initially an association supervised by the Emirate of Qassim Region, and was launched by His Highness Prince Dr. Faisal bin Mishaal, may God protect him and his family, on June 24, 2020. It was then transformed into a registered association with License 2074 from the Ministry of Human Resources and Social Development.
+							</p>
+							<p>Vision
+							To be a leading technical reference in the Qassim region, and a stimulating environment for exchanging knowledge and experiences and building partnerships
+							</p>
+							<p>Message
+							To enhance the culture of technical giving and raise the level of capabilities, skills and technical awareness</p>
 						</div>
 					</div>
 				</div>
