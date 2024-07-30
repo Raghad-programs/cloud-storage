@@ -46,7 +46,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File description" required>
+                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File description" >
                                 </div>
                                 <div class="form-group">
                                     <input type="file" class="form-control-file" id="file" name="file">
