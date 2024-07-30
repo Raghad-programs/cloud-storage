@@ -1,15 +1,19 @@
 @extends('dashboard.layouts.app')
-@section("title", "my documents")  
+@section("title", "$userName Files")  
 @section('content')   
             <!-- Main Content -->
 <div id="content">
 
                 <!-- Begin Page Content -->
     <div class="card shadow mb-4">
-    <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h6>
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Download all files
+        </a>
     </div>
     
+
     <div class="card-body">
         @if ($departmentStorages->isEmpty())
         <div class="col-12 text-center">
@@ -57,7 +61,7 @@
             </td>
             <td>{{ $storage->created_at }}</td>
             <td>
-            <button class="btn btn-danger btn-circle text-gray-200 mb-1" data-id="{{ $storage->id }}" data-toggle="modal" data-target="#deleteModal">
+            <button class="btn btn-danger btn-circle text-gray-200" data-id="{{ $storage->id }}" data-toggle="modal" data-target="#deleteModal">
                 <i class="fas fa-trash"></i>
             </button>  
   
