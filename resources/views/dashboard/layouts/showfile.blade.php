@@ -5,10 +5,14 @@
             <div id="content">
 
                 <!-- Begin Page Content -->
-                <div class="card shadow mb-4">
-    <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h6>
-    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Download all files
+            </a>
+        </div>
+
     <div class="card-body">
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
