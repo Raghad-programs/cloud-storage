@@ -8,7 +8,6 @@ use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Category;
 use App\Http\Controllers\Request;
-
 class DepartmentStorageController extends Controller
 {
     /**
@@ -44,7 +43,7 @@ class DepartmentStorageController extends Controller
 
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = strtolower($fileType->type);
-        $filePath = $request->file('file')->store("public/department_storage/{$folderName}");
+        $filePath = $request->file('file')->store("department_storage/{$folderName}", 'local');
         $departmentId = auth()->user()->Depatrment_id;
         
         // dd($request->all(), $departmentId,$fileType);
@@ -61,14 +60,9 @@ class DepartmentStorageController extends Controller
     
 
     flash()->success('The file is saved successfully!!');
-
-    if (auth()->user()->role_id == 1) {
-        return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
-    } else {
-        return redirect(route('upload-file'))->with('success', 'Department storage created successfully.');
+    return redirect(route('upload-file'));
     }
 
-    }
     public function showfile()
     {
         $currentUserDepartment = auth()->user()->Depatrment_id ;
@@ -151,5 +145,15 @@ class DepartmentStorageController extends Controller
         flash()->success('file has been deleted');
         return redirect(route('show-file'));
     }
+
+
+    // public function getURL(){
+    //     return Storage::temporaryUrl('file.png', now()->addSeconds(20));
+    // }
+
+    // public function download(){
+    //     return Storage::download();
+    // }
+
 
 }

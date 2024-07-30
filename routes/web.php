@@ -10,7 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\WelcomeController;
-
+use App\Models\DepartmentStorage;
 
 
 Route::middleware('auth')->group(function () {
@@ -49,6 +49,14 @@ Route::middleware(['auth-check'])->group(function () {
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');
     Route::patch('/file/{id}', [DepartmentStorageController::class, 'update'])->name('update.file');
 
+    Route::get('view/{departmentStorage}', function (DepartmentStorage $departmentStorage) {
+        $filePath = Storage::disk('local')->path($departmentStorage->file);
+        $file = Storage::disk('local')->get($departmentStorage->file);
+        return response($file, 200)->header('Content-Type', mime_content_type($filePath));
+    })->name('departmentStorage.view');
+
+
+    
 });
 
 
