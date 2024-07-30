@@ -28,18 +28,15 @@ class AppServiceProvider extends ServiceProvider
     protected function gateBasedCategories(): void
     {
    
-    View::composer([
-        'dashboard.layouts.app',
-        'dashboard.layouts.category',
-        'dashboard.layouts.home',
-        'dashboard.layouts.showfile',
-        'dashboard.layouts.table',
-        'dashboard.layouts.uploadFile',
-    ], function ($view) {
-            $currentUserDepartment = auth()->user()->Depatrment_id;
-            $categories = Category::where('department_id', $currentUserDepartment)->get();
-            $view->with('categories', $categories);
-    });
+        View::composer([
+            'dashboard.layouts.*',
+            'profile.partials.profile',
+            'profile.edit', 
+        ], function ($view) {
+                $currentUserDepartment = auth()->user()->Depatrment_id;
+                $categories = Category::where('department_id', $currentUserDepartment)->get();
+                $view->with('categories', $categories);
+        });
     }
 }
 

@@ -23,14 +23,14 @@ class DepartmentStorage extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function categorys()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
     public function fileType()
     {
-        return $this->belongsTo(FileType::class);
+        return $this->belongsTo(FileType::class ,"file_type" ,"id");
     }
 
     public function user()

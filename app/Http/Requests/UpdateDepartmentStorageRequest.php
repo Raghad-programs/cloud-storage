@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\FileType;
 
 class UpdateDepartmentStorageRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateDepartmentStorageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,10 @@ class UpdateDepartmentStorageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:100',
+            'category_id' => 'required|exists:categories,id',
+            'file_type' => 'required|exists:file_types,id',
+            $this->container->make(FileType::class)->find($this->input('file_type'))->extensions
         ];
     }
 }

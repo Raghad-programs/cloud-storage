@@ -15,27 +15,27 @@ class FileTypeSeeder extends Seeder
     {
         FileType::create([
             'type' => 'Document',
-            'extensions' => 'doc,docx,pdf'
+            'extensions' => 'doc,docx,pdf',
         ]);
 
         FileType::create([
             'type' => 'Powerpoint',
-            'extensions' => 'ppt,pptx'
+            'extensions' => 'ppt,pptx',
         ]);
 
         FileType::create([
             'type' => 'Image',
-            'extensions' => 'jpg,jpeg,png,gif'
+            'extensions' => 'jpg,jpeg,png,gif',
         ]);
 
         FileType::create([
             'type' => 'Video',
-            'extensions' => 'mp4,avi,mov'
+            'extensions' => 'mp4,avi,mov',
         ]);
 
         FileType::create([
             'type' => 'PDF',
-            'extensions' => 'pdf'
+            'extensions' => 'pdf',
         ]);
     }
 }

@@ -11,10 +11,10 @@ class AdministrationController extends Controller
 {
     public function administrationfiles()
 {
-    
     $storageItems = DepartmentStorage::with(['department', 'categorys', 'user'])->get();
-    $category = DepartmentStorage::all();
-    
+
+    $Category=Category::with('departmentStorages');
+
     return view('dashboard.layouts.administrationfiles', [
         'storageItems' => $storageItems,
         'category'=>$category,

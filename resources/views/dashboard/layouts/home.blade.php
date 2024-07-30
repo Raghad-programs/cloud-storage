@@ -14,18 +14,7 @@
         <i class="fa fa-bars"></i>
     </button>
 
-    <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                aria-label="Search" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+    
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -172,16 +161,16 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
                 <img class="img-profile rounded-circle" src="backend/img/undraw_profile.svg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/profile/{{auth()->user()->id}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{route('profile.edit',auth()->user()->id)}}">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
                 </a>
@@ -371,7 +360,7 @@
                         <!-- Project Card Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
                             </div>
                             <div class="card-body">
                                 <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span>
@@ -407,82 +396,16 @@
                             </div>
                         </div>
 
-                        <!-- Color System -->
-                        <div class="row">
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-primary text-white shadow">
-                                    <div class="card-body">
-                                        Primary
-                                        <div class="text-white-50 small">#4e73df</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-success text-white shadow">
-                                    <div class="card-body">
-                                        Success
-                                        <div class="text-white-50 small">#1cc88a</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-info text-white shadow">
-                                    <div class="card-body">
-                                        Info
-                                        <div class="text-white-50 small">#36b9cc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-warning text-white shadow">
-                                    <div class="card-body">
-                                        Warning
-                                        <div class="text-white-50 small">#f6c23e</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-danger text-white shadow">
-                                    <div class="card-body">
-                                        Danger
-                                        <div class="text-white-50 small">#e74a3b</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-secondary text-white shadow">
-                                    <div class="card-body">
-                                        Secondary
-                                        <div class="text-white-50 small">#858796</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-light text-black shadow">
-                                    <div class="card-body">
-                                        Light
-                                        <div class="text-black-50 small">#f8f9fc</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-4">
-                                <div class="card bg-dark text-white shadow">
-                                    <div class="card-body">
-                                        Dark
-                                        <div class="text-white-50 small">#5a5c69</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                     </div>
 
                     <div class="col-lg-6 mb-4">
 
-                        <!-- Illustrations -->
+                        <!-- recent files -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Recent Files</h6>
                             </div>
                             <div class="card-body">
                                 <div class="text-center">
@@ -495,20 +418,6 @@
                                     completely free and without attribution!</p>
                                 <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
                                     unDraw &rarr;</a>
-                            </div>
-                        </div>
-
-                        <!-- Approach -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                            </div>
-                            <div class="card-body">
-                                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                    CSS bloat and poor page performance. Custom CSS classes are used to create
-                                    custom components and custom utility classes.</p>
-                                <p class="mb-0">Before working with this theme, you should become familiar with the
-                                    Bootstrap framework, especially the utility classes.</p>
                             </div>
                         </div>
 
