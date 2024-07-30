@@ -94,25 +94,18 @@
                             }
                         @endphp
 
-                        <div class="card {{ $cardClass }} mb-2" style="max-width: 18rem;">
-                            <a href="{{ route('departmentStorage.view', $item)  }}" target="_blank" class="text-decoration-none text-reset">
-                                <div class="card-header">
-                                    <i class="{{ $icon }}" style="font-size:28px"></i>
-                                </div>
-                                <div class="card-body {{ $cardBodyClass }}">
-                                    <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-12 text-center">
-                    <h3>No result found.</h3>
+            <div class="card {{ $cardClass }} mb-2 " style="max-width: 18rem; ">
+            <a href="{{ Storage::url($item->file) }}" target="_blank" class="text-decoration-none text-reset">
+                <div class="card-header">{{ $cardHeader }}</div>
+                <div class="card-body {{ $cardBodyClass }}">
+                    <h5 class="card-title">{{ $item->title }}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                    <button type="button" onclick="window.location.href='{{ route('file.download', $item->file) }}'" class="btn btn-default btn-sm btn-download">
+                     Download
+                   </button>
                 </div>
             @endif
         </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\DepartmentStorage;
 use App\Models\FileType;
+use Illuminate\Support\Facades\Storage;
 
 
 class CategoryController extends Controller
@@ -67,6 +68,24 @@ class CategoryController extends Controller
 
     flash()->success('Category created successfully');
     return redirect('dashboard');
+    }
+
+    public function downloadFile($id)
+    {
+        $item = DepartmentStorage::findOrFail($id);
+
+    if ($item->file_path) {
+        $filePath = Storage::disk('public')->path($item->file_path);
+        if (file_exists($filePath)) {
+            return response()->download($filePath, $item->file_name);
+        } else {
+            // Handle the case where the file does not exist
+            return redirect()->back()->with('error', 'The requested file does not exist.');
+        }
+    } else {
+        // Handle the case where the file path is null
+        return redirect()->back()->with('error', 'The file is not available for download.');
+    }
     }
 
 
