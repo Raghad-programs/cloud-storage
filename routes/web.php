@@ -43,7 +43,7 @@ Route::middleware(['auth-check'])->group(function () {
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
     Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
-
+    Route::get('/employee/{id}', [DepartmentStorageController::class, 'show_employee'])->name('show-employee');
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');

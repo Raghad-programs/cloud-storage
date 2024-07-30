@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateDepartmentStorageRequest;
 use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Category;
+use App\Models\User;
 use App\Http\Controllers\Request;
 class DepartmentStorageController extends Controller
 {
@@ -88,9 +89,16 @@ class DepartmentStorageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DepartmentStorage $departmentStorage)
+    public function show_employee($id)
     {
-        //
+        $departmentStorages = DepartmentStorage::where('department_id', auth()->user()->Depatrment_id)
+        ->where('user_id', $id)
+        ->get();
+        $userName = User::findOrFail($id)->name;
+
+        return view('dashboard.layouts.employee_files')
+        ->with('departmentStorages', $departmentStorages)
+        ->with('userName', $userName);
     }
 
     /**
@@ -117,8 +125,6 @@ class DepartmentStorageController extends Controller
 
         // dd( $validatedData);
         $fileType = FileType::find($validatedData['file_type']);
-        $folderName = strtolower($fileType->type);
-        $filePath = $request->file('file')->store("public/department_storage/{$folderName}");
         $departmentId = auth()->user()->Depatrment_id;
         
         // dd($request->all(), $departmentId,$fileType);
@@ -129,10 +135,9 @@ class DepartmentStorageController extends Controller
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'file_type' => $fileType->id,
-            'file' => $filePath,
         ]);
 
-        flash()->success('file has been updated');
+        flash()->success('file "'.$request->title.'" has been updated');
         return redirect(route('show-file'));
     }
 
@@ -141,9 +146,10 @@ class DepartmentStorageController extends Controller
      */
     public function destroy($id)
     {
+        $Storagetitle = DepartmentStorage::findOrFail($id)->title;
         $Storage = DepartmentStorage::findOrFail($id)->delete();
-        flash()->success('file has been deleted');
-        return redirect(route('show-file'));
+        flash()->success('file "'.$Storagetitle.'" has been deleted');
+        return back();
     }
 
 
