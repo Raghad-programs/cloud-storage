@@ -194,7 +194,7 @@
           <div class="row g-0">
             <div class="col-md-4 gradient-custom text-center text-white mt-5"
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" style="width: 80px;" />
+              <img class="img-profile rounded-circle mb-2" src="https://i.pinimg.com/564x/bf/b8/e8/bfb8e855f82d52fdfa04c844b9be725d.jpg" avatar style="width: 80px;" />
               <h5 style="color:black">{{$user->name}}</h5>
               <p class="text-muted">{{ $user->department->department }}</p>
               <p>Web Designer</p>

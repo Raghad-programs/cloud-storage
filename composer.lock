@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c415369a5a593bd5547c31e289ff1301",
+    "content-hash": "b619dac9f54c3aedc8dbd5a3b491b171",
     "packages": [
         {
             "name": "brick/math",
@@ -1916,6 +1916,74 @@
                 }
             ],
             "time": "2024-06-28T09:40:51+00:00"
+        },
+        {
+            "name": "nabilhassen/laravel-usage-limiter",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nabilhassen/laravel-usage-limiter.git",
+                "reference": "b8e1342e662f0b55f945ea4b019e0e433083b874"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nabilhassen/laravel-usage-limiter/zipball/b8e1342e662f0b55f945ea4b019e0e433083b874",
+                "reference": "b8e1342e662f0b55f945ea4b019e0e433083b874",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.0|^9.0|^10.0|^11.0",
+                "illuminate/database": "^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "nesbot/carbon": "^2.67|^3.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.5",
+                "orchestra/testbench": "^6.41|^7.37|^8.18|^9.0",
+                "phpunit/phpunit": "^9.4|^10.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NabilHassen\\LaravelUsageLimiter\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NabilHassen\\LaravelUsageLimiter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nabil Hassen",
+                    "email": "nabil.hassen08@gmail.com"
+                }
+            ],
+            "description": "A laravel package to manage and limit usages/seats by plan, users, or other models",
+            "homepage": "https://github.com/nabilhassen/laravel-usage-limiter",
+            "keywords": [
+                "api usage",
+                "laravel",
+                "limit account",
+                "limit usage",
+                "per usage",
+                "plan limits",
+                "resource usage",
+                "restrict usage",
+                "track usage"
+            ],
+            "support": {
+                "issues": "https://github.com/nabilhassen/laravel-usage-limiter/issues",
+                "source": "https://github.com/nabilhassen/laravel-usage-limiter/tree/v1.0.0"
+            },
+            "time": "2024-06-14T15:49:23+00:00"
         },
         {
             "name": "nesbot/carbon",

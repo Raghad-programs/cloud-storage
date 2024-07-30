@@ -69,7 +69,7 @@
                 <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                     <a href="{{ route('category.show.all') }}" class="collapse-item">
-                            All Files
+                            <strong>All Files</strong>
                         </a>
                     @foreach ($categories as $category)
                     <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
@@ -93,7 +93,7 @@
                 <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('upload-file')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-cloud-upload"></i>
                     <span>upload file</span></a>
             </li>
 
@@ -102,7 +102,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('show-file')}}">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa fa-archive"></i>
                     <span>my archival</span></a>
             </li>
 
@@ -118,7 +118,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('administration.files') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-newspaper-o"></i>
                     <span>All Files</span>
                 </a>
             </li>
@@ -127,7 +127,7 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('table')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-users"></i>
                     <span>Employees</span></a>
             </li>
             
