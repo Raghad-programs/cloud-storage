@@ -28,7 +28,6 @@ class DepartmentStorageController extends Controller
         $currentUserDepartment = auth()->user()->Depatrment_id ;
         $categories = Category::where('department_id', $currentUserDepartment)->get();
         $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)->get();
-        
         $fileTypes = FileType::all();
         
         return view('dashboard.layouts.uploadFile',[
@@ -39,30 +38,52 @@ class DepartmentStorageController extends Controller
     }
     public function store(StoreDepartmentStorageRequest $request)
     {
-        
-        $validatedData = $request->validated();
-
-        $fileType = FileType::find($validatedData['file_type']);
-        $folderName = strtolower($fileType->type);
-        $filePath = $request->file('file')->store("department_storage/{$folderName}", 'local');
-        $departmentId = auth()->user()->Depatrment_id;
-        
-        // dd($request->all(), $departmentId,$fileType);
-      
-        $departmentStorage = DepartmentStorage::create([
-            'title'=>$request->title,
-            'department_id' => $departmentId,
-            'user_id' => auth()->id(),
-            'category_id' => $request->category_id,
-            'file_type' => $fileType->id,
-            'file' => $filePath,
-        ]);
-
     
+    $validatedData = $request->validated();
+
+    $fileType = FileType::find($validatedData['file_type']);
+    $folderName = strtolower($fileType->type);
+    //$filePath = $request->file('file')->store("department_storage/{$folderName}", 'local');
+    $file = $request->file('file');
+    $maxFileSize = $this->getMaxFileSize($fileType->type);
+    if ($file->getSize() > $maxFileSize * 1024 * 1024) {
+        flash()->error("The maximum file size for {$fileType->type} files is {$maxFileSize}MB.");
+        return redirect(route('upload-file'));
+    }
+    $filePath = $file->store("department_storage/{$folderName}", 'local');
+    $departmentId = auth()->user()->Depatrment_id;
+
+    // dd($request->all(), $departmentId,$fileType);
+  
+    $departmentStorage = DepartmentStorage::create([
+        'title'=>$request->title,
+        'department_id' => $departmentId,
+        'user_id' => auth()->id(),
+        'category_id' => $request->category_id,
+        'file_type' => $fileType->id,
+        'file' => $filePath,
+    ]);
+
+
 
     flash()->success('The file is saved successfully!!');
     return redirect(route('upload-file'));
     }
+
+    private function getMaxFileSize($fileType)
+    {
+    $maxFileSizes = [
+        'Document' => 2, // 2 MB
+        'Powerpoint' => 5, // 5 MB
+        'Image' => 5, // 5 MB
+        'Video' => 20, // 20 MB
+        'PDF' => 5, // 5 MB
+    ];
+
+    return $maxFileSizes[$fileType] ?? 2; // Default to 2MB if not found
+    }
+
+
 
     public function showfile()
     {
