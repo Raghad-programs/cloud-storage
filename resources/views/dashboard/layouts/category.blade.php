@@ -4,6 +4,19 @@
 
 @section('content')
 
+<style>
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' fill='%23707070'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: right center;
+  padding-right: 24px;
+  color: #707070;
+}
+</style>
 
 <div class="container mt-4">
     <h1 class="mb-4">{{ $category->name }}</h1>
@@ -54,6 +67,9 @@
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                    <button type="button" onclick="window.location.href='{{ route('file.download', $item->file) }}'" class="btn btn-default btn-sm btn-download">
+                     Download
+                   </button>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ Route::middleware(['auth-check'])->group(function () {
     Route::get('/show-file' , [DepartmentStorageController::class , 'showfile'])->name('show-file');
     Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
     Route::get('/dashboard' , [DashboardController::class , 'index'])->name('dashboard');
-
+    Route::get('file/download/{id}',[CategoryController::class, 'downloadFile'])->name('file.download');
     
     
  
