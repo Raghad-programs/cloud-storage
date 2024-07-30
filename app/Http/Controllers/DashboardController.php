@@ -38,9 +38,15 @@ class DashboardController extends Controller
                         ->take(5)
                         ->get();
 
+    $recentUpload = DepartmentStorage::where('user_id', auth()->id())
+                        ->with('fileType')
+                        ->latest()
+                        ->first();
+
     return view('dashboard.layouts.home', compact(
         'totalDocuments', 'monthlyUploads','documentsPerDepartment',
         'fileTypeDistribution', 'recentUploads', 'topDepartments','DocumentsForUser'
+        ,'recentUpload'
     ));
 }
 }

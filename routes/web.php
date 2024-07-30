@@ -54,9 +54,6 @@ Route::middleware(['auth-check'])->group(function () {
         $file = Storage::disk('local')->get($departmentStorage->file);
         return response($file, 200)->header('Content-Type', mime_content_type($filePath));
     })->name('departmentStorage.view');
-
-
-    
 });
 
 

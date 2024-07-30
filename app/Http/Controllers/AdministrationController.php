@@ -17,7 +17,7 @@ class AdministrationController extends Controller
 
     return view('dashboard.layouts.administrationfiles', [
         'storageItems' => $storageItems,
-        'category'=>$category,
+        'category'=>$Category,
     ]);
     
 
