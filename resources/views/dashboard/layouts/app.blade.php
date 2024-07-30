@@ -80,11 +80,17 @@
                         @csrf
                     </form>
                     @endforeach
+
+
+                    <a href="#" class="collapse-item" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
+                        Add a new category
+                     </a>
+
                     </div>
                 </div>
+            </li>
 
-
-            <!-- Nav Item - Charts -->
+                <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('upload-file')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -191,5 +197,32 @@
     <script src="{{asset("backend/js/demo/chart-pie-demo.js")}}"></script>
 
 </body>
-
 </html>
+
+
+<!-- Modal for new category -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryModalLabel">Add a new category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="new-category-form" action="{{ route('category.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="categoryName">Category Name</label>
+                        <input type="text" class="form-control" id="categoryName" name="name" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="new-category-form" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

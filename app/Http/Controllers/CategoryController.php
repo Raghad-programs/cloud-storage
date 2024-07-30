@@ -56,4 +56,18 @@ class CategoryController extends Controller
         ->with('storageItems',$storageItems);
     }
 
+
+    public function store(Request $request)
+    {
+    
+    $category = Category::create([
+        'name' => $request->input('name'),
+        'department_id' => auth()->user()->Depatrment_id,
+    ]);
+
+    flash()->success('Category created successfully');
+    return redirect('dashboard');
+    }
+
+
 }
