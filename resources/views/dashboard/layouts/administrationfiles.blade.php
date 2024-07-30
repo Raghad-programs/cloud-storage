@@ -60,7 +60,7 @@
                 @endphp
 
                 <div class="card {{ $cardClass }} mb-2">
-                    <a href="{{ Storage::url($item->file) }}" target="_blank" class="text-decoration-none text-reset">
+                    <a href="{{route('departmentStorage.view', $item)}}" target="_blank" class="text-decoration-none text-reset">
                         <div class="card-header">{{ $cardHeader }}</div>
                         <div class="card-body {{ $cardBodyClass }}">
                             <h5 class="card-title">{{ $item->title }}</h5>

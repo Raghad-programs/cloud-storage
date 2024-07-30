@@ -45,7 +45,7 @@
                 @endif
             </td>
             <td>
-                <a href="{{ Storage::url($storage->file) }}" target="_blank">
+                <a href="{{route('departmentStorage.view', $storage) }}" target="_blank">
                     Click to view file
                 </a>
             </td>
