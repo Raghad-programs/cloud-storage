@@ -11,7 +11,7 @@ class AdministrationController extends Controller
 {
     public function administrationfiles()
 {
-    $storageItems = DepartmentStorage::with(['department', 'categorys', 'user'])->get();
+    $storageItems = DepartmentStorage::with(['department', 'category', 'user'])->get();
 
     $Category=Category::with('departmentStorages');
 

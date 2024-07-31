@@ -56,6 +56,12 @@ class DepartmentStorageController extends Controller
 
     // Check the user's total file size
     $departmentId = auth()->user()->Depatrment_id;
+    $totalFileSize = $this->getUserTotalFileSize(auth()->id(), $departmentId);
+    if ($totalFileSize + $file->getSize() > 2147483648){ // 2 GB
+        flash()->error("You have reached the maximum file storage limit of {$maxFileSize}MB for your department.");
+        return redirect(route('upload-file'));
+    }
+    $departmentId = auth()->user()->Depatrment_id;
 
     $filePath = $file->store("department_storage/{$folderName}", 'local');
   
@@ -66,6 +72,7 @@ class DepartmentStorageController extends Controller
         'category_id' => $request->category_id,
         'file_type' => $fileType->id,
         'file' => $filePath,
+        'file_size' => $file->getSize(),
         'description'=>$request->description,
     ]);
 
@@ -73,6 +80,12 @@ class DepartmentStorageController extends Controller
 
     flash()->success('The file is saved successfully!!');
     return redirect(route('upload-file'));
+    }
+    private function getUserTotalFileSize($userId, $departmentId)
+    {
+    return DepartmentStorage::where('user_id', $userId)
+        ->where('department_id', $departmentId)
+        ->sum('file_size');
     }
 
     private function getMaxFileSize($fileType)
@@ -88,13 +101,7 @@ class DepartmentStorageController extends Controller
     return $maxFileSizes[$fileType] ?? 2; // Default to 2MB if not found
     }
 
-    private function getUserTotalFileSize($departmentId)
-    {
-    // Implement a function to query the database and get the total file size for the user's department
-    // This will require adding a 'size' column to the DepartmentStorage table
-    $totalFileSize = DepartmentStorage::where('department_id', $departmentId)->sum('size');
-    return $totalFileSize;
-    }
+    
 
 
     public function showfile()
