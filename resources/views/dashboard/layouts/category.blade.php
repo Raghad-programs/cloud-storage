@@ -68,7 +68,6 @@
                 <div class="card-footer">
                     <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
                     <button type="button" onclick="window.location.href='{{ route('file.download', $item->id) }}'" class="btn btn-default btn-sm btn-download">
-                       Download
                    </button>
                 </div>
             </div>
