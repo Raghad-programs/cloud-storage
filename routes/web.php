@@ -35,19 +35,28 @@ Route::middleware(['auth-check'])->group(function () {
     
     
  
-    Route::get('/table',[TableController::class,'table'])->name('table');
-
     Route::get('category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
-    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
 
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');
     Route::patch('/file/{id}', [DepartmentStorageController::class, 'update'])->name('update.file');
+
+});
+
+Route::middleware(['head-auth'])->group(function () {
+
+    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
+
+    Route::get('/employees',[TableController::class,'table'])->name('table');
+    Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
+
+
+
 
 });
 

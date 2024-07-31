@@ -155,11 +155,14 @@
             </li>
 
              <!-- Nav Item - Charts -->
+             @if(auth()->user()->isAdmin())
+             <!-- Admin-only buttons -->
              <li class="nav-item">
                 <a class="nav-link" href="{{route('table')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Employees</span></a>
             </li>
+            @endif
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -167,6 +170,7 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>my archival</span></a>
             </li>
+
 
             @if (Auth::user()->role_id == 1)
             <li class="nav-item">
