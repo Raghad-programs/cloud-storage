@@ -68,7 +68,7 @@
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                    <small class="text-muted">Uploaded by {{ $item->user->name ?? "Deleted user" }}</small>
                 </div>
             </div>
         </div>
