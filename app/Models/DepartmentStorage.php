@@ -13,9 +13,9 @@ class DepartmentStorage extends Model
         'department_id',
         'user_id',
         'category_id',
-        'file_type_id',
-        'file_path',
-        'file_name',
+        'file_type',
+        'file',
+        'file_size',
     ];
 
     protected $guarded;
