@@ -8,8 +8,12 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-download fa-sm text-white-50"></i> Download all files
+            </a>-->
+            <a href="{{ route('download.all') }}" 
+            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Download all files
             </a>
         </div>
 
