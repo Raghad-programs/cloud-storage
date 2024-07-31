@@ -114,11 +114,10 @@
                                     <h5 class="card-title">{{ $item->title }}</h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                 </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Uploaded by {{ $item->user->name ?? "Deleted user" }}</small>
-                                    <button type="button" onclick="window.location.href='{{ route('file.download', $item->file) }}'" class="btn btn-default btn-sm btn-download">
-                                        Download
-                                    </button>
+                                    <div class="card-footer">
+                                    <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                                    <button type="button" onclick="window.location.href='{{ route('file.download', $item->id) }}'" class="btn btn-default btn-sm btn-download">
+                                </button>
                                 </div>
                             </a>
                         </div>
