@@ -11,6 +11,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\DepartmentStorage;
+use App\Http\Controllers\downloadallController;
+
 
 
 Route::middleware('auth')->group(function () {
@@ -51,21 +53,9 @@ Route::middleware(['auth-check'])->group(function () {
         $file = Storage::disk('local')->get($departmentStorage->file);
         return response($file, 200)->header('Content-Type', mime_content_type($filePath));
     })->name('departmentStorage.view');
-
+    Route::get('download-all',[downloadallController::class, 'index'])->name('download.all');
 });
 
-Route::middleware(['head-auth'])->group(function () {
-
-    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
-
-    Route::get('/employees',[TableController::class,'table'])->name('table');
-    Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
-
-
-
-
-   
-});
 
 
 

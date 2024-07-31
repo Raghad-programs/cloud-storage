@@ -87,6 +87,7 @@ class DepartmentStorageController extends Controller
         ->where('department_id', $departmentId)
         ->sum('file_size');
     }
+     
 
     private function getMaxFileSize($fileType)
     {
