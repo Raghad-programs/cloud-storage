@@ -41,7 +41,6 @@ Route::middleware(['auth-check'])->group(function () {
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
-<<<<<<<<< Temporary merge branch 1
     Route::get('/employee/{id}', [DepartmentStorageController::class, 'show_employee'])->name('show-employee');
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');

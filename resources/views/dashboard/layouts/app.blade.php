@@ -97,12 +97,8 @@
                     <span>upload file</span></a>
             </li>
 
-<<<<<<< HEAD
-             
-=======
            
            
->>>>>>> 37ffb59bfaf7be844464858f7b8316ae8486be91
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
