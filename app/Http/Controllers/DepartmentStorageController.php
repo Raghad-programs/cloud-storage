@@ -9,6 +9,7 @@ use App\Models\FileType;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DepartmentStorageController extends Controller
 {
@@ -125,7 +126,16 @@ class DepartmentStorageController extends Controller
         }
     }
     
-
+    public function downloadFile($id)
+    {
+        $item = DepartmentStorage::findOrFail($id);
+        $filePath = Storage::disk('local')->path($item->file);
+        $file = Storage::disk('local')->get($item->file);
+    
+        return response($file, 200)
+            ->header('Content-Type', mime_content_type($filePath))
+            ->header('Content-Disposition', 'attachment; filename="' . basename($filePath) . '"');
+    }
 
     /**
      * Display the specified resource.
