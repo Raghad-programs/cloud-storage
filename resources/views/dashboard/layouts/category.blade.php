@@ -3,6 +3,22 @@
 @section('title', $category->name)
 
 @section('content')
+
+<style>
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z' fill='%23707070'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  background-position: right center;
+  padding-right: 24px;
+  color: #707070;
+}
+</style>
+
+
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('category.show', $category->id) }}" method="GET">
@@ -42,15 +58,11 @@
     </form>
 </nav>
 
-
-
-
-<!-- Results Container -->
 <div id="resultsContainer">
     <div class="container mt-4">
         <h1 class="mb-4">{{ $category->name }}</h1>
         <div class="row">
-            @if (count($storageItems) > 0)
+            @if(count($storageItems) > 0)
                 @foreach ($storageItems as $item)
                     <div class="col-md-3 mb-4">
                         @php
@@ -94,25 +106,18 @@
                             }
                         @endphp
 
-                        <div class="card {{ $cardClass }} mb-2" style="max-width: 18rem;">
-                            <a href="{{ route('departmentStorage.view', $item)  }}" target="_blank" class="text-decoration-none text-reset">
-                                <div class="card-header">
-                                    <i class="{{ $icon }}" style="font-size:28px"></i>
-                                </div>
-                                <div class="card-body {{ $cardBodyClass }}">
-                                    <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Uploaded by {{ $item->user->name ?? "Deleted user" }}</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-12 text-center">
-                    <h3>No result found.</h3>
+            <div class="card {{ $cardClass }} mb-2 " style="max-width: 18rem; ">
+            <a href="{{route('departmentStorage.view', $item)}}" target="_blank" class="text-decoration-none text-reset">
+                <div class="card-header">{{ $cardHeader }}</div>
+                <div class="card-body {{ $cardBodyClass }}">
+                    <h5 class="card-title">{{ $item->title }}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Uploaded by  {{ $item->user->name ?? "Deleted user" }}</small>
+                    <button type="button" onclick="window.location.href='{{ route('file.download', $item->file) }}'" class="btn btn-default btn-sm btn-download">
+                     Download
+                   </button>
                 </div>
             @endif
         </div>
