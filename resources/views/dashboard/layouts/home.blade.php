@@ -373,7 +373,8 @@
 </div>
 
     <!-- Recent Files Card -->
-    <div class="col-lg-5 mb-4">
+    @if ($recentUpload)
+<div class="col-lg-5 mb-4">
     <div class="card shadow mb-4" >
         <div class="card-header py-3" style="height: 50px;" >
             <h6 class="m-0 font-weight-bold text-primary">Recent Files</h6>
@@ -402,6 +403,19 @@
         </div>
     </div>
 </div>
+@else
+<div class="col-lg-5 mb-4">
+        <div class="card shadow mb-4" style="width: 450px; height: 150px;">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Recent Files</h6>
+            </div>
+            <div class="card-body" style="height: 100%; overflow-y: auto;">
+                <p>No recent files to display.</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 </div>
 
 

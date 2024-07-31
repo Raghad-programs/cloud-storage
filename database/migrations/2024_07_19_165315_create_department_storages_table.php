@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->foreignId('file_type')->constrained('file_types');
             $table->string('file');
+            $table->string('file_size');
             $table->foreignId('user_id')->constrained('users');
             $table->longText('description')->nullable();
             $table->timestamps();
