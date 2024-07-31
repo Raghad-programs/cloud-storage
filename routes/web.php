@@ -41,7 +41,7 @@ Route::middleware(['auth-check'])->group(function () {
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
-    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
+<<<<<<<<< Temporary merge branch 1
     Route::get('/employee/{id}', [DepartmentStorageController::class, 'show_employee'])->name('show-employee');
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
@@ -52,6 +52,7 @@ Route::middleware(['auth-check'])->group(function () {
         $file = Storage::disk('local')->get($departmentStorage->file);
         return response($file, 200)->header('Content-Type', mime_content_type($filePath));
     })->name('departmentStorage.view');
+
 });
 
 
@@ -61,6 +62,10 @@ Route::middleware(['head-auth'])->group(function () {
 
     Route::get('/employees',[TableController::class,'table'])->name('table');
     Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
+
+
+
+
 });
 
 
