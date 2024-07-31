@@ -1,47 +1,14 @@
 @extends('dashboard.layouts.app')
-@section("title", "Edit")  
-@section('content')
-<style>
-    .card {
-      position: relative;
-      opacity: 0;
-      transform: scale(0.5);
-      animation: zoomIn 1s ease-in-out forwards;
-    }
+@section("title", "Edit profile")  
+@section('content') 
 
-    @keyframes zoomIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.5);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  </style>
-
-  <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-<!-- Sidebar Toggle (Topbar) -->
-<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-    <i class="fa fa-bars"></i>
-</button>
-
-<!-- Topbar Search -->
-<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-    <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-            aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-            </button>
-        </div>
-    </div>
-</form>
-
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+      <i class="fa fa-bars"></i>
+  </button>
+  
 <!-- Topbar Navbar -->
 <ul class="navbar-nav ml-auto">
 
@@ -135,7 +102,8 @@
             </h6>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="backend/img/undraw_profile_1.svg" alt="...">
+
+                <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_1.svg")}}" alt="...">
                     <div class="status-indicator bg-success"></div>
                 </div>
                 <div class="font-weight-bold">
@@ -157,7 +125,8 @@
             </a>
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="backend/img/undraw_profile_3.svg" alt="...">
+                    <img class="rounded-circle" src="{{asset("backend/img/undraw_profile_3.svg")}}"alt="...">
+
                     <div class="status-indicator bg-warning"></div>
                 </div>
                 <div>
@@ -188,7 +157,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
-            <img class="img-profile rounded-circle" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp">
+            <img class="img-profile rounded-circle" src="{{asset("backend/img/undraw_profile.svg")}}">
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -215,16 +184,17 @@
 </ul>
 
 </nav>
-<!-- End of Topbar -->
-<section class="vh-100" style="background-color: #f4f5f7;">
+
+
+<section class="vh-50" style="background-color: #f4f5f7;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-lg-8 mb-4 mb-lg-0">
         <div class="card mb-3" style="border-radius: .5rem;">
           <div class="row g-0">
-            <div class="col-md-4 gradient-custom text-center text-white"
+            <div class="col-md-4 gradient-custom text-center text-white mt-5"
               style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" style="width: 80px;" />
+              <img class="img-profile rounded-circle mb-2" src="https://i.pinimg.com/564x/bf/b8/e8/bfb8e855f82d52fdfa04c844b9be725d.jpg" avatar style="width: 80px;" />
               <h5 style="color:black">{{$user->name}}</h5>
               <p class="text-muted">{{ $user->department->department }}</p>
               <p>Web Designer</p>
@@ -249,16 +219,11 @@
                     <label for="email"><h6>Email</h6></label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                   </div>
-                  <div class="d-flex justify-content-start">
+                  <div class="d-flex justify-content-start mb-2">
                     <button type="submit" class="btn btn-primary">Update</button>
                   </div>
                 </form>
                 <hr class="mt-0 mb-4">
-                <div class="d-flex justify-content-start">
-                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                </div>
               </div>
             </div>
           </div>

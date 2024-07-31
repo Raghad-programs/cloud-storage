@@ -30,31 +30,37 @@
                             $cardClass = 'border-info';
                             $cardHeader = 'Document';
                             $cardBodyClass = 'text-info';
+                            $icon="fa fa-file";
                             break;
                         case 2:
                             $cardClass = 'border-warning';
                             $cardHeader = 'Power Point';
                             $cardBodyClass = 'text-warning';
+                            $icon="fa fa-file-powerpoint-o";
                             break;
                         case 3:
                             $cardClass = 'border-success';
                             $cardHeader = 'Image';
                             $cardBodyClass = 'text-success';
+                            $icon="fa fa-file-image-o";
                             break;
                         case 4:
                             $cardClass = 'border-primary';
                             $cardHeader = 'Video';
                             $cardBodyClass = 'text-primary';
+                            $icon="fa fa-file-movie-o";
                             break;
                         case 5:
                             $cardClass = 'border-danger';
                             $cardHeader = 'PDF';
                             $cardBodyClass = 'text-danger';
+                            $icon="fa fa-file-pdf-o";
                             break;
                         default:
                             $cardClass = 'border-info';
                             $cardHeader = 'Document';
                             $cardBodyClass = '';
+                            $icon="fa fa-file-pdf-o";
                             break;
                     }
                 @endphp
@@ -71,8 +77,8 @@
     <br>
     <small class="text-muted">Department : {{ $item->department->department }}</small>
     <br>
-    @if ($item->categories)
-    <small class="text-muted">Section : {{ $item->categories->name }}</small>
+    @if ($item->category)
+    <small class="text-muted">Section : {{ $item->category->name }}</small>
     <br>
     @endif
     <small class="text-muted">Created At : {{ $item->created_at }}</small>

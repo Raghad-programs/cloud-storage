@@ -1,19 +1,25 @@
 @extends('dashboard.layouts.app')
-@section("title", "my documents")  
+@section("title", "$userName Files")  
 @section('content')   
             <!-- Main Content -->
-            <div id="content">
+<div id="content">
 
                 <!-- Begin Page Content -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> Download all files
-            </a>
-        </div>
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Download all files
+        </a>
+    </div>
+    
 
     <div class="card-body">
+        @if ($departmentStorages->isEmpty())
+        <div class="col-12 text-center">
+                <h4>No files uploaded yet.</h4>
+            </div>
+        @else
         <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
@@ -55,12 +61,9 @@
             </td>
             <td>{{ $storage->created_at }}</td>
             <td>
-            <button class="btn btn-danger btn-circle text-gray-200 mb-1" data-id="{{ $storage->id }}" data-toggle="modal" data-target="#deleteModal">
+            <button class="btn btn-danger btn-circle text-gray-200" data-id="{{ $storage->id }}" data-toggle="modal" data-target="#deleteModal">
                 <i class="fas fa-trash"></i>
-            </button>
-             <a type="submit" class="btn btn-circle bg-gradient-warning text-gray-200" href="{{route('edit.file' , $storage->id)}}">
-                <i class="fas fa-edit ml-1" style="color: bg-white; font-size:18px" ></i>
-             </a>    
+            </button>  
   
         </tr>
         @endforeach
@@ -70,14 +73,6 @@
 
         
 
-
-    </div>
-</div>
-
-
-
-    
-</div>
  <!-- End of Main Content -->
 
 
@@ -103,6 +98,12 @@
         </div>
     </div>
 </div>
+@endif
+    
+</div>
+</div>  
+</div>
+
 
 
 <script>$(document).ready(function() {

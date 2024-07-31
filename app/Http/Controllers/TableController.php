@@ -11,10 +11,8 @@ class TableController extends Controller
 {
     public function table()
     {
-
-        $users = User::with('department')->get();
+        $users = User::where('Depatrment_id' , auth()->user()->Depatrment_id)->get();
         return view('dashboard.layouts.table')->with('users',$users);
-
     }
     public function destroy($id)
     {

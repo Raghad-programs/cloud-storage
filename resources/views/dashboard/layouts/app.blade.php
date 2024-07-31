@@ -57,132 +57,84 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Department
+                Files
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Doc</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUploadFileMenu"
+                    aria-expanded="true" aria-controls="collapseUploadFileMenu">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Categories</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                    <a href="{{ route('category.show.all') }}" class="collapse-item">
+                            <strong>All Files</strong>
+                        </a>
+                    @foreach ($categories as $category)
+                    <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
+                        {{ $category->name }}
+                    </a>
+
+                    <form id="category-form-{{ $category->id }}" action="{{ route('category.show', ['id' => $category->id]) }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+                    @endforeach
+
+
+                    <a href="#" class="collapse-item" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
+                        Add a new category
+                     </a>
+
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesMenu"
-        aria-expanded="true" aria-controls="collapsePagesMenu">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Pages</span>
-    </a>
-    <div id="collapsePagesMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="{{route('login')}}">Login</a>
-            <a class="collapse-item" href={{route('register')}}>Register</a>
-            <a class="collapse-item" href={{route('password.request')}}>Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-        </div>
-    </div>
-</li>
-
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUploadFileMenu"
-        aria-expanded="true" aria-controls="collapseUploadFileMenu">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Categories</span>
-    </a>
-    <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-        <a href="{{ route('category.show.all') }}" class="collapse-item">
-                All Files
-            </a>
-        @foreach ($categories as $category)
-        <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
-            {{ $category->name }}
-        </a>
-
-        <form id="category-form-{{ $category->id }}" action="{{ route('category.show', ['id' => $category->id]) }}" method="GET" style="display: none;">
-            @csrf
-        </form>
-        @endforeach
-        </div>
-    </div>
-
-
-            <!-- Nav Item - Charts -->
+                <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('upload-file')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-cloud-upload"></i>
                     <span>upload file</span></a>
             </li>
 
-             <!-- Nav Item - Charts -->
-             @if(auth()->user()->isAdmin())
-             <!-- Admin-only buttons -->
-             <li class="nav-item">
-                <a class="nav-link" href="{{route('table')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Employees</span></a>
-            </li>
-            @endif
+             
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{route('show-file')}}">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fa fa-archive"></i>
                     <span>my archival</span></a>
             </li>
 
 
-            @if (Auth::user()->role_id == 1)
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('administration.files') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>All Files</span>
-                </a>
-            </li>
-            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            @if (auth()->user()->isAdmin())
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Admin
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('administration.files') }}">
+                    <i class="fa fa-newspaper-o"></i>
+                    <span>All Files</span>
+                </a>
+            </li>
+
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('table')}}">
+                    <i class="fa fa-users"></i>
+                    <span>Employees</span></a>
+            </li>
+            
+            @endif
+
+
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -246,5 +198,32 @@
     <script src="{{asset("backend/js/demo/chart-pie-demo.js")}}"></script>
 
 </body>
-
 </html>
+
+
+<!-- Modal for new category -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryModalLabel">Add a new category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="new-category-form" action="{{ route('category.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="categoryName">Category Name</label>
+                        <input type="text" class="form-control" id="categoryName" name="name" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="new-category-form" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

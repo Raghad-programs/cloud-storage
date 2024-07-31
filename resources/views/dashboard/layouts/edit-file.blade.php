@@ -26,6 +26,12 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="title" placeholder="File Title" value="{{$storage->title}}" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File Title" value="{{$storage->title}}" >
+                                </div>
+
+
                                 <div class="form-group">
                                     <select class="form-control" id="category_id" name="category_id">
                                         <option value="{{$storage->category_id}}">{{$storage->category->name}}</option>
@@ -42,9 +48,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <input type="file" class="form-control-file" id="file" name="file" value="{{$storage->file}}">
-                                </div>
+
+
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Update
                                 </button>
