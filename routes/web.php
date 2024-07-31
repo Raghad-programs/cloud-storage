@@ -15,6 +15,7 @@ use App\Http\Controllers\downloadallController;
 
 
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
@@ -55,6 +56,18 @@ Route::middleware(['auth-check'])->group(function () {
     })->name('departmentStorage.view');
     Route::get('download-all',[downloadallController::class, 'index'])->name('download.all');
 });
+Route::middleware(['head-auth'])->group(function () {
+
+    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])
+    ->name('administration.files');
+
+    Route::get('/employees',[TableController::class,'table'])->name('table');
+    Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
+
+});
+
+
+
 
 
 
