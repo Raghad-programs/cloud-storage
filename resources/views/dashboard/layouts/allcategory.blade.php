@@ -25,45 +25,52 @@
     @if (count($storageItems) > 0)
         @foreach ($storageItems as $item)
         <div class="col-md-3 mb-4">
-            @php
-                switch ($item->file_type) {
-                    case 1:
-                        $cardClass = 'border-info';
-                        $cardHeader = 'Document';
-                        $cardBodyClass = 'text-info';
-                        break;
-                    case 2:
-                        $cardClass = 'border-warning';
-                        $cardHeader = 'Power Point';
-                        $cardBodyClass = 'text-warning';
-                        break;
-                    case 3:
-                        $cardClass = 'border-success';
-                        $cardHeader = 'Image';
-                        $cardBodyClass = 'text-success';
-                        break;
-                    case 4:
-                        $cardClass = 'border-primary';
-                        $cardHeader = 'Video';
-                        $cardBodyClass = 'text-primary';
-                        break;
-                    case 5:
-                        $cardClass = 'border-danger';
-                        $cardHeader = 'PDF';
-                        $cardBodyClass = 'text-danger';
-                        break;
-                    default:
-                        $cardClass = 'border-info';
-                        $cardHeader = 'Document';
-                        $cardBodyClass = '';
-                        break;
-                }
-            @endphp
+        @php
+                            switch ($item->file_type) {
+                                case 1:
+                                    $cardClass = 'border-info';
+                                    $cardHeader = 'Document';
+                                    $cardBodyClass = 'text-info';
+                                    $icon = 'fa fa-file';
+                                    break;
+                                case 2:
+                                    $cardClass = 'border-warning';
+                                    $cardHeader = 'Power Point';
+                                    $cardBodyClass = 'text-warning';
+                                    $icon = 'fa fa-file-powerpoint-o';
+                                    break;
+                                case 3:
+                                    $cardClass = 'border-success';
+                                    $cardHeader = 'Image';
+                                    $cardBodyClass = 'text-success';
+                                    $icon = 'fa fa-file-image-o';
+                                    break;
+                                case 4:
+                                    $cardClass = 'border-primary';
+                                    $cardHeader = 'Video';
+                                    $cardBodyClass = 'text-primary';
+                                    $icon = 'fa fa-file-movie-o';
+                                    break;
+                                case 5:
+                                    $cardClass = 'border-danger';
+                                    $cardHeader = 'PDF';
+                                    $cardBodyClass = 'text-danger';
+                                    $icon = 'fa fa-file-pdf-o';
+                                    break;
+                                default:
+                                    $cardClass = 'border-info';
+                                    $cardHeader = 'Document';
+                                    $cardBodyClass = '';
+                                    $icon = 'fa fa-file-pdf-o';
+                                    break;
+                            }
+                        @endphp
 
             <div class="card {{ $cardClass }} mb-2 " style="max-width: 18rem; ">
-            <a href="{{ Storage::url($item->file) }}" target="_blank" class="text-decoration-none text-reset">
-                <div class="card-header">{{ $cardHeader }}</div>
-                <div class="card-body {{ $cardBodyClass }}">
+            <a href="{{route('departmentStorage.view', $item)}}" target="_blank" class="text-decoration-none text-reset">
+                <div class="card-header">
+                                    <i class="{{$icon}}" style="font-size:24px"></i>
+                                </div>                <div class="card-body {{ $cardBodyClass }}">
                     <h5 class="card-title">{{ $item->title }}</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                 </div>

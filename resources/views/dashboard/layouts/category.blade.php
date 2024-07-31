@@ -107,7 +107,9 @@
 
                         <div class="card {{ $cardClass }} mb-2 " style="max-width: 18rem; ">
                             <a href="{{route('departmentStorage.view', $item)}}" target="_blank" class="text-decoration-none text-reset">
-                                <div class="card-header">{{ $cardHeader }}</div>
+                                <div class="card-header">
+                                    <i class="{{$icon}}" style="font-size:24px"></i>
+                                </div>
                                 <div class="card-body {{ $cardBodyClass }}">
                                     <h5 class="card-title">{{ $item->title }}</h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
