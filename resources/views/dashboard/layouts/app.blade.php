@@ -81,11 +81,11 @@
                     </form>
                     @endforeach
 
-
+                    @if(auth()->user()->isAdmin())
                     <a href="#" class="collapse-item" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
                         Add a new category
                      </a>
-
+                    @endif
                     </div>
                 </div>
             </li>
