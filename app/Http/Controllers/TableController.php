@@ -14,4 +14,17 @@ class TableController extends Controller
         $users = User::where('Depatrment_id' , auth()->user()->Depatrment_id)->get();
         return view('dashboard.layouts.table')->with('users',$users);
     }
+    public function destroy($id)
+    {
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Delete the user
+        $user->delete();
+
+        // Redirect back with a success message
+        return redirect()->route('table')->with('success', 'User deleted successfully');
+    }
+
+    
 }

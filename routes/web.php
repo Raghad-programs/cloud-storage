@@ -35,25 +35,36 @@ Route::middleware(['auth-check'])->group(function () {
     
     
  
-    Route::get('/table',[TableController::class,'table'])->name('table');
 
     Route::get('category/{id}', [CategoryController::class, 'show'])->name('category.show');
     Route::post('/add-category', [CategoryController::class , 'store'])->name('category.store');
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
-    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
     Route::get('/employee/{id}', [DepartmentStorageController::class, 'show_employee'])->name('show-employee');
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');
     Route::patch('/file/{id}', [DepartmentStorageController::class, 'update'])->name('update.file');
-
     Route::get('view/{departmentStorage}', function (DepartmentStorage $departmentStorage) {
         $filePath = Storage::disk('local')->path($departmentStorage->file);
         $file = Storage::disk('local')->get($departmentStorage->file);
         return response($file, 200)->header('Content-Type', mime_content_type($filePath));
     })->name('departmentStorage.view');
+
+});
+
+Route::middleware(['head-auth'])->group(function () {
+
+    Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])->name('administration.files');
+
+    Route::get('/employees',[TableController::class,'table'])->name('table');
+    Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
+
+
+
+
+   
 });
 
 

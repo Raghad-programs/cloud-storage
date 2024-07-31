@@ -97,7 +97,8 @@
                     <span>upload file</span></a>
             </li>
 
-             
+           
+           
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -107,10 +108,11 @@
             </li>
 
 
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            @if (Auth::user()->role_id == 1)
+            @if (auth()->user()->isAdmin())
             <!-- Heading -->
             <div class="sidebar-heading">
                 Admin
