@@ -5,10 +5,14 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h3 class="m-0 font-weight-bold text-primary">{{auth()->user()->department->department}} employees</h3>
-            <a href="{{ route('register') }}" class="btn btn-primary">Register Employee</a>
-        </div>
+            <a href="{{ route('register') }}" class="btn btn-primary" data-toggle="tooltip" title="Register a new employee">
+            <i class="fa fa-user-plus"></i>
+            </a>
+         </div>
         <div class="card-body">
-        <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3  navbar-search mt-2" action="" method="GET">
+
+        <!-- search bar -->
+            <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3  navbar-search mt-2" action="" method="GET">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="Search for employee" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
                     <div class="input-group-append">
@@ -31,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @forelse ($users as $user)
                         @if ($user->role_id == 2)
                         <tr>
                             <td><a href="{{ route('show-employee', $user->id) }}">{{ $user->name }}</a></td>
@@ -45,7 +49,11 @@
                             </td>
                         </tr>
                         @endif
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5">No employees found.</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -90,5 +98,11 @@
             form.attr('action', url);
         });
     });
+    </script>
+
+    <script>
+        $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 @endsection
