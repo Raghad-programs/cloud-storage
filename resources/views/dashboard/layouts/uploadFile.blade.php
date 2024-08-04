@@ -1,6 +1,24 @@
 @extends('dashboard.layouts.app')
 @section("title", "Upload File - Archive Cloud")  
 @section('content')   
+<style>
+.error-message {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.error-message .alert {
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.error-message .alert li {
+    font-size: 18px;
+    line-height: 1.4;
+}
+</style>
+
 <body class="bg-gradient-primary">
     <div class="container">
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -9,16 +27,20 @@
                     <div class="col-lg-12">
                         <div class="p-5">
                             <div class="text-center">
+
                             @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                     @endif
-                                <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
+                            <div class="error-message">
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            @endif
+
+                            <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
                             </div>
                             @if (auth()->user()->role_id == 1)
             <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
