@@ -42,14 +42,21 @@ class DashboardController extends Controller
                         ->with('fileType')
                         ->latest()
                         ->first();
-
+                        
+    $totalUserStorage = 2 * 1024 * 1024 * 1024; // 2GB in bytes
+    $userUsedStorage = $this->getUserTotalFileSize(auth()->id(), auth()->user()->Depatrment_id);
+    $userUsedStoragePercentage = round(($userUsedStorage / $totalUserStorage) * 100, 2);
     return view('dashboard.layouts.home', compact(
         'totalDocuments', 'monthlyUploads','documentsPerDepartment',
         'fileTypeDistribution', 'recentUploads', 'topDepartments','DocumentsForUser'
-        ,'recentUpload'
+        ,'recentUpload','userUsedStoragePercentage'
     ));
 }
-
-
+    private function getUserTotalFileSize($userId, $departmentId)
+    {
+    return DepartmentStorage::where('user_id', $userId)
+        ->where('department_id', $departmentId)
+        ->sum('file_size');
+    }
 
 }
