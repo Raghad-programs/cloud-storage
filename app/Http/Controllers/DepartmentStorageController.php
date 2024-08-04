@@ -38,50 +38,102 @@ class DepartmentStorageController extends Controller
             'fileTypes' => $fileTypes,
         ]);
     }
+    // public function store(StoreDepartmentStorageRequest $request)
+    // { 
+    //     $validatedData = $request->validated();
+
+    //     $fileType = FileType::find($validatedData['file_type']);
+    //     $folderName = strtolower($fileType->type);
+    //     $file = $request->file('file');
+
+    //     // Check the file size
+    //     $maxFileSize = $this->getMaxFileSize($fileType->type);
+    //     if ($file->getSize() > $maxFileSize * 1024 * 1024) {
+    //         flash()->error("The maximum file size for {$fileType->type} files is {$maxFileSize}MB.");
+    //         return redirect(route('upload-file'));
+    //     }
+
+    //     // Check the user's total file size
+    //     $departmentId = auth()->user()->Depatrment_id;
+    //     $totalFileSize = $this->getUserTotalFileSize(auth()->id(), $departmentId);
+
+    //     if ($totalFileSize + $file->getSize() > 2147483648){ // 2 GB
+    //         flash()->error("You have reached the maximum file storage limit of {$maxFileSize}MB for your department.");
+    //         return redirect(route('upload-file'));
+    //     }
+
+    //     $departmentId = auth()->user()->Depatrment_id;
+    //     $filePath = $file->store("department_storage/{$folderName}", 'local');
+    
+    //     $departmentStorage = DepartmentStorage::create([
+    //         'title'=>$request->title,
+    //         'department_id' => $departmentId,
+    //         'user_id' => auth()->id(),
+    //         'category_id' => $request->category_id,
+    //         'file_type' => $fileType->id,
+    //         'file' => $filePath,
+    //         'file_size' => $file->getSize(),
+    //         'description'=> $request->description,
+    //     ]);
+        
+    //     flash()->success('The file is saved successfully!!');
+    //     return redirect(route('upload-file'));
+    // }
+
     public function store(StoreDepartmentStorageRequest $request)
     {
-    
-    $validatedData = $request->validated();
+        $validatedData = $request->validated();
+        $fileType = FileType::find($validatedData['file_type']);
+        $folderName = $this->getFolderName($fileType->type);
 
-    $fileType = FileType::find($validatedData['file_type']);
-    $folderName = strtolower($fileType->type);
-    //$filePath = $request->file('file')->store("department_storage/{$folderName}", 'local');
-    $file = $request->file('file');
+        $file = $request->file('file');
+        $this->checkFileSize($fileType->type, $file);
+        $this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize());
+        $filePath = $file->store("department_storage/{$folderName}", 'local');
+        $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
 
-    // Check the file size
-    $maxFileSize = $this->getMaxFileSize($fileType->type);
-    if ($file->getSize() > $maxFileSize * 1024 * 1024) {
-        flash()->error("The maximum file size for {$fileType->type} files is {$maxFileSize}MB.");
+        flash()->success('The file is saved successfully!!');
         return redirect(route('upload-file'));
     }
 
-    // Check the user's total file size
-    $departmentId = auth()->user()->Depatrment_id;
-    $totalFileSize = $this->getUserTotalFileSize(auth()->id(), $departmentId);
-    if ($totalFileSize + $file->getSize() > 2147483648){ // 2 GB
-        flash()->error("You have reached the maximum file storage limit of {$maxFileSize}MB for your department.");
-        return redirect(route('upload-file'));
+
+    protected function getFolderName($fileType)
+    {
+        return strtolower($fileType);
     }
-    $departmentId = auth()->user()->Depatrment_id;
 
-    $filePath = $file->store("department_storage/{$folderName}", 'local');
-  
-    $departmentStorage = DepartmentStorage::create([
-        'title'=>$request->title,
-        'department_id' => $departmentId,
-        'user_id' => auth()->id(),
-        'category_id' => $request->category_id,
-        'file_type' => $fileType->id,
-        'file' => $filePath,
-        'file_size' => $file->getSize(),
-        'description'=>$request->description,
-    ]);
-
-
-
-    flash()->success('The file is saved successfully!!');
-    return redirect(route('upload-file'));
+    protected function checkFileSize($fileType, $file)
+    {
+        $maxFileSize = $this->getMaxFileSize($fileType);
+        if ($file->getSize() > $maxFileSize * 1024 * 1024) {
+            flash()->error("The maximum file size for {$fileType} files is {$maxFileSize}MB.");
+            return redirect(route('upload-file'));
+        }
     }
+
+    protected function checkTotalFileSize($userId, $departmentId, $fileType, $fileSize)
+    {
+        $totalFileSize = $this->getUserTotalFileSize($userId, $departmentId);
+        if ($totalFileSize + $fileSize > 2147483648) { // 2 GB
+            flash()->error("You have reached the maximum file storage limit of {$this->getMaxFileSize($fileType)}MB for your department.");
+            return redirect(route('upload-file'));
+        }
+    }
+
+    protected function createDepartmentStorage($request, $fileType, $filePath, $fileSize)
+    {
+        DepartmentStorage::create([
+            'title' => $request->title,
+            'department_id' => auth()->user()->Depatrment_id,
+            'user_id' => auth()->id(),
+            'category_id' => $request->category_id,
+            'file_type' => $fileType->id,
+            'file' => $filePath,
+            'file_size' => $fileSize,
+            'description' => $request->description,
+        ]);
+    }
+
     private function getUserTotalFileSize($userId, $departmentId)
     {
     return DepartmentStorage::where('user_id', $userId)
@@ -186,6 +238,7 @@ class DepartmentStorageController extends Controller
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'file_type' => $fileType->id,
+            'description'=> $request->description,
         ]);
 
         flash()->success('file "'.$request->title.'" has been updated');
@@ -202,15 +255,5 @@ class DepartmentStorageController extends Controller
         flash()->success('file "'.$Storagetitle.'" has been deleted');
         return back();
     }
-
-
-    // public function getURL(){
-    //     return Storage::temporaryUrl('file.png', now()->addSeconds(20));
-    // }
-
-    // public function download(){
-    //     return Storage::download();
-    // }
-
 
 }

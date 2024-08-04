@@ -11,9 +11,20 @@ class TableController extends Controller
 {
     public function table()
     {
-        $users = User::where('Depatrment_id' , auth()->user()->Depatrment_id)->get();
-        return view('dashboard.layouts.table')->with('users',$users);
+        $search = request()->search;
+    
+        $users = User::where('Depatrment_id', auth()->user()->Depatrment_id);
+    
+        if (isset($search) && $search !== null) {
+            $users->where('name', 'LIKE', '%' . $search . '%');
+        }
+    
+        $users = $users->get();
+    
+        return view('dashboard.layouts.table')->with('users', $users);
     }
+
+    
     public function destroy($id)
     {
         // Find the user by ID

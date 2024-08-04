@@ -93,22 +93,22 @@
                             }
                         @endphp
 
-                        <div class="card {{ $cardClass }} mb-2 " style="max-width: 18rem; ">
+                        <div class="card {{ $cardClass }} mb-2 d-flex flex-column" style="max-width: 18rem; ">
                             <a href="{{route('departmentStorage.view', $item)}}" target="_blank" class="text-decoration-none text-reset">
                                 <div class="card-header">
                                     <i class="{{$icon}}" style="font-size:24px"></i>
                                 </div>
-                                <div class="card-body {{ $cardBodyClass }}">
+                                <div class="card-body {{ $cardBodyClass }} d-flex flex-column flex-grow-1">
                                     <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p class="card-text flex-grow-1">{{ $item->description ?? "No description" }}</p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
-  <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
-  <a href="{{ route('departmentStorage.download', $item->id) }}" class="btn ">
-    <!-- <i class="'fa fa-file-powerpoint-o"></i> -->
-    <i class="fa fa-download" style="font-size:18px"></i>
-  </a>
-</div>
+                                <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                                <a href="{{ route('departmentStorage.download', $item->id) }}" class="btn ">
+                                    <!-- <i class="'fa fa-file-powerpoint-o"></i> -->
+                                    <i class="fa fa-download" style="font-size:18px"></i>
+                                </a>
+                                </div>
                             </a>
                         </div>
                     </div>
