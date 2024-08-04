@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="card-body {{ $cardBodyClass }}">
                                     <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <p class="card-text">{{ $item->description ?? "No description" }}</p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
   <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
