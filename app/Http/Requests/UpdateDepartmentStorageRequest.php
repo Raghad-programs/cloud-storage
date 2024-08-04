@@ -26,7 +26,8 @@ class UpdateDepartmentStorageRequest extends FormRequest
             'title' => 'required|string|max:100',
             'category_id' => 'required|exists:categories,id',
             'file_type' => 'required|exists:file_types,id',
-            $this->container->make(FileType::class)->find($this->input('file_type'))->extensions
+            $this->container->make(FileType::class)->find($this->input('file_type'))->extensions,
+            'description' => 'required|string|max:150',
         ];
     }
 }

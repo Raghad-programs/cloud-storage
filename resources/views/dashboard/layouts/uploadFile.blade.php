@@ -42,15 +42,17 @@
 
                             <h1 class="h4 text-gray-900 mb-4">Upload File</h1>
                             </div>
-                            @if (auth()->user()->role_id == 1)
-            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
-            @else
-            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
-            @endif
-                                            @csrf
+                          
+                            <form class="user" action="{{ route('upload-file') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="title" placeholder="File Title" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File description" >
+                                </div>
+                                
                                 <div class="form-group">
                                     <select class="form-control" id="category_id" name="category_id">
                                         <option value="">Select Section</option>
@@ -66,9 +68,6 @@
                                             <option value="{{ $fileType->id }}">{{ $fileType->type }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File description" >
                                 </div>
                                 <div class="form-group">
                                     <input type="file" class="form-control-file" id="file" name="file">
