@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\FileType;
-use App\Http\Requests\MimeTypes;
+
 class StoreDepartmentStorageRequest extends FormRequest
 {
     /**
@@ -30,49 +30,37 @@ class StoreDepartmentStorageRequest extends FormRequest
                 'required',
                 'file',
                 $this->getMaxSizeRuleForFileType($this->input('file_type')),
-                'mimetypes:' . implode(',', $this->getAllowedMimeTypes()),
+                'mimes:' . $this->getAllowedMimeTypes($this->input('file_type')),
             ],
+            'description' => 'required|string|max:150',
         ];
     }
 
     protected function getMaxSizeRuleForFileType($fileTypeId)
     {
-    $fileType = FileType::findOrFail($fileTypeId);
-    $maxSizes = [
-    'Document' => 2048, // 2 MB
-    'Powerpoint' => 5120, // 5 MB
-    'Image' => 5120, // 5 MB
-    'Video' => 20480, // 20 MB
-    'PDF' => 5120, // 5 MB
-    ];
+        $fileType = FileType::findOrFail($fileTypeId);
+        $maxSizes = [
+            'Document' => 2048, // 2 MB
+            'Powerpoint' => 5120, // 5 MB
+            'Image' => 5120, // 5 MB
+            'Video' => 20480, // 20 MB
+            'PDF' => 5120, // 5 MB
+        ];
 
-    return function ($attribute, $value, $fail) use ($fileType, $maxSizes) {
-        $maxSize = $maxSizes[$fileType->type] * 1024 * 1024; // Convert to bytes
-        if ($value->getSize() > $maxSize) {
-            $fail("The maximum file size for {$fileType->type} files is {$maxSizes[$fileType->type]} MB.");
-        }
-    };
+        return function ($attribute, $value, $fail) use ($fileType, $maxSizes) {
+            $maxSize = $maxSizes[$fileType->type] * 1024 * 1024; // Convert to bytes
+            if ($value->getSize() > $maxSize) {
+                $fail("The maximum file size for {$fileType->type} files is {$maxSizes[$fileType->type]} MB.");
+            }
+        };
     }
-    
-    protected function getAllowedMimeTypes()
+
+    protected function getAllowedMimeTypes($fileTypeId)
     {
-        $fileType = FileType::find($this->input('file_type'));
-        $allowedExtensions = explode(',', $fileType->extensions);
-        $allowedMimeTypes = [];
-    
-        foreach ($allowedExtensions as $extension) {
-            $allowedMimeTypes[] = $this->getMimeTypeByExtension(trim($extension));
-        }
-    
-        return $allowedMimeTypes;
+        $fileType = FileType::findOrFail($fileTypeId);
+        $allowedExtensions = $fileType->extensions;
+
+        return  $allowedExtensions;
     }
-    
-    protected function getMimeTypeByExtension($extension)
-    {
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        $tempFile = tempnam(sys_get_temp_dir(), $extension);
-        $mimeType = $finfo->file($tempFile);
-        unlink($tempFile);
-        return $mimeType;
-    }
+ 
 }

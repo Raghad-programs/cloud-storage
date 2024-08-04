@@ -23,12 +23,13 @@
                                 <form class="user" action="{{route('update.file', $storage->id ) }}" method="POST" enctype="multipart/form-data">
                                  @csrf
                                  @method('PATCH')
+                                 
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" name="title" placeholder="File Title" value="{{$storage->title}}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File Title" value="{{$storage->title}}" >
+                                    <input type="text" class="form-control form-control-user" name="description" placeholder="File Description" value="{{$storage->description}}" required>
                                 </div>
 
 

@@ -58,12 +58,13 @@ class DepartmentStorageController extends Controller
     // Check the user's total file size
     $departmentId = auth()->user()->Depatrment_id;
     $totalFileSize = $this->getUserTotalFileSize(auth()->id(), $departmentId);
+
     if ($totalFileSize + $file->getSize() > 2147483648){ // 2 GB
         flash()->error("You have reached the maximum file storage limit of {$maxFileSize}MB for your department.");
         return redirect(route('upload-file'));
     }
-    $departmentId = auth()->user()->Depatrment_id;
 
+    $departmentId = auth()->user()->Depatrment_id;
     $filePath = $file->store("department_storage/{$folderName}", 'local');
   
     $departmentStorage = DepartmentStorage::create([
@@ -74,7 +75,7 @@ class DepartmentStorageController extends Controller
         'file_type' => $fileType->id,
         'file' => $filePath,
         'file_size' => $file->getSize(),
-        'description'=>$request->description,
+        'description'=> $request->description,
     ]);
 
 
@@ -186,6 +187,7 @@ class DepartmentStorageController extends Controller
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'file_type' => $fileType->id,
+            'description'=> $request->description,
         ]);
 
         flash()->success('file "'.$request->title.'" has been updated');
