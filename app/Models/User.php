@@ -26,7 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
         'Depatrment_id',
-        'role_id'
+        'role_id',
+        'storage_size'
     ];
 
 

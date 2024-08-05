@@ -21,7 +21,7 @@
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><i class="fas fa-hdd fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Max Storage allowed</h6>
-                    <span class="text-secondary">{{ round($employeeStorageLimit / (1024 * 1024 * 1024), 2) }} GB</span>
+                    <span class="text-secondary">{{ round($employeeStorageLimit /1024 ,2) }} GB</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><i class="fa fa-folder fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Storage used</h6>
@@ -35,6 +35,15 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <a class="btn btn-primary btn-user btn-block" href="{{route('show-employee' , $employee->id)}}">View Employee files</a>
+                  <span class="text-secondary"></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card mt-1">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">Storage allowance</a>
                   <span class="text-secondary"></span>
                   </li>
                 </ul>
@@ -79,12 +88,6 @@
                       {{$filesNumber}}
                     </div>
                   </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-primary btn-user" target="__blank" href="#">permissions</a>
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -92,7 +95,7 @@
                 <div class="col-sm-6 mb-3">
                   <div class="card ">
                     <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Participation in Categories</h6>
+                      <h6 class="d-flex align-items-center mb-3"><i class="fa fa-bar-chart text-info mr-2"></i>Participation in Categories</h6>
                       @if (!empty($participationPercentages))
                             @foreach ($participationPercentages as $category => $percentage)
                             <div class="d-flex justify-content-between">
@@ -113,7 +116,7 @@
                   <div class="card h-100">
                   <div class="card-body">
                         <h6 class="d-flex align-items-center mb-3">
-                            <i class="material-icons text-info mr-2">assignment</i>Storage consumtion by category
+                            <i class="fa fa-bar-chart text-info mr-2"></i>Storage consumtion by category
                         </h6>
                         @if (!empty($fileSizes))
                             @foreach ($fileSizes as $category => $size)
@@ -126,8 +129,8 @@
                             </div>
                             @endforeach
                             <div class="d-flex justify-content-between">
-                                <small>Total Files Size</small>
-                                <small>{{ $totalFileSizeInGB }} GB</small>
+                                <small>Total size consumed</small>
+                                <small>{{ $totalFileSize}} MB</small>
                             </div>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $usagePercentage }}%" aria-valuenow="{{ $usagePercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -148,3 +151,32 @@
         </div>
     </div>
 @endsection
+
+<!-- edit employee permissions-->
+<div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="permissionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="permissionModalLabel">Edit Employee Permissions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="employee-permission-form" action="{{route('edit.Storage.Size', $employee->id )}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="totalUploadSize">Total Upload Size</label>
+                        <input type="number" class="form-control" id="totalUploadSize" name="storage_size" value="{{ $employee->storage_size }}" required>
+                        <small class="form-text text-muted">Enter the total upload size in MB</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="employee-permission-form" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

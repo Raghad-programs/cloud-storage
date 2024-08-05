@@ -52,15 +52,16 @@ class EmployeesController extends Controller
     }
 
 
-    public function profileShow($id){
+    public function profileShow($id)
+    {
         $employee = User::findOrFail($id);
-        //how many files the employee upload
         $filesNumber = DepartmentStorage::where('department_id', $employee->Depatrment_id)
                                        ->where('user_id', $id)
                                        ->count();
     
         $participationPercentages = $this->calculateParticipationPercentages($employee);
-        $employeeStorageLimit = $this->getEmployeeStorage(); // Get the storage limit for the employee
+        $employeeStorageLimitInMB = $this->getEmployeeStorage($employee->id); // Get the storage limit for the employee in MB
+    
         $currentUserDepartment = $employee->Depatrment_id; //user department
         $categories = Category::where('department_id', $currentUserDepartment)->get(); //user department categories
     
@@ -71,12 +72,14 @@ class EmployeesController extends Controller
                                                 ->where('category_id', $category->id)
                                                 ->where('user_id', $id)
                                                 ->sum('file_size');
-            $fileSizes[$category->name] = round($categoryFileSize / 1024 / 1024, 2); // Convert bytes to MB and round to 2 decimal places
-            $totalFileSize += $categoryFileSize;
+            $fileSizes[$category->name] = round($categoryFileSize / 1024/ 1024, 2); // Convert bytes to MB and round to 2 decimal places
         }
-    
-        $totalFileSizeInGB = round($totalFileSize / 1024 / 1024 / 1024, 2); // Convert bytes to GB and round to 2 decimal places
-        $usagePercentage = ($totalFileSize / $employeeStorageLimit) * 100; // Calculate usage percentage based on 2 GB limit
+
+        $totalFileSize = DepartmentStorage::where('user_id', $id)
+        ->sum('file_size');
+
+        $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2); // Convert bytes to MB and round to 2 decimal places
+        $usagePercentage = ($totalFileSize / ($employeeStorageLimitInMB * 1024 * 1024)) * 100; // Calculate usage percentage based on the storage limit in MB
     
         return view('dashboard.admin.employee_profile')
             ->with([
@@ -85,11 +88,12 @@ class EmployeesController extends Controller
                 'participationPercentages' => $participationPercentages,
                 'categories' => $categories,
                 'fileSizes' => $fileSizes,
-                'totalFileSizeInGB' => $totalFileSizeInGB,
+                'totalFileSize' => $totalFileSizeInMB,
                 'usagePercentage' => $usagePercentage,
-                'employeeStorageLimit' => $employeeStorageLimit,
+                'employeeStorageLimit' => $employeeStorageLimitInMB,
             ]);
     }
+
 
     private function calculateParticipationPercentages($employee)
     {
@@ -119,8 +123,20 @@ class EmployeesController extends Controller
         return $participationPercentages;
     }
 
-    public function getEmployeeStorage(){
-        return (2 * 1024 * 1024 * 1024);
+    public function getEmployeeStorage($employeeID){
+        $employee=User::findOrFail($employeeID);
+        $size = $employee->storage_size;
+        return $size;
     }
 
+
+    public function editStorageSize($id ,Request $request){
+        $employee = User::findOrFail($id);
+        $employee->update([
+            'storage_size' => $request->storage_size,
+        ]);
+
+        flash()->success('Employee storage size has been updated');
+        return back();
+    }
 }
