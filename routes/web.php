@@ -5,7 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TableController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrationController;
@@ -64,8 +64,8 @@ Route::middleware(['head-auth'])->group(function () {
     Route::get('/administration-files', [AdministrationController::class, 'administrationfiles'])
     ->name('administration.files');
 
-    Route::get('/employees',[TableController::class,'table'])->name('table');
-    Route::delete('/employees/{id}', [TableController::class, 'destroy'])->name('user.destroy');
+    Route::get('/employees',[EmployeesController::class,'table'])->name('table');
+    Route::delete('/employees/{id}', [EmployeesController::class, 'destroy'])->name('user.destroy');
 
 
 
