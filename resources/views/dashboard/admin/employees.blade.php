@@ -38,7 +38,7 @@
                         @forelse ($users as $user)
                         @if ($user->role_id == 2)
                         <tr>
-                            <td><a href="{{ route('show-employee', $user->id) }}">{{ $user->name }}</a></td>
+                            <td><a href="{{ route('employee.profile', $user->id) }}">{{ $user->name }}</a></td>
                             <td>{{ $user->department->department }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at ? $user->created_at->format('Y-m-d') : '-' }}</td>

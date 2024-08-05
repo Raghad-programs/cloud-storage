@@ -192,17 +192,7 @@ class DepartmentStorageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show_employee($id)
-    {
-        $departmentStorages = DepartmentStorage::where('department_id', auth()->user()->Depatrment_id)
-        ->where('user_id', $id)
-        ->get();
-        $userName = User::findOrFail($id)->name;
-
-        return view('dashboard.admin.employee_files')
-        ->with('departmentStorages', $departmentStorages)
-        ->with('userName', $userName);
-    }
+   
 
     /**
      * Show the form for editing the specified resource.

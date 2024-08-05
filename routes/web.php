@@ -43,7 +43,6 @@ Route::middleware(['auth-check'])->group(function () {
     // Route::get('/search',[SearchController::class , 'index'])->name('search');
     
     Route::get('/all-file', [CategoryController::class, 'showall'])->name('category.show.all');
-    Route::get('/employee/{id}', [DepartmentStorageController::class, 'show_employee'])->name('show-employee');
 
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');
@@ -66,7 +65,9 @@ Route::middleware(['head-auth'])->group(function () {
 
     Route::get('/employees',[EmployeesController::class,'table'])->name('table');
     Route::delete('/employees/{id}', [EmployeesController::class, 'destroy'])->name('user.destroy');
+    Route::get('/employee/{id}', [EmployeesController::class, 'show_employee'])->name('show-employee');
 
+    Route::get('/employee-profile/{id}', [EmployeesController::class, 'profileShow'])->name('employee.profile');
 
 
 
