@@ -139,6 +139,12 @@
                     <span>Employees</span></a>
             </li>
             
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fa fa-file-archive-o"></i>
+                    <span>File types</span></a>
+            </li>
             @endif
 
 
