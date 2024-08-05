@@ -12,6 +12,11 @@
             </a>
         </div>
         <div class="card-body">
+            @if(count($departmentStorages) == 0)
+            <div class="text-center">
+                <h4>No files uploaded yet.</h4>
+            </div>
+            @else
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -86,6 +91,7 @@
                     </tbody>
                 </table>
             </div>
+            @endif
         </div>
     </div>
 </div>
