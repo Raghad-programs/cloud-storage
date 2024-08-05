@@ -48,11 +48,13 @@ Route::middleware(['auth-check'])->group(function () {
     Route::delete('/file/{id}', [DepartmentStorageController::class, 'destroy'])->name('destroy');
     Route::get('/file/{id}/edit', [DepartmentStorageController::class, 'edit'])->name('edit.file');
     Route::patch('/file/{id}', [DepartmentStorageController::class, 'update'])->name('update.file');
+    
     Route::get('view/{departmentStorage}', function (DepartmentStorage $departmentStorage) {
         $filePath = Storage::disk('local')->path($departmentStorage->file);
         $file = Storage::disk('local')->get($departmentStorage->file);
         return response($file, 200)->header('Content-Type', mime_content_type($filePath));
     })->name('departmentStorage.view');
+
     Route::get('download-all',[downloadallController::class, 'index'])->name('download.all');
 });
 
