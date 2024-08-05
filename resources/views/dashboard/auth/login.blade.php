@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="backend/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +61,7 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-</button>
+                                        </button>
                                         <hr>
                                         
                                     </form>

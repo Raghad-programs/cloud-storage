@@ -21,7 +21,7 @@ class TableController extends Controller
     
         $users = $users->get();
     
-        return view('dashboard.layouts.table')->with('users', $users);
+        return view('dashboard.admin.table')->with('users', $users);
     }
 
     
