@@ -199,7 +199,7 @@ class DepartmentStorageController extends Controller
         ->get();
         $userName = User::findOrFail($id)->name;
 
-        return view('dashboard.layouts.employee_files')
+        return view('dashboard.admin.employee_files')
         ->with('departmentStorages', $departmentStorages)
         ->with('userName', $userName);
     }
