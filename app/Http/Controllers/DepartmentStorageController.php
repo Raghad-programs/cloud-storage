@@ -86,6 +86,8 @@ class DepartmentStorageController extends Controller
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = $this->getFolderName($fileType->type);
 
+        // $user= User::findOrFail(auth()->id());
+        // $user->strage_size,;
         $file = $request->file('file');
         $this->checkFileSize($fileType->type, $file);
         $this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize());
@@ -113,15 +115,17 @@ class DepartmentStorageController extends Controller
 
     protected function checkTotalFileSize($userId, $departmentId, $fileType, $fileSize)
     {
+        $user = User::findOrFail($userId);
         $totalFileSize = $this->getUserTotalFileSize($userId, $departmentId);
-        if ($totalFileSize + $fileSize > 2147483648) { // 2 GB
-            flash()->error("You have reached the maximum file storage limit of {$this->getMaxFileSize($fileType)}MB for your department.");
+        if ($totalFileSize + $fileSize > $user->storage_size * 1024 * 1024) { // Convert to bytes
+            flash()->error("You have reached the maximum file storage limit of {$user->storage_size}MB for your department.");
             return redirect(route('upload-file'));
         }
     }
 
     protected function createDepartmentStorage($request, $fileType, $filePath, $fileSize)
     {
+        $user = User::findOrFail(auth()->id());
         DepartmentStorage::create([
             'title' => $request->title,
             'department_id' => auth()->user()->Depatrment_id,
@@ -131,14 +135,15 @@ class DepartmentStorageController extends Controller
             'file' => $filePath,
             'file_size' => $fileSize,
             'description' => $request->description,
+            'storage_size' => $user->storage_size,
         ]);
     }
 
     private function getUserTotalFileSize($userId, $departmentId)
     {
-    return DepartmentStorage::where('user_id', $userId)
-        ->where('department_id', $departmentId)
-        ->sum('file_size');
+        return DepartmentStorage::where('user_id', $userId)
+            ->where('department_id', $departmentId)
+            ->sum('file_size');
     }
      
 

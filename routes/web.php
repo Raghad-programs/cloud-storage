@@ -66,11 +66,8 @@ Route::middleware(['head-auth'])->group(function () {
     Route::get('/employees',[EmployeesController::class,'table'])->name('table');
     Route::delete('/employees/{id}', [EmployeesController::class, 'destroy'])->name('user.destroy');
     Route::get('/employee/{id}', [EmployeesController::class, 'show_employee'])->name('show-employee');
-
     Route::get('/employee-profile/{id}', [EmployeesController::class, 'profileShow'])->name('employee.profile');
-
-
-
+    Route::put('/edit-permission/{id}' , [EmployeesController::class , 'editStorageSize'])->name('edit.Storage.Size');
 
 });
 
