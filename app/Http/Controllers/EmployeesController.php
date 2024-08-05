@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
 
-class TableController extends Controller
+class EmployeesController extends Controller
 {
     public function table()
     {
@@ -21,7 +21,7 @@ class TableController extends Controller
     
         $users = $users->get();
     
-        return view('dashboard.admin.table')->with('users', $users);
+        return view('dashboard.admin.employees')->with('users', $users);
     }
 
     
