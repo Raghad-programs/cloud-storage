@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Department;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -43,14 +44,27 @@ class DashboardController extends Controller
                         ->latest()
                         ->first();
                         
-    $totalUserStorage = 2 * 1024 * 1024 * 1024; // 2GB in bytes
-    $userUsedStorage = $this->getUserTotalFileSize(auth()->id(), auth()->user()->Depatrment_id);
-    $userUsedStoragePercentage = round(($userUsedStorage / $totalUserStorage) * 100, 2);
+    // $totalUserStorage = 2 * 1024 * 1024 * 1024; // 2GB in bytes
+    // $userUsedStorage = $this->getUserTotalFileSize(auth()->id(), auth()->user()->Depatrment_id);
+    // $userUsedStoragePercentage = round(($userUsedStorage / $totalUserStorage) * 100, 2);
+
+    $totalFileSize = DepartmentStorage::where('user_id', auth()->user()->id)
+    ->sum('file_size');
+    $employeeStorageLimitInMB = $this->getEmployeeStorage(auth()->user()->id); // Get the storage limit for the employee in MB
+    $userUsedStoragePercentage = ($totalFileSize / ($employeeStorageLimitInMB * 1024 * 1024)) * 100;
+    $userUsedStoragePercentage = round($userUsedStoragePercentage ,2);
+
     return view('dashboard.layouts.home', compact(
         'totalDocuments', 'monthlyUploads','documentsPerDepartment',
         'fileTypeDistribution', 'recentUploads', 'topDepartments','DocumentsForUser'
         ,'recentUpload','userUsedStoragePercentage'
     ));
+}
+
+public function getEmployeeStorage($employeeID){
+    $employee=User::findOrFail($employeeID);
+    $size = $employee->storage_size;
+    return $size;
 }
     private function getUserTotalFileSize($userId, $departmentId)
     {
