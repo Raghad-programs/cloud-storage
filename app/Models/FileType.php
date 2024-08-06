@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FileType extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'type',
+        'extensions',
+    ];
 
     public function departmentStorages()
     {

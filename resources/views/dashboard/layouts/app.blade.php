@@ -141,8 +141,8 @@
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fa fa-file-archive-o"></i>
+            <a class="nav-link" href="{{ route('file-types.create') }}">
+            <i class="fa fa-file-archive-o"></i>
                     <span>File types</span></a>
             </li>
             @endif
