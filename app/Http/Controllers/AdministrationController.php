@@ -15,7 +15,7 @@ class AdministrationController extends Controller
 
     $Category=Category::with('departmentStorages');
 
-    return view('dashboard.layouts.administrationfiles', [
+    return view('dashboard.admin.administrationfiles', [
         'storageItems' => $storageItems,
         'category'=>$Category,
     ]);

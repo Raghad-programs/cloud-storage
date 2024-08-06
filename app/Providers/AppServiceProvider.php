@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
    
         View::composer([
             'dashboard.layouts.*',
+            'dashboard.admin.*',
             'profile.partials.profile',
             'profile.edit', 
         ], function ($view) {
