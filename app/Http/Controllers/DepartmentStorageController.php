@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\User;
 use App\Http\Controllers\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Services\VirusTotalService;
+
 
 class DepartmentStorageController extends Controller
 {
@@ -80,24 +82,42 @@ class DepartmentStorageController extends Controller
     //     return redirect(route('upload-file'));
     // }
 
-    public function store(StoreDepartmentStorageRequest $request)
+    public function store(StoreDepartmentStorageRequest $request,VirusTotalService $virusTotalService)
     {
         $validatedData = $request->validated();
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = $this->getFolderName($fileType->type);
-
-        // $user= User::findOrFail(auth()->id());
-        // $user->strage_size,;
         $file = $request->file('file');
+
+
+        // Scan the file using VirusTotal
+        $scanResult = $virusTotalService->scanFile($file->getPathname());
+
+        // Handle VirusTotal scan result
+        if ($scanResult && isset($scanResult['response_code']) && $scanResult['response_code'] === 1 && isset($scanResult['positives']) && $scanResult['positives'] > 0) {
+            // Virus found
+            flash()->error('Virus detected in the file. File not saved.');
+            return redirect(route('upload-file'));
+        }
+        // Check file size
         $this->checkFileSize($fileType->type, $file);
+
+        // Check total file size
         $this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize());
+
+        // Store the file
         $filePath = $file->store("department_storage/{$folderName}", 'local');
         $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
 
+        //confirmation
         flash()->success('The file is saved successfully!!');
         return redirect(route('upload-file'));
     }
-
+    protected function scanFileWithVirusTotal($file, VirusTotalService $virusTotalService)
+    {
+        // Scan the file using VirusTotal service
+        return $virusTotalService->scanFile($file->getPathname());
+    }
 
     protected function getFolderName($fileType)
     {

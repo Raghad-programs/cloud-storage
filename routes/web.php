@@ -55,6 +55,9 @@ Route::middleware(['auth-check'])->group(function () {
     })->name('departmentStorage.view');
 
     Route::get('download-all',[downloadallController::class, 'index'])->name('download.all');
+
+    Route::get('/file-types/create', [AdministrationController::class, 'create'])->name('file-types.create');
+    Route::post('/file-types', [AdministrationController::class, 'store'])->name('file-types.store');
 });
 
 
