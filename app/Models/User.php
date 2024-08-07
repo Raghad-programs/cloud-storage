@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\FileUploaded;
+use App\Notifications\FileDeleted;
+
 
 
 class User extends Authenticatable
@@ -74,6 +77,25 @@ class User extends Authenticatable
     return $this->role->id === 1;
 }
 
+public function notifyDepartmentAdmins($message)
+{
+    $admins = self::where('Depatrment_id', $this->Depatrment_id)->get();
+    foreach ($admins as $admin) {
+        if ($admin->isAdmin()) {
+            $admin->notify(new FileUploaded($message));
+        }
+    }
+}
+
+public function notifyDepartmentAdminsOnDeletion($message)
+{
+    $admins = self::where('Depatrment_id', $this->Depatrment_id)->get();
+    foreach ($admins as $admin) {
+        if ($admin->isAdmin()) {
+            $admin->notify(new FileDeleted($message));
+        }
+    }
+}
 
     
 }

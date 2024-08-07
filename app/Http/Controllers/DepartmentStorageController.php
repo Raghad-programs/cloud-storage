@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreDepartmentStorageRequest;
 use App\Http\Requests\UpdateDepartmentStorageRequest;
@@ -8,9 +9,12 @@ use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Category;
 use App\Models\User;
-use App\Http\Controllers\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Services\VirusTotalService;
+use App\Notifications\FileUploaded;
+use App\Notifications\FileDeleted;
+
+
 
 
 class DepartmentStorageController extends Controller
@@ -40,47 +44,7 @@ class DepartmentStorageController extends Controller
             'fileTypes' => $fileTypes,
         ]);
     }
-    // public function store(StoreDepartmentStorageRequest $request)
-    // { 
-    //     $validatedData = $request->validated();
 
-    //     $fileType = FileType::find($validatedData['file_type']);
-    //     $folderName = strtolower($fileType->type);
-    //     $file = $request->file('file');
-
-    //     // Check the file size
-    //     $maxFileSize = $this->getMaxFileSize($fileType->type);
-    //     if ($file->getSize() > $maxFileSize * 1024 * 1024) {
-    //         flash()->error("The maximum file size for {$fileType->type} files is {$maxFileSize}MB.");
-    //         return redirect(route('upload-file'));
-    //     }
-
-    //     // Check the user's total file size
-    //     $departmentId = auth()->user()->Depatrment_id;
-    //     $totalFileSize = $this->getUserTotalFileSize(auth()->id(), $departmentId);
-
-    //     if ($totalFileSize + $file->getSize() > 2147483648){ // 2 GB
-    //         flash()->error("You have reached the maximum file storage limit of {$maxFileSize}MB for your department.");
-    //         return redirect(route('upload-file'));
-    //     }
-
-    //     $departmentId = auth()->user()->Depatrment_id;
-    //     $filePath = $file->store("department_storage/{$folderName}", 'local');
-    
-    //     $departmentStorage = DepartmentStorage::create([
-    //         'title'=>$request->title,
-    //         'department_id' => $departmentId,
-    //         'user_id' => auth()->id(),
-    //         'category_id' => $request->category_id,
-    //         'file_type' => $fileType->id,
-    //         'file' => $filePath,
-    //         'file_size' => $file->getSize(),
-    //         'description'=> $request->description,
-    //     ]);
-        
-    //     flash()->success('The file is saved successfully!!');
-    //     return redirect(route('upload-file'));
-    // }
 
     public function store(StoreDepartmentStorageRequest $request,VirusTotalService $virusTotalService)
     {
@@ -109,7 +73,16 @@ class DepartmentStorageController extends Controller
         $filePath = $file->store("department_storage/{$folderName}", 'local');
         $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
 
-        //confirmation
+    //confirmation
+    $user = $request->user();
+    $message = 'A new file has been uploaded by user ' . $user->name;
+    // Notify department admins
+    $user->notifyDepartmentAdmins($message);
+    // Notify the user
+    $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
+
+
+
         flash()->success('The file is saved successfully!!');
         return redirect(route('upload-file'));
     }
@@ -263,11 +236,20 @@ class DepartmentStorageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $Storagetitle = DepartmentStorage::findOrFail($id)->title;
         $Storage = DepartmentStorage::findOrFail($id)->delete();
         flash()->success('file "'.$Storagetitle.'" has been deleted');
+        $user = $request->user();
+        $message = 'A file has been deleted by user ' . $user->name;
+    
+        // Notify department admins
+        $user->notifyDepartmentAdminsOnDeletion($message);
+        // Notify the user
+        $user->notify(new FileDeleted('You have successfully deleted a file.'));
+
+
         return back();
     }
 
