@@ -19,6 +19,7 @@ use App\Http\Controllers\downloadallController;
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/user-profile/{id}', [ProfileController::class, 'profileShow'])->name('user.profile');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -58,6 +59,13 @@ Route::middleware(['auth-check'])->group(function () {
 
     Route::get('/file-types/create', [AdministrationController::class, 'create'])->name('file-types.create');
     Route::post('/file-types', [AdministrationController::class, 'store'])->name('file-types.store');
+
+    Route::get('/file-types/show', [AdministrationController::class, 'getFileTypes'])->name('getfile.types');
+    
+    Route::get('/file-types/{id}/edit', [AdministrationController::class, 'edit'])->name('edit.filetype');
+    Route::patch('/file-types/{id}', [AdministrationController::class, 'update'])->name('update.filetype');    
+    Route::delete('/file-type/{id}', [AdministrationController::class, 'destroy'])->name('destroy.filetype');
+
 });
 
 
