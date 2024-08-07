@@ -345,7 +345,7 @@
             </div>
         </div>
     </div>
-
+</div>
                 <!-- Content Row -->
                 <div class="row">
     <!-- Departments Card -->

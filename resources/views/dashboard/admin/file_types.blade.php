@@ -21,6 +21,7 @@
 
 <!-- Begin Page Content -->
 <div class="card-body">
+<h1 class="mb-4">Already existing file types</h1>
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -93,8 +94,9 @@
 });
 </script>
 
-<div class="container">
-    <div class="row justify-content-start">
+<div class="container ml-0">
+<h1 class="mb-4">Create a new file type</h1>
+    <div class="row justify-content-center mb-3">
         <div class="col-md-10">
             <div class="card">
             <div class="card-header">Create New File Type</div>
