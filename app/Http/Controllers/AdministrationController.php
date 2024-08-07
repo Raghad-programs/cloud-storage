@@ -88,12 +88,13 @@ public function update(Request $request, $id)
     return view('dashboard.admin.edit_file_type', compact('fileType', 'extensions'));
 }
     
-    public function destroy($id)
-    {
-        $fileType = FileType::findOrFail($id)->delete();
-        flash()->success('file has been deleted');
-        return back();
-    }  
+public function destroy($id)
+{
+    $fileType = FileType::findOrFail($id);
+    $fileType->delete();
+    flash()->success('File type has been soft deleted.');
+    return back();
+} 
     
 
 }

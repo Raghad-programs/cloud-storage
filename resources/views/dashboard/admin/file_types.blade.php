@@ -38,10 +38,37 @@
         <td>{{ $fileType->extensions}}</td>
         <td>{{ $fileType->created_at }}</td>
         <td>
-            <a href="{{ route('edit.filetype', $fileType->id) }}" class="btn btn-warning">Edit</a>
-            <!-- Add delete button here -->
+        <button class="btn btn-danger btn-circle text-gray-200 mb-1 delete-btn" 
+        data-id="{{ $fileType->id }}" data-toggle="modal" data-target="#deleteModal-{{ $fileType->id }}">
+        <i class="fas fa-trash"></i>
+        </button>
+        <a type="submit" class="btn btn-circle bg-gradient-warning text-gray-200" 
+        href="{{route('edit.filetype' , $fileType->id)}}">
+        <i class="fas fa-edit ml-1" style="color: bg-white; font-size:18px" ></i>
+        </a>
         </td>
     </tr>
+    <div class="modal fade" id="deleteModal-{{ $fileType->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">Select "Delete" below if you sure you want to delete this file type?</div>
+                        <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <form method="POST" action="{{ route('destroy.filetype', $fileType->id) }}" id="deleteForm-{{ $fileType->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-primary" type="submit">Delete</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endforeach
 
 

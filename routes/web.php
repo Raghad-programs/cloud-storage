@@ -66,7 +66,6 @@ Route::middleware(['auth-check'])->group(function () {
     Route::patch('/file-types/{id}', [AdministrationController::class, 'update'])->name('update.filetype');    
     Route::delete('/file-type/{id}', [AdministrationController::class, 'destroy'])->name('destroy.filetype');
 
-
 });
 
 
