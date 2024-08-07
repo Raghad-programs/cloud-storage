@@ -218,7 +218,7 @@
         </div>
 
         <!-- Pie Chart -->
-        <div class="col-lg-5 mb-4">
+        <div class="col-lg-5 mb-0">
             <div class="card shadow mb-4" style="height: 100%;">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -248,11 +248,12 @@
                 </div>
             </div>
         </div>
+        </div>
         <!-- Content Row -->
         <div class="row">
             <!-- Departments Card -->
             <div class="col-lg-7 mb-4">
-                <div class="card shadow mb-4" style="width: 600px">
+                <div class="card shadow mb-4" style="width: 670px">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
                     </div>
