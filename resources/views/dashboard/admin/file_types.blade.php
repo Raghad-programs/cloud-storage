@@ -17,10 +17,27 @@
     table.table td:nth-child(4) {
         text-align: center;
     }
+    /* Allow modal to grow based on content */
+    .modal-dialog {
+        max-width: 90vw; /* Adjust as necessary */
+        margin: 1.75rem auto; /* Center the modal */
+    }
+
+    .modal-content {
+        width: 100%;
+        height: auto; /* Ensure height is based on content */
+    }
+
 </style>
 
 <!-- Begin Page Content -->
 <div class="card-body">
+<div class="card-header py-3 d-flex justify-content-between align-items-center">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newFileTypeModal">
+    Add New File Type
+</button>
+</div>
+
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -102,55 +119,61 @@
                 <form method="POST" action="{{ route('file-types.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label for="type">File Type</label>
-                        <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}">
-                        @error('type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group" id="extensions-group">
-                        <label for="extensions">Extensions</label>
-                        @foreach (old('extensions', []) as $extension)
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary" onclick="addExtensionField()">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        @error('extensions.*')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+    <label for="type">File Type</label>
+    <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}">
+    @error('type')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
+<div class="form-group" id="extensions-group">
+    <label for="extensions">Extensions</label>
+    @foreach (old('extensions', []) as $extension)
+    <div class="input-group mb-2">
+        <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
+        <div class="input-group-append">
+            <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    @endforeach
+    <div class="input-group mb-2">
+        <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+        <div class="input-group-append">
+            <button type="button" class="btn btn-primary" onclick="addExtensionField()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    @error('extensions.*')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+</div>
 
                     <script>
                         function addExtensionField() {
                             var extensionsGroup = document.getElementById('extensions-group');
-                            var newExtensionField = document.createElement('div');
-                            newExtensionField.classList.add('input-group', 'mb-2');
-                            newExtensionField.innerHTML = `
-                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            `;
-                            extensionsGroup.appendChild(newExtensionField);
+                            var extensionFields = extensionsGroup.getElementsByClassName('extensions');
+
+                            if (extensionFields.length < 10) {
+                                var newExtensionField = document.createElement('div');
+                                newExtensionField.classList.add('input-group', 'mb-2');
+                                newExtensionField.innerHTML = `
+                                    <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                `;
+                                extensionsGroup.appendChild(newExtensionField);
+                            } else {
+                                alert('Maximum of 10 extensions reached.');
+                            }
                         }
 
                         function removeExtensionField(button) {
@@ -166,4 +189,99 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="newFileTypeModal" tabindex="-1" role="dialog" aria-labelledby="newFileTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newFileTypeModalLabel">Create New File Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-md-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form method="POST" action="{{ route('file-types.store') }}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="type">File Type</label>
+                                            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}">
+                                            @error('type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group" id="extensions-group">
+                                            <label for="extensions">Extensions</label>
+                                            @foreach (old('extensions', []) as $extension)
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            <div class="input-group mb-2">
+                                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-primary" onclick="addExtensionField()">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            @error('extensions.*')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <script>
+                        function addExtensionField() {
+                            var extensionsGroup = document.getElementById('extensions-group');
+                            var extensionFields = extensionsGroup.getElementsByClassName('extensions');
+
+                            if (extensionFields.length < 10) {
+                                var newExtensionField = document.createElement('div');
+                                newExtensionField.classList.add('input-group', 'mb-2');
+                                newExtensionField.innerHTML = `
+                                    <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                `;
+                                extensionsGroup.appendChild(newExtensionField);
+                            } else {
+                                alert('Maximum of 10 extensions reached.');
+                            }
+                        }
+
+                        function removeExtensionField(button) {
+                            var extensionField = button.closest('.input-group');
+                            extensionField.remove();
+                        }
+                                        </script>
+                                        <button type="submit" class="btn btn-primary">Create File Type</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
