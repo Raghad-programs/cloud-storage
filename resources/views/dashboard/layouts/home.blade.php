@@ -6,6 +6,7 @@
 
 <!-- Pass the fileTypeDistribution data as JSON -->
 <script id="fileTypeDistributionData" type="application/json">{!! json_encode($fileTypeDistribution) !!}</script>
+<script src="{{asset("backend/js/Markread.js")}}"></script>
 
 <!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -26,18 +27,20 @@
           
 
         <!-- Nav Item - Alerts -->
+<!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+       aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
         <span class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}</span>
     </a>
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-        aria-labelledby="alertsDropdown">
-        <h6 class="dropdown-header">
+         aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header d-flex justify-content-between align-items-center">
             Alerts Center
+            <a href="{{route('notifications.markAllAsRead')}}" class=" btn-link text-gray-500 " id="markAllAsRead">Mark all as read</a>
         </h6>
         @foreach(auth()->user()->unreadNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -55,6 +58,7 @@
         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
     </div>
 </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
@@ -359,5 +363,8 @@
     var fileTypeData = @json($fileTypeDistribution->values());
     var monthlyLabels = @json($monthlyUploads->pluck('month'));
     var monthlyData = @json($monthlyUploads->pluck('count'));
+    var csrfToken = '{{ csrf_token() }}';
+    var markAllAsReadUrl = '{{ route('notifications.markAllAsRead') }}';
+
 
 </script>
