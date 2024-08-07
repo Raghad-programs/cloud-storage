@@ -39,14 +39,14 @@ class ProfileController extends Controller
     }
 
 
-     public function show($id ,Request $request) 
-     {
-        $user = User::findOrFail($id);
+    //  public function show($id ,Request $request) 
+    //  {
+    //     $user = User::findOrFail($id);
     
-        return view('profile.partials.profile', [
-            'user' => $request->user(),
-        ]);
-    }
+    //     return view('profile.partials.profile', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
      
     /**
      * Delete the user's account.
@@ -69,7 +69,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function profileShow($id)
+    public function show($id)
 {
     $user = User::findOrFail($id);
     $filesNumber = DepartmentStorage::where('department_id', $user->Depatrment_id)
@@ -94,14 +94,14 @@ class ProfileController extends Controller
     $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2);
     $usagePercentage = ($totalFileSize / ($userStorageLimitInMB * 1024 * 1024)) * 100;
 
-    return view('views.profile.partials.profile')->with([
+    return view('profile.partials.profile')->with([
         'user' => $user,
         'filesNumber' => $filesNumber,
         'userStorageLimit' => $userStorageLimitInMB,
         'usagePercentage' => $usagePercentage,
         'participationPercentages' => $participationPercentages,
         'fileSizes'=> $fileSizes,
-        'totalFileSize' => $totalFileSize
+        'totalFileSize' => $totalFileSizeInMB
    ]);
 }
 

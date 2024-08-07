@@ -248,7 +248,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Content Row -->
         <div class="row">
             <!-- Departments Card -->
@@ -270,6 +269,7 @@
                         @endforeach
                     </div>
                 </div>
+
             </div>
 
             <!-- Recent Files Card -->

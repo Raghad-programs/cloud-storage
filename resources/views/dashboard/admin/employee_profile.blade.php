@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section("title", "Employees")  
+@section("title", $employee->name." profile")  
 @section('content')  
 <div class="container mt-4">
     <div class="main-body">
