@@ -19,9 +19,16 @@
     }
 </style>
 
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h2 class="text-gray-800 ">Already existing file types</h2>
+        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newFileTypeModal">
+        Add New File Type
+        </a>
+    </div>
+
 <!-- Begin Page Content -->
-<div class="card-body">
-<h1 class="mb-4">Already existing file types</h1>
+<div class="card-body shadow">
+
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -94,13 +101,20 @@
 });
 </script>
 
-<div class="container ml-0">
-<h1 class="mb-4">Create a new file type</h1>
-    <div class="row justify-content-center mb-3">
-        <div class="col-md-10">
-            <div class="card">
-            <div class="card-header">Create New File Type</div>
-            <div class="card-body">
+
+@endsection
+
+<!-- New File Type Modal -->
+<div class="modal fade" id="newFileTypeModal" tabindex="-1" role="dialog" aria-labelledby="newFileTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newFileTypeModalLabel">Create New File Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
                 <form method="POST" action="{{ route('file-types.store') }}">
                     @csrf
                     <div class="form-group">
@@ -138,34 +152,41 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create File Type</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <script>
+<script>
                         function addExtensionField() {
                             var extensionsGroup = document.getElementById('extensions-group');
-                            var newExtensionField = document.createElement('div');
-                            newExtensionField.classList.add('input-group', 'mb-2');
-                            newExtensionField.innerHTML = `
-                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            `;
-                            extensionsGroup.appendChild(newExtensionField);
+                            var extensionFields = extensionsGroup.getElementsByClassName('extensions');
+
+                            if (extensionFields.length < 10) {
+                                var newExtensionField = document.createElement('div');
+                                newExtensionField.classList.add('input-group', 'mb-2');
+                                newExtensionField.innerHTML = `
+                                    <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                `;
+                                extensionsGroup.appendChild(newExtensionField);
+                            } else {
+                                alert('Maximum of 10 extensions reached.');
+                            }
                         }
 
                         function removeExtensionField(button) {
                             var extensionField = button.closest('.input-group');
                             extensionField.remove();
                         }
-                    </script>
+                                        </script>
 
-                    <button type="submit" class="btn btn-primary">Create File Type</button>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
