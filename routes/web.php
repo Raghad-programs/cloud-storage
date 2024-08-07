@@ -12,7 +12,7 @@ use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\DepartmentStorage;
 use App\Http\Controllers\downloadallController;
-
+use App\Http\Controllers\NotificationController;
 
 
 
@@ -65,6 +65,9 @@ Route::middleware(['auth-check'])->group(function () {
     Route::get('/file-types/{id}/edit', [AdministrationController::class, 'edit'])->name('edit.filetype');
     Route::patch('/file-types/{id}', [AdministrationController::class, 'update'])->name('update.filetype');    
     Route::delete('/file-type/{id}', [AdministrationController::class, 'destroy'])->name('destroy.filetype');
+
+    Route::post('/notifications/markAllAsRead', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+
 
 });
 
