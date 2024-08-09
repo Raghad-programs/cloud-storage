@@ -76,7 +76,7 @@
                         <p class="card-text flex-grow-1">{{ $item->description ?? "No description" }}</p>
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
-                    <small class="text-muted">Uploaded by {{ $item->user->name }}</small>
+                    <small class="text-muted">Uploaded by {{ $item->user->name ?? "Deleted user" }}</small>
                     <a href="{{ route('departmentStorage.download', $item->id) }}" class="btn ">
                         <!-- <i class="'fa fa-file-powerpoint-o"></i> -->
                         <i class="fa fa-download" style="font-size:18px"></i>
