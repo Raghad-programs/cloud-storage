@@ -30,12 +30,15 @@ class ProfileController extends Controller
         
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            
+            'email' => 'required|string|email|max:255'.$user->id,
         ]);
     
-        $user->update($validatedData);
-        return redirect()->route('profile.edit',$user->id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            ]
+        );
+        return redirect()->route('profile.show',$user->id);
     }
 
 

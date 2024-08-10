@@ -88,18 +88,28 @@
 <div class="container mt-4">
     <div class="main-body">
           <div class="row gutters-sm">
+
+        
+
             <div class="col-md-4 mb-3">
-              <div class="card">
+
+
+            <div class="card">
                 <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center text-center">
                     <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4>{{$user->name}}</h4>
-                      <p class="text-secondary mb-1">{{$user->department->department}} user</p>                     
+                        <h4>{{$user->name}}</h4>
+                        <p class="text-secondary mb-1">{{$user->department->department}} user</p>
                     </div>
-                  </div>
+                    <a href="{{route('profile.edit' , $user->id)}}" class="btn btn-primary btn-user btn-circle">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    </div>
                 </div>
-              </div>
+            </div>
+
+
               <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -110,17 +120,9 @@
                     <h6 class="mb-0"><i class="fa fa-folder fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Storage used</h6>
                     <span class="text-secondary">{{ round($usagePercentage, 2) }}%</span>
                   </li>
-                  
                 </ul>
               </div>
-              <div class="card mt-3">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <a class="btn btn-primary btn-user btn-block" href="{{route('profile.show' , $user->id)}}">View User files</a>
-                  <span class="text-secondary"></span>
-                  </li>
-                </ul>
-              </div>
+              @if (auth()->user()->isAdmin())
               <div class="card mt-1">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -129,6 +131,7 @@
                   </li>
                 </ul>
               </div>
+              @endif
             </div>
             <div class="col-md-8">
               <div class="card mb-3">
