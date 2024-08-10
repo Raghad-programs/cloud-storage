@@ -19,7 +19,6 @@ use App\Http\Controllers\NotificationController;
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/user-profile/{id}', [ProfileController::class, 'profileShow'])->name('user.profile');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
