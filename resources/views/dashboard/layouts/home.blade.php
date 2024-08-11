@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <i class="fa fa-folder fa-2x text-gray-300"></i>
+                    <i class="fas fa-cloud-upload-alt fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
