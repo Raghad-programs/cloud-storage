@@ -33,9 +33,12 @@ class AdministrationController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'type' => 'required|string|max:255',
+        'type' => 'required|string|max:255|regex:/^[a-zA-Z]+$/',
         'extensions' => 'required|array',
-        'extensions.*' => 'string|max:255'
+        'extensions.*' => 'string|max:255|regex:/^[a-zA-Z]+$/'
+    ], [
+        'type.regex' => 'The file type must start with a letter and contain only letters.',
+        'extensions.*.regex' => 'The extensions must start with a letter and contain only letters.'
     ]);
 
     $extensions = implode(',', $request->input('extensions')); // Convert the array to a comma-separated string
@@ -43,12 +46,14 @@ class AdministrationController extends Controller
     $fileType = FileType::create([
         'type' => $request->input('type'),
         'extensions' => $extensions, // Store the comma-separated string
+        
     ]);
 
     return redirect()
         ->route('file-types.create')
         ->with('success', 'File type created successfully.');
 }
+
 
 public function update(Request $request, $id)
 {
