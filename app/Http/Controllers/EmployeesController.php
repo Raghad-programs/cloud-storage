@@ -143,17 +143,5 @@ class EmployeesController extends Controller
         return back();
     }
 
-    public function editUserDepartment($id, Request $request)
-    {
-        $employee = User::findOrFail($id);
-        $department = Department::findOrFail($request->input('department_id'));
-    
-        $employee->update([
-            'Depatrment_id' => $department->id,
-        ]);
-    
-        flash()->success('Employee department has been changed');
-        return back();
-    }
-
+   
 }

@@ -44,10 +44,7 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <a class="btn btn-primary btn-user btn-block" href="{{route('show-employee' , $employee->id)}}">View Employee files</a>
-
                   <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">Storage allowance</a>
-                  <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#departmentModal">Change employee department</a>
-
                   <span class="text-secondary"></span>
                   </li>
                 </ul>
@@ -187,43 +184,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" form="employee-permission-form" class="btn btn-primary">Save changes</button>
             </div>
-        </div>
-    </div>
-</div>
-
-
-<!--change department-->
-<div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="departmentModalLabel">Edit Employee Department</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <form id="employee-permission-form" action="{{ route('change.department', $employee->id) }}" method="POST">
-              @csrf
-              @method('PUT')
-              <div class="form-group">
-                  <label for="department">Choose a Department</label>
-                  <select class="form-control" id="department" name="department_id" required>
-                      <option value="">Select a new department</option>
-                      @foreach ($departments as $department)
-                          <option value="{{ $department->id }}" {{ $employee->department_id == $department->id ? 'selected' : '' }}>
-                              {{ $department->department }}
-                          </option>
-                      @endforeach
-                  </select>
-                  <small class="form-text text-muted">Select the department for the employee</small>
-              </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Update Department</button>
-              </div>
-            </form>
         </div>
     </div>
 </div>
