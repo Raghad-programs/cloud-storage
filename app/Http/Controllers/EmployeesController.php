@@ -55,6 +55,8 @@ class EmployeesController extends Controller
     public function profileShow($id)
     {
         $employee = User::findOrFail($id);
+        $departments = Department::all();
+
         $filesNumber = DepartmentStorage::where('department_id', $employee->Depatrment_id)
                                        ->where('user_id', $id)
                                        ->count();
@@ -91,6 +93,7 @@ class EmployeesController extends Controller
                 'totalFileSize' => $totalFileSizeInMB,
                 'usagePercentage' => $usagePercentage,
                 'employeeStorageLimit' => $employeeStorageLimitInMB,
+                'departments' =>$departments,
             ]);
     }
 
@@ -139,4 +142,18 @@ class EmployeesController extends Controller
         flash()->success('Employee storage size has been updated');
         return back();
     }
+
+    public function editUserDepartment($id, Request $request)
+    {
+        $employee = User::findOrFail($id);
+        $department = Department::findOrFail($request->input('department_id'));
+    
+        $employee->update([
+            'Depatrment_id' => $department->id,
+        ]);
+    
+        flash()->success('Employee department has been changed');
+        return back();
+    }
+
 }
