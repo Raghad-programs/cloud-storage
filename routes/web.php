@@ -79,6 +79,8 @@ Route::middleware(['head-auth'])->group(function () {
     ->name('administration.files');
     //adds new category
     Route::post('/add-category', [CategoryController::class , 'store'])->name('category.store');
+    //delete category
+    Route::delete('/delete-category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
     //all employees table
     Route::get('/employees',[EmployeesController::class,'table'])->name('table');
     //single employee profile

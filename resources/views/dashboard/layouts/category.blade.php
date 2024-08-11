@@ -7,42 +7,52 @@
 
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('category.show', $category->id) }}" method="GET">
-        <div class="input-group">
-            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <!-- Filter Form -->
-    <form method="GET" action="{{ route('category.show', $category->id) }}" class="form-inline ml-2">
-        <div class="dropdown">
-            <button class="btn btn-light dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bi bi-funnel-fill"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
-                    All Types
-                </button>
-                @foreach($fileTypes as $type)
-                    <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
-                        {{ $type->type }}
+    <div class="d-flex align-items-center">
+        <!-- Topbar Search -->
+        <form class="d-none d-sm-inline-block form-inline mr-2 my-2 my-md-0 navbar-search" action="{{ route('category.show', $category->id) }}" method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
                     </button>
-                @endforeach
-                <select name="file_type" class="form-control" style="display: none;">
-                    <option id="file_type_all" value="all">All Types</option>
-                    @foreach($fileTypes as $type)
-                        <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
-                    @endforeach
-                </select>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+
+        <!-- Filter Form -->
+        <form method="GET" action="{{ route('category.show', $category->id) }}" class="form-inline mr-2">
+            <div class="dropdown mt-3">
+                <button class="btn btn-light dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-funnel-fill"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                    <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
+                        All Types
+                    </button>
+                    @foreach($fileTypes as $type)
+                        <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
+                            {{ $type->type }}
+                        </button>
+                    @endforeach
+                    <select name="file_type" class="form-control" style="display: none;">
+                        <option id="file_type_all" value="all">All Types</option>
+                        @foreach($fileTypes as $type)
+                            <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @if(auth()->user()->isAdmin())
+    <div class="ml-auto">
+        <button class="btn btn-danger btn-circle text-gray-200 mb-1 delete-btn" data-toggle="modal" data-target="#deleteModal">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+    @endif
 </nav>
 
 <div id="resultsContainer">
@@ -118,3 +128,29 @@
     </div>
 </div>
 @endsection
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Select "Delete" below if you are sure you want to delete this category.</strong></p>
+                <p style="color: red; font-size: 0.9rem;">Note that you can only delete a category if it has no files.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form method="POST" id="deleteForm" action="{{route('category.destroy' , $category->id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
