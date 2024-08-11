@@ -31,23 +31,33 @@
                 </ul>
               </div>
 
-              <div class="card mt-3">
+              <!-- <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                   <a class="btn btn-primary btn-user btn-block" href="{{route('show-employee' , $employee->id)}}">View Employee files</a>
                   <span class="text-secondary"></span>
                   </li>
                 </ul>
-              </div>
+              </div> -->
 
               <div class="card mt-1">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <a class="btn btn-primary btn-user btn-block" href="{{route('show-employee' , $employee->id)}}">View Employee files</a>
                   <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">Storage allowance</a>
                   <span class="text-secondary"></span>
                   </li>
                 </ul>
               </div>
+
+              <!-- <div class="card mt-1">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">Change user department</a>
+                  <span class="text-secondary"></span>
+                  </li>
+                </ul>
+              </div> -->
 
             </div>
             <div class="col-md-8">
@@ -142,9 +152,6 @@
                   </div>
                 </div>
               </div>
-
-
-
             </div>
           </div>
 

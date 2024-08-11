@@ -40,6 +40,8 @@ class CategoryController extends Controller
     public function showall()
     {
         $search =request()->search;
+        $fileTypes = FileType::all();
+
 
         $storageItems = DepartmentStorage::where(function ($query) use ($search) {
             $sq = $search;
@@ -52,8 +54,11 @@ class CategoryController extends Controller
 
         // $storageItems = DepartmentStorage::with('user',)->get();
 
-        return view('dashboard.layouts.allcategory')
-        ->with('storageItems',$storageItems);
+      
+        return view('dashboard.layouts.allcategory', [
+            'storageItems' => $storageItems,
+            'fileTypes' => $fileTypes,
+        ]);
     }
 
 

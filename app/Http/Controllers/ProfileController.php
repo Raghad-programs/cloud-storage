@@ -11,6 +11,8 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Models\DepartmentStorage;
 use App\Models\Category;
+use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\Log;
 class ProfileController extends Controller
 {
     /**
@@ -18,7 +20,15 @@ class ProfileController extends Controller
      */
     public function edit($id){
         $user = User::findOrFail($id);
+
+        if (auth()->user()->can('viewAny', $user)){
         return view('profile.edit')->with('user',$user);
+        } else {
+        // User is not authorized, handle the unauthorized access
+        flash()->error('Unauthorized to access that profile');
+        return back();
+        // abort(403, 'Unauthorized');
+        }
     }
     
     /**
@@ -30,12 +40,15 @@ class ProfileController extends Controller
         
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            
+            'email' => 'required|string|email|max:255'.$user->id,
         ]);
     
-        $user->update($validatedData);
-        return redirect()->route('profile.edit',$user->id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            ]
+        );
+        return redirect()->route('profile.show',$user->id);
     }
 
 
@@ -72,29 +85,33 @@ class ProfileController extends Controller
     public function show($id)
 {
     $user = User::findOrFail($id);
-    $filesNumber = DepartmentStorage::where('department_id', $user->Depatrment_id)
-                                       ->where('user_id', $id)
-                                       ->count();
-    $participationPercentages = $this->calculateParticipationPercentages($user);
-    $userStorageLimitInMB = $this->getEmployeeStorage($user->id);
-    $currentUserDepartment = $user->Depatrment_id; //user department
-    $categories = Category::where('department_id', $currentUserDepartment)->get();
-    $fileSizes = [];
+    if (auth()->user()->can('viewAny', $user)) {
+        // User is authorized, proceed with the action
+
+
+            $filesNumber = DepartmentStorage::where('department_id', $user->Depatrment_id)
+            ->where('user_id', $id)
+            ->count();
+        $participationPercentages = $this->calculateParticipationPercentages($user);
+        $userStorageLimitInMB = $this->getEmployeeStorage($user->id);
+        $currentUserDepartment = $user->Depatrment_id; //user department
+        $categories = Category::where('department_id', $currentUserDepartment)->get();
+        $fileSizes = [];
         $totalFileSize = 0;
         foreach ($categories as $category) {
-            $categoryFileSize = DepartmentStorage::where('department_id', $currentUserDepartment)
-                                                ->where('category_id', $category->id)
-                                                ->where('user_id', $id)
-                                                ->sum('file_size');
-            $fileSizes[$category->name] = round($categoryFileSize / 1024/ 1024, 2); // Convert bytes to MB and round to 2 decimal places
+        $categoryFileSize = DepartmentStorage::where('department_id', $currentUserDepartment)
+                    ->where('category_id', $category->id)
+                    ->where('user_id', $id)
+                    ->sum('file_size');
+        $fileSizes[$category->name] = round($categoryFileSize / 1024/ 1024, 2); // Convert bytes to MB and round to 2 decimal places
         }
-    $totalFileSize = DepartmentStorage::where('user_id', $id)
-    ->sum('file_size');
+        $totalFileSize = DepartmentStorage::where('user_id', $id)
+        ->sum('file_size');
 
-    $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2);
-    $usagePercentage = ($totalFileSize / ($userStorageLimitInMB * 1024 * 1024)) * 100;
+        $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2);
+        $usagePercentage = ($totalFileSize / ($userStorageLimitInMB * 1024 * 1024)) * 100;
 
-    return view('profile.partials.profile')->with([
+        return view('profile.partials.profile')->with([
         'user' => $user,
         'filesNumber' => $filesNumber,
         'userStorageLimit' => $userStorageLimitInMB,
@@ -102,7 +119,13 @@ class ProfileController extends Controller
         'participationPercentages' => $participationPercentages,
         'fileSizes'=> $fileSizes,
         'totalFileSize' => $totalFileSizeInMB
-   ]);
+        ]);
+    } else {
+        // User is not authorized, handle the unauthorized access
+        flash()->error('Unauthorized to access that profile');
+        return back();
+        // abort(403, 'Unauthorized');
+    }
 }
 
 private function calculateParticipationPercentages($user)
