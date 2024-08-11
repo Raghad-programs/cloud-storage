@@ -39,15 +39,13 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255'.$user->id,
+            'phone_number' => 'required|string|max:10'
         ]);
     
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            ]
-        );
+        $user->update($validatedData);
         return redirect()->route('profile.show',$user->id);
     }
 
