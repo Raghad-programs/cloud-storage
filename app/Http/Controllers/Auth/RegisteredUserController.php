@@ -53,6 +53,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        flash()->success('employee registeration successsful!');
         return redirect(route('table', absolute: false));
     }
 }

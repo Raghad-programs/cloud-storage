@@ -50,7 +50,9 @@ class DashboardController extends Controller
     // $userUsedStoragePercentage = round(($userUsedStorage / $totalUserStorage) * 100, 2);
 
     $totalFileSize = DepartmentStorage::where('user_id', auth()->user()->id)
+    ->orWhereNull('id')
     ->sum('file_size');
+    
     $employeeStorageLimitInMB = $this->getEmployeeStorage(auth()->user()->id); // Get the storage limit for the employee in MB
     $userUsedStoragePercentage = ($totalFileSize / ($employeeStorageLimitInMB * 1024 * 1024)) * 100;
     $userUsedStoragePercentage = round($userUsedStoragePercentage ,2);
