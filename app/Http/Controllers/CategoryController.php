@@ -74,4 +74,21 @@ class CategoryController extends Controller
     return redirect('dashboard');
     }
 
+
+    public function destroy(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        $filesCount = DepartmentStorage::where('category_id', $category->id)->count();
+
+        if ($filesCount > 0) {
+        flash()->error('Cannot delete category as it has associated files.');
+        return redirect()->back();
+        } else {
+        // Delete the category
+        $category->delete();
+        flash()->success('Category deleted successfully.');
+        return redirect()->route('dashboard');
+        }
+    }
+
 }
