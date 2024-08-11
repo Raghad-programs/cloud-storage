@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 use View;
 use Auth;
+use App\Policies\UserPolicy;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -39,5 +40,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('categories', $categories);
         });
     }
+
+    protected $policies = [
+        User::class => UserPolicy::class,
+    ];
 }
 
