@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('department_storages', function (Blueprint $table) {
-            $table->longText('description')->nullable()->after('file_type');;
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name', 'first_name');
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('department_storages', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('first_name', 'name');
         });
     }
 };
