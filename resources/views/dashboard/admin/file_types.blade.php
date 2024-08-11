@@ -17,6 +17,17 @@
     table.table td:nth-child(4) {
         text-align: center;
     }
+    /* Allow modal to grow based on content */
+    .modal-dialog {
+        max-width: 90vw; /* Adjust as necessary */
+        margin: 1.75rem auto; /* Center the modal */
+    }
+
+    .modal-content {
+        width: 100%;
+        height: auto; /* Ensure height is based on content */
+    }
+
 </style>
 
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -27,8 +38,7 @@
     </div>
 
 <!-- Begin Page Content -->
-<div class="card-body shadow">
-
+<div class="card-body">
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -152,15 +162,6 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Create File Type</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
                         function addExtensionField() {
@@ -190,3 +191,10 @@
                         }
                                         </script>
 
+                    <button type="submit" class="btn btn-primary">Create File Type</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
