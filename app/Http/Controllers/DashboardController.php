@@ -7,6 +7,7 @@ use App\Models\DepartmentStorage;
 use App\Models\FileType;
 use App\Models\Department;
 use App\Models\User;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -54,10 +55,17 @@ class DashboardController extends Controller
     $userUsedStoragePercentage = ($totalFileSize / ($employeeStorageLimitInMB * 1024 * 1024)) * 100;
     $userUsedStoragePercentage = round($userUsedStoragePercentage ,2);
 
+
+    $totalStorageUsed = $this->getTotalStorageUsed();
+    $formattedTotalStorageUsed = $this->formatBytes($totalStorageUsed);
+
+
+
+
     return view('dashboard.layouts.home', compact(
         'totalDocuments', 'monthlyUploads','documentsPerDepartment',
         'fileTypeDistribution', 'recentUploads', 'topDepartments','DocumentsForUser'
-        ,'recentUpload','userUsedStoragePercentage'
+        ,'recentUpload','userUsedStoragePercentage','formattedTotalStorageUsed'
     ));
 }
 
@@ -73,4 +81,25 @@ public function getEmployeeStorage($employeeID){
         ->sum('file_size');
     }
 
+    private function getTotalStorageUsed()
+    {
+        return DB::table('department_storages')
+            ->sum('file_size');
+    }
+
+    private function formatBytes($bytes, $precision = 2)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= pow(1024, $pow);
+
+        return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
+
 }
+

@@ -95,14 +95,16 @@
 </nav>
 <!-- End of Topbar -->
 
+
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
     <!-- Content Row -->
    <div class="row">
     <!-- Total Documents Card -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
+    <div class="col-xl-3 col-md-3 mb-4">
+<div class="card card-custom border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -118,23 +120,27 @@
         </div>
     </div>
 
-    <!-- New Card -->
+
+
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Documents(For Department)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $documentsPerDepartment }}</div>
+    <div class="card border-left-danger shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        Total Consumed Storage
                     </div>
-                    <div class="col-auto">
-                        <i class="fa fa-folder fa-2x text-gray-300"></i>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{ $formattedTotalStorageUsed }}
                     </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fa fa-folder fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Total Documents (For Department) Card -->
     <div class="col-xl-3 col-md-6 mb-4">
