@@ -46,13 +46,12 @@ class DepartmentStorageController extends Controller
     }
 
 
-    public function store(StoreDepartmentStorageRequest $request,VirusTotalService $virusTotalService)
+    public function store(StoreDepartmentStorageRequest $request, VirusTotalService $virusTotalService)
     {
         $validatedData = $request->validated();
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = $this->getFolderName($fileType->type);
         $file = $request->file('file');
-
 
         // Scan the file using VirusTotal
         $scanResult = $virusTotalService->scanFile($file->getPathname());
@@ -63,28 +62,30 @@ class DepartmentStorageController extends Controller
             flash()->error('Virus detected in the file. File not saved.');
             return redirect(route('upload-file'));
         }
+
         // Check file size
         $this->checkFileSize($fileType->type, $file);
 
         // Check total file size
-        $this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize());
+        if ($this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize())) {
+            // Store the file
+            $filePath = $file->store("department_storage/{$folderName}", 'local');
+            $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
 
-        // Store the file
-        $filePath = $file->store("department_storage/{$folderName}", 'local');
-        $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
+            // Confirmation
+            $user = $request->user();
+            $message = 'A new file has been uploaded by user ' . $user->name;
+            // Notify department admins
+            $user->notifyDepartmentAdmins($message);
+            // Notify the user
+            $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
 
-    //confirmation
-    $user = $request->user();
-    $message = 'A new file has been uploaded by user ' . $user->name;
-    // Notify department admins
-    $user->notifyDepartmentAdmins($message);
-    // Notify the user
-    $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
-
-
-
-        flash()->success('The file is saved successfully!!');
-        return redirect(route('upload-file'));
+            flash()->success('The file is saved successfully!!');
+            return redirect(route('upload-file'));
+        } else {
+            flash()->error('You have reached the storage limit. File not saved.');
+            return redirect(route('upload-file'));
+        }
     }
     protected function scanFileWithVirusTotal($file, VirusTotalService $virusTotalService)
     {
@@ -101,7 +102,6 @@ class DepartmentStorageController extends Controller
     {
         $maxFileSize = $this->getMaxFileSize($fileType);
         if ($file->getSize() > $maxFileSize * 1024 * 1024) {
-            flash()->error("The maximum file size for {$fileType} files is {$maxFileSize}MB.");
             return redirect(route('upload-file'));
         }
     }
@@ -110,10 +110,12 @@ class DepartmentStorageController extends Controller
     {
         $user = User::findOrFail($userId);
         $totalFileSize = $this->getUserTotalFileSize($userId, $departmentId);
+    
         if ($totalFileSize + $fileSize > $user->storage_size * 1024 * 1024) { // Convert to bytes
-            flash()->error("You have reached the maximum file storage limit of {$user->storage_size}MB for your department.");
-            return redirect(route('upload-file'));
+            return false;
         }
+    
+        return true;
     }
 
     protected function createDepartmentStorage($request, $fileType, $filePath, $fileSize)
@@ -138,23 +140,18 @@ class DepartmentStorageController extends Controller
             ->where('department_id', $departmentId)
             ->sum('file_size');
     }
-     
-
     private function getMaxFileSize($fileType)
     {
-    $maxFileSizes = [
-        'Document' => 2, // 2 MB
-        'Powerpoint' => 5, // 5 MB
-        'Image' => 5, // 5 MB
-        'Video' => 20, // 20 MB
-        'PDF' => 5, // 5 MB
-    ];
+        $maxFileSizes = [
+            'Document' => 2, // 2 MB
+            'Powerpoint' => 5, // 5 MB
+            'Image' => 5, // 5 MB
+            'Video' => 20, // 20 MB
+            'PDF' => 5, // 5 MB
+        ];
 
-    return $maxFileSizes[$fileType] ?? 2; // Default to 2MB if not found
+        return $maxFileSizes[$fileType] ?? 2; // Default to 2MB if not found
     }
-
-    
-
 
     public function showfile()
     {
