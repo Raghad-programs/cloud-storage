@@ -13,25 +13,20 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-     
-            <!-- Dropdown - Messages -->
-          
-
-        <!-- Nav Item - Alerts -->
+<!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+       aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
         <span class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}</span>
     </a>
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-        aria-labelledby="alertsDropdown">
-        <h6 class="dropdown-header">
+         aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header d-flex justify-content-between align-items-center">
             Alerts Center
+            <a href="{{route('notifications.markAllAsRead')}}" class=" btn-link text-gray-500 " id="markAllAsRead">Mark all as read</a>
         </h6>
         @foreach(auth()->user()->unreadNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -49,6 +44,7 @@
         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
     </div>
 </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
@@ -58,8 +54,8 @@
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
                 <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
-            <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+             <!-- Dropdown - User Information -->
+             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="/profile/{{auth()->user()->id}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
