@@ -67,8 +67,13 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <input name="name" type="text" class="form-control form-control-user" id="exampleFirstName"
-                                        placeholder="Name" value="{{ old('name') }}" required>
+                                    <input name="first_name" type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        placeholder="First Name" value="{{ old('first_name') }}" >
+                                </div>
+
+                                <div class="form-group">
+                                    <input name="last_name" type="text" class="form-control form-control-user" id="exampleLastName"
+                                        placeholder="Last Name" value="{{ old('last_name') }}" required>
                                 </div>
 
                                 <div class="form-group">

@@ -159,7 +159,7 @@ class DepartmentStorageController extends Controller
         $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)
                             ->where('user_id', auth()->id())
                             ->get();
-        $userName = auth()->user()->name;
+        $userName = auth()->user()->first_name;
 
         
         if (auth()->user()->role_id == 1) {

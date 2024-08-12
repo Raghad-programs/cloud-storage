@@ -27,7 +27,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Department</th>
                             <th>Email</th>
                             <th>Created At</th>
@@ -38,7 +39,9 @@
                         @forelse ($users as $user)
                         @if ($user->role_id == 2)
                         <tr>
-                            <td><a href="{{ route('employee.profile', $user->id) }}">{{ $user->name }}</a></td>
+                            <td><a href="{{ route('employee.profile', $user->id) }}">{{ $user->first_name }}</a></td>
+                            <td>{{ $user->last_name }}</a></td>
+
                             <td>{{ $user->department->department }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at ? $user->created_at->format('Y-m-d') : '-' }}</td>
