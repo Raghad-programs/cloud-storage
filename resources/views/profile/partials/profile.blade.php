@@ -28,6 +28,7 @@
             Alerts Center
             <a href="{{route('notifications.markAllAsRead')}}" class=" btn-link text-gray-500 " id="markAllAsRead">Mark all as read</a>
         </h6>
+        @if(auth()->user()->unreadNotifications->count() > 0)
         @foreach(auth()->user()->unreadNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="mr-3">
@@ -41,7 +42,19 @@
                 </div>
             </a>
         @endforeach
-        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+        @else
+        <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                    <div class="icon-circle bg-light">
+                        <i class="fas fa-info-circle text-gray-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="small text-gray-500">No new notifications</div>
+                </div>
+            </a>
+        @endif
+
     </div>
 </li>
 
@@ -51,7 +64,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{$user->first_name }}&nbsp;{{$user->last_name}}</span>
                 <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
              <!-- Dropdown - User Information -->
@@ -87,7 +100,9 @@
                     <div class="d-flex flex-column justify-content-center align-items-center text-center">
                     <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                        <h4>{{$user->name}}</h4>
+                        <h4>
+                        {{$user->first_name }}&nbsp;{{$user->last_name}}
+                      </h4>
                         <p class="text-secondary mb-1">{{$user->department->department}} user</p>
                     </div>
                     <a href="{{route('profile.edit' , $user->id)}}" class="btn btn-primary btn-user btn-circle">
@@ -129,7 +144,7 @@
                       <h6 class="mb-0">Full Name</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    {{$user->name}}
+                    {{$user->first_name }}&nbsp;{{$user->last_name}}
                     </div>
                   </div>
                   <hr>
@@ -139,6 +154,15 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{$user->email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone Number</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{$user->phone_number}}
                     </div>
                   </div>
                   <hr>
@@ -158,6 +182,19 @@
                     <div class="col-sm-8 text-secondary">
                       {{$filesNumber}}
                     </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                   <div class="col-sm-3">
+                    <h6 class="mb-0">LinkedIn</h6>
+                   </div>
+                  <div class="col-sm-9 text-secondary">
+               @if ($user->linkedin_url)
+                  <a href="{{ $user->linkedin_url }}" target="_blank">{{ $user->linkedin_url }}</a>
+                @else
+                   -
+                @endif
+                 </div>
                   </div>
                 </div>
               </div>

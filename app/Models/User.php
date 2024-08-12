@@ -28,10 +28,12 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'phone_number',
         'password',
         'Depatrment_id',
         'role_id',
-        'storage_size'
+        'storage_size',
+        'linkedin_url'
     ];
 
 

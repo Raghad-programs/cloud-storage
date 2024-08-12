@@ -55,7 +55,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->name}}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->first_name}}&nbsp;{{auth()->user()->last_name}}</span>
                 <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
              <!-- Dropdown - User Information -->
@@ -79,52 +79,78 @@
 
 
 <div class="container mt-5">
-<div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card mb-1">
-        <div class="card-body">
-          <div class="d-flex flex-column align-items-center text-center">
-            <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
-            <div class="mt-3">
-              <h4>{{$user->name}}</h4>
-              <p class="text-secondary mb-1">{{$user->department->department}} user</p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- User profile card -->
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
+                        <div class="mt-3">
+                            <h4>{{ $user->first_name }} {{ $user->last_name }}</h4>
+                            <p class="text-secondary mb-1">{{ $user->department->department }} user</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <form action="{{ route('profile.update', $user->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="card mb-1">
-        <div class="card-body">
-            <div class="row">
-            <div class="col-sm-3">
-                <h6 class="mb-0">Full Name</h6>
-            </div>
-            <div class="col-sm-9">
-                <input name="name" type="text" class="form-control" value="{{$user->name}}">
-            </div>
-            </div>
-            <hr>
-            <div class="row">
-            <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
-            </div>
-            <div class="col-sm-9">
-                <input name="email" type="text" class="form-control" value="{{$user->email}}">
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="card ">
-            <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                <button type="submit" class="btn btn-primary btn-user btn-block">Update profile</button>
-                </form>
-            </li>
-            </ul>
+
+            <!-- User profile form -->
+            <form action="{{ route('profile.update', $user->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="card mb-1">
+                    <div class="card-body">
+                        <!-- Full name -->
+                        <div class="row">
+                            <div class="col-sm-3 mt-2">
+                                <h6 class="mb-0">Full Name</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10 ml-3">
+                                    <input name="first_name" type="text" class="form-control" value="{{ $user->first_name }}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <input name="last_name" type="text" class="form-control" value="{{ $user->last_name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!-- Email -->
+                        <div class="row">
+                            <div class="col-sm-3 mt-2">
+                                <h6 class="mb-0">Email</h6>
+                            </div>
+                            <div class="col-sm-9">
+                                <input name="email" type="text" class="form-control" value="{{$user->email}}">
+                            </div>
+                        </div>
+                        <hr>
+
+                        <!-- Phone number -->
+                        <div class="row">
+                            <div class="col-sm-3 mt-2">
+                                <h6 class="mb-0">Phone number</h6>
+                            </div>
+                            <div class="col-sm-9">
+                                <input name="phone_number" type="text" class="form-control" value="{{ $user->phone_number }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update profile button -->
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Update profile</button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
         </div>
     </div>
-  </div>
 </div>
 @endsection
