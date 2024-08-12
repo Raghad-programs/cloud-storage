@@ -42,6 +42,27 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
+    public function checkLogin(Request $request): RedirectResponse
+    {
+        $request->validate([
+            "email" => ["required", "string"],
+            "password" => ["required", "string"]
+        ]);
+
+        if (Auth::guard('web')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended($this->redirectPath());
+        } else {
+            return redirect()->back()
+                ->withInput(['email' => $request->email])
+                ->withErrors(['errorResponse' => 'These credentials do not match our records']);
+        }
+    }
+
+    protected function redirectPath()
+    {
+        return route('dashboard');
+    }
+
     /**
      * Destroy an authenticated session.
      */

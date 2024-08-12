@@ -32,7 +32,8 @@ class User extends Authenticatable
         'password',
         'Depatrment_id',
         'role_id',
-        'storage_size'
+        'storage_size',
+        'linkedin_url'
     ];
 
 

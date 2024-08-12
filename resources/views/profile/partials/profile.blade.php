@@ -183,6 +183,19 @@
                       {{$filesNumber}}
                     </div>
                   </div>
+                  <hr>
+                  <div class="row">
+                   <div class="col-sm-3">
+                    <h6 class="mb-0">LinkedIn</h6>
+                   </div>
+                  <div class="col-sm-9 text-secondary">
+               @if ($user->linkedin_url)
+                  <a href="{{ $user->linkedin_url }}" target="_blank">{{ $user->linkedin_url }}</a>
+                @else
+                   -
+                @endif
+                 </div>
+                  </div>
                 </div>
               </div>
               <div class="row gutters-sm">
