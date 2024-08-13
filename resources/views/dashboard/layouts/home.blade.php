@@ -16,7 +16,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-globe fa-fw"></i>
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('lang', 'en') }}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('lang') == 'ar' ? 'Ar' : 'En' }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" aria-labelledby="languageDropdown">
                 <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'en']) }}">
