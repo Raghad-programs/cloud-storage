@@ -32,28 +32,30 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone_number' => ['required'],
-            'department' => ['required', 'exists:departments,id'],
-        ]);
+{
+    $request->validate([
+        'first_name' => ['required', 'string', 'max:255'],
+        'last_name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'phone_number' => ['required'],
+        'department' => ['required', 'exists:departments,id'],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'profile_pic' => '-',
-            'phone_number' => $request->phone_number,
-            'Depatrment_id' => $request->department,
-            'role_id' => 2
-        ]);
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'profile_pic' => '-',
+        'phone_number' => $request->phone_number,
+        'Depatrment_id' => $request->department,
+        'role_id' => 2
+    ]);
 
-        event(new Registered($user));
+    event(new Registered($user));
 
-        flash()->success('employee registeration successsful!');
-        return redirect(route('table', absolute: false));
-    }
+    flash()->success('employee registration successsful!');
+    return redirect(route('table', absolute: false));
+}
 }
