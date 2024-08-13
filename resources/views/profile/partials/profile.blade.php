@@ -4,6 +4,26 @@
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+<!-- Language Dropdown -->
+<ul class="navbar-nav">
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-globe fa-fw"></i>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('lang', 'en') }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" aria-labelledby="languageDropdown">
+                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'en']) }}">
+                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
+                    English
+                </a>
+                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'ar']) }}">
+                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
+                    العربية
+                </a>
+            </div>
+        </li>
+    </ul>
+
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
