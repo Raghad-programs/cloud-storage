@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentStorageController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SearchController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\NotificationController;
 Route::get('/' , [WelcomeController::class ,'index'])->name('welcome');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
+Route::get('/lang/{lang}' , [LangController::class, 'change'])->name('change.language');
 
 Route::middleware(['auth-check'])->group(function () {
 

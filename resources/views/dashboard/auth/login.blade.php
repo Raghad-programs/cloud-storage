@@ -32,7 +32,7 @@
                     <div class="card-body p-0 ">
                         <div class="p-5 ">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                <h1 class="h4 text-gray-900 mb-4"> @lang('strings.welcome') </h1>
                             </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -48,29 +48,26 @@
                                 <div class="form-group">
                                     <input name="email" type="email" class="form-control form-control-user"
                                         id="exampleInputEmail" aria-describedby="emailHelp"
-                                        placeholder="Enter Email Address...">
+                                        placeholder="@lang('strings.enter_email')">
                                 </div>
                                 <div class="form-group">
                                     <input name="password" type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password">
+                                        id="exampleInputPassword" placeholder="@lang('strings.password')">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input type="checkbox" class="custom-control-input" id="customCheck" name="remember">
-                                        <label class="custom-control-label" for="customCheck">Remember
-                                            Me</label>
+                                        <label class="custom-control-label" for="customCheck">@lang('strings.remember')</label>
+
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Login
+                                    @lang('strings.login')
                                 </button>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                <a class="small" href="{{ route('password.request') }}">@lang('strings.forgot')</a>
                             </div>
                         </div>
                     </div>
