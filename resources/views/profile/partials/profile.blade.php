@@ -71,12 +71,12 @@
              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="/profile/{{auth()->user()->id}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    @lang('strings.profile')
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                    @lang('strings.logout')
                 </a>
             </div>
         </li>
@@ -103,7 +103,7 @@
                         <h4>
                         {{$user->first_name }}&nbsp;{{$user->last_name}}
                       </h4>
-                        <p class="text-secondary mb-1">{{$user->department->department}} user</p>
+                        <p class="text-secondary mb-1">{{$user->department->department}} @lang('strings.employee')</p>
                     </div>
                     <a href="{{route('profile.edit' , $user->id)}}" class="btn btn-primary btn-user btn-circle">
                         <i class="far fa-edit"></i>
@@ -120,11 +120,11 @@
                     <span class="text-secondary">{{ $user->linkedin_url }}</span>
                   </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0"><i class="fas fa-hdd fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Max Storage allowed</h6>
+                    <h6 class="mb-0"><i class="fas fa-hdd fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>@lang('strings.max_Storage')</h6>
                     <span class="text-secondary">{{ round($userStorageLimit /1024 ,2) }} GB</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0"><i class="fa fa-folder fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Storage used</h6>
+                    <h6 class="mb-0"><i class="fa fa-folder fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>@lang('strings.storage_used')</h6>
                     <span class="text-secondary">{{ round($usagePercentage, 2) }}%</span>
                   </li>
                 </ul>
@@ -133,7 +133,7 @@
               <div class="card mt-1">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">Storage allowance</a>
+                  <a class="btn btn-primary btn-user btn-block"  data-toggle="modal" data-target="#permissionModal">@lang('strings.storage_allow')</a>
                   <span class="text-secondary"></span>
                   </li>
                 </ul>
@@ -145,7 +145,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
+                      <h6 class="mb-0">@lang('strings.full_name')</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                     {{$user->first_name }}&nbsp;{{$user->last_name}}
@@ -154,7 +154,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
+                      <h6 class="mb-0">@lang('strings.email')</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{$user->email}}
@@ -163,7 +163,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Phone Number</h6>
+                      <h6 class="mb-0">@lang('strings.phone')</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{$user->phone_number}}
@@ -172,7 +172,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Departmen</h6>
+                      <h6 class="mb-0">@lang('strings.department')</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                     {{$user->department->department}}
@@ -181,7 +181,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">Number of files</h6>
+                      <h6 class="mb-0">@lang('strings.number_files')</h6>
                     </div>
                     <div class="col-sm-8 text-secondary">
                       {{$filesNumber}}
@@ -193,7 +193,7 @@
                 <div class="col-sm-6 mb-3">
                   <div class="card ">
                     <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="fa fa-bar-chart text-info mr-2"></i>Participation in Categories</h6>
+                      <h6 class="d-flex align-items-center mb-3"><i class="fa fa-bar-chart text-info mr-2"></i>@lang('strings.participat_categories')</h6>
                       @if (!empty($participationPercentages))
                             @foreach ($participationPercentages as $category => $percentage)
                             <div class="d-flex justify-content-between">
@@ -205,7 +205,7 @@
                             </div>
                             @endforeach
                         @else
-                            <p>No participation data available.</p>
+                            <p>@lang('strings.no_data')</p>
                         @endif
                     </div>
                   </div>
@@ -214,7 +214,7 @@
                   <div class="card h-100">
                   <div class="card-body">
                         <h6 class="d-flex align-items-center mb-3">
-                            <i class="fa fa-bar-chart text-info mr-2"></i>Storage consumtion by category
+                            <i class="fa fa-bar-chart text-info mr-2"></i>@lang('strings.storage_consumtion')
                         </h6>
                         @if (!empty($fileSizes))
                             @foreach ($fileSizes as $category => $size)
@@ -227,14 +227,14 @@
                             </div>
                             @endforeach
                             <div class="d-flex justify-content-between">
-                                <small>Total size consumed</small>
+                                <small>@lang('strings.total_consumed')</small>
                                 <small>{{ $totalFileSize}} MB</small>
                             </div>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $usagePercentage }}%" aria-valuenow="{{ $usagePercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         @else
-                            <p>No file upload data available.</p>
+                            <p>@lang('strings.no_data')</p>
                         @endif
                     </div>
                   </div>
@@ -252,7 +252,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="permissionModalLabel">Edit Employee Permissions</h5>
+                <h5 class="modal-title" id="permissionModalLabel">@lang('strings.edit_permission')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -262,15 +262,15 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="totalUploadSize">Total Upload Size</label>
+                        <label for="totalUploadSize">@lang('strings.total_upload_size')</label>
                         <input type="number" class="form-control" id="totalUploadSize" name="storage_size" value="{{ $user->storage_size }}" required>
-                        <small class="form-text text-muted">Enter the total upload size in MB</small>
+                        <small class="form-text text-muted">@lang('strings.enter_mb')</small>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="employee-permission-form" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('strings.close')</button>
+                <button type="submit" form="employee-permission-form" class="btn btn-primary">@lang('strings.save')</button>
             </div>
         </div>
     </div>
