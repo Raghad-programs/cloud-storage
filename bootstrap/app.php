@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'user-auth'=>App\Http\Middleware\UserMiddleware::class,
             'head-auth'=> App\Http\Middleware\HeadMiddleware::class,
             'auth-check'=> App\Http\Middleware\LoginCheckMiddleware::class,
+            'lang' => App\Http\Middleware\LocalizationMiddleware::class,
+        ]);
+
+        $middleware->web(append:[
+            App\Http\Middleware\LocalizationMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
