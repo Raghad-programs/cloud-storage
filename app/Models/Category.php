@@ -11,6 +11,7 @@ class Category extends Model
 
     protected $fillable =[
         'name',
+        'name_ar',
         'department_id'
     ];
     public function department()

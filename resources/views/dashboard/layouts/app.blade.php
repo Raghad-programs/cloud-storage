@@ -242,7 +242,7 @@
                         <input type="text" class="form-control" id="categoryName" name="name" placeholder="@lang('strings.category_en')" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="categoryName" name="name" placeholder="@lang('strings.category_ar')" required>
+                        <input type="text" class="form-control" id="categoryName" name="name_ar" placeholder="@lang('strings.category_ar')" required>
                     </div>
                 </form>
             </div>
