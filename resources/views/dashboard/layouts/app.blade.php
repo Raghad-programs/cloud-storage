@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" @if(App::getlocale()=='ar')
+    dir="rtl"
+    @else
+    dir="ltr"
+    @endif
+    >
 
 <head>
 <link rel="icon" type="image/png" sizes="512x512" href={{asset("backend/img/logo.png")}}>
