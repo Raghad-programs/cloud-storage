@@ -82,44 +82,55 @@ class DepartmentStorageController extends Controller
     $virusTotalService = app(VirusTotalService::class);
     $scanResponse = $virusTotalService->scanFile($filePath);
 
-    \Log::info('VirusTotal Scan Response: ', $scanResponse); //Logs the response from VirusTotal
+    \Log::info('VirusTotal Scan Response: ', $scanResponse);
 
-    if (isset($scanResponse['response_code']) && $scanResponse['response_code'] == 1) { //VirusTotal returns a response_code of 1 when a scan is successfully initiated.
-        $reportResponse = $virusTotalService->getReport($scanResponse['resource']);
+    if (isset($scanResponse['response_code']) && $scanResponse['response_code'] == 1) {
+        $resource = $scanResponse['resource']; //Get the resource identifier for the file
 
-        \Log::info('VirusTotal Report Response: ', $reportResponse); //Logs the report response
+        // Retry mechanism
+        //The retry mechanism gives the VirusTotal scan some time to complete.
+        // Instead of trying to get the report immediately after scanning.
+        $retries = 5;
+        while ($retries > 0) { //will attempt to retrieve the scan report 5 times
+            $reportResponse = $virusTotalService->getReport($resource);  // Attempt to get the report
 
-        if (isset($reportResponse['positives'])) { //positives key indicates the number of antivirus
-            if ($reportResponse['positives'] == 0) { //no threats were detected.
-                // Move file to the final storage
-                $finalPath = $file->store("department_storage/{$folderName}", 'local');
-                //report for the file using the hash of the file
-                $this->createDepartmentStorage($request, $fileType, $finalPath, $file->getSize());
+            \Log::info('VirusTotal Report Response: ', $reportResponse);
 
-                // Confirmation
-                $user = $request->user();
-                $message = 'A new file has been uploaded by user ' . $user->name;
-                // Notify department admins
-                $user->notifyDepartmentAdmins($message);
-                // Notify the user
-                $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
+            if (isset($reportResponse['positives'])) { // If the report is ready
+                if ($reportResponse['positives'] == 0) { //  If no threats are detected
+                    $finalPath = $file->store("department_storage/{$folderName}", 'local');
+                    $this->createDepartmentStorage($request, $fileType, $finalPath, $file->getSize());
 
-                return ['status' => 'success'];
+                    $user = $request->user();
+                    $message = 'A new file has been uploaded by user ' . $user->name;
+                    $user->notifyDepartmentAdmins($message);
+                    $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
+
+                    return ['status' => 'success'];
+                } else {
+                    return ['status' => 'error', 'message' => 'The file is flagged as malicious by VirusTotal.'];
+                }
+            } elseif (isset($reportResponse['response_code']) && $reportResponse['response_code'] == 1) {
+                // Report is not ready, retry after a delay
+                sleep(10); // wait for 10 seconds before retrying between each retry
+                //This gives VirusTotal more time to complete the scan.
+                $retries--;
             } else {
-                // Handle file detected as malicious
-                return ['status' => 'error', 'message' => 'The file is flagged as malicious by VirusTotal.'];
+                // Handle cases where the report is not available or there's an error
+                $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : 'The file scan result is not available.';
+                return ['status' => 'error', 'message' => $errorMessage];
             }
-        } else {
-            // Handle cases where 'positives' key is not set
-            $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : 'The file scan result is not available.';
-            return ['status' => 'error', 'message' => $errorMessage];
         }
+
+        // After retries, if the report is still not ready
+        return ['status' => 'error', 'message' => 'The file scan did not complete in time.'];
     } else {
-        // Handle error cases
+         // Handle error cases during file scanning
         $errorMessage = isset($scanResponse['verbose_msg']) ? $scanResponse['verbose_msg'] : 'Error scanning the file with VirusTotal.';
         return ['status' => 'error', 'message' => $errorMessage];
     }
 }
+
 
 
     
