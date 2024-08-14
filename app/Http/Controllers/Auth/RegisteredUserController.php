@@ -62,8 +62,8 @@ class RegisteredUserController extends Controller
     event(new Registered($user));
 
     // Send welcome email to the newly registered user
-    $mailController = new MailController();
-    $mailController->sendWelcomeMail($request->email);
+    //$mailController = new MailController();
+   // $mailController->sendWelcomeMail($request->email);
 
     flash()->success('employee registration successsful!');
     return redirect(route('table', absolute: false));
