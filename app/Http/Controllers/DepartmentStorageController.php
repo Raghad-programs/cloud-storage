@@ -22,6 +22,7 @@ class DepartmentStorageController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         //
@@ -45,53 +46,87 @@ class DepartmentStorageController extends Controller
         ]);
     }
 
-
-    public function store(StoreDepartmentStorageRequest $request, VirusTotalService $virusTotalService)
+    public function store(StoreDepartmentStorageRequest $request)
     {
         $validatedData = $request->validated();
         $fileType = FileType::find($validatedData['file_type']);
         $folderName = $this->getFolderName($fileType->type);
         $file = $request->file('file');
-
-        // Scan the file using VirusTotal
-        $scanResult = $virusTotalService->scanFile($file->getPathname());
-
-        // Handle VirusTotal scan result
-        if ($scanResult && isset($scanResult['response_code']) && $scanResult['response_code'] === 1 && isset($scanResult['positives']) && $scanResult['positives'] > 0) {
-            // Virus found
-            flash()->error('Virus detected in the file. File not saved.');
-            return redirect(route('upload-file'));
-        }
-
+        
         // Check file size
         $this->checkFileSize($fileType->type, $file);
-
+        
         // Check total file size
-        if ($this->checkTotalFileSize(auth()->id(), auth()->user()->Depatrment_id, $fileType, $file->getSize())) {
-            // Store the file
-            $filePath = $file->store("department_storage/{$folderName}", 'local');
-            $this->createDepartmentStorage($request, $fileType, $filePath, $file->getSize());
-
-            // Confirmation
-            $user = $request->user();
-            $message = 'A new file has been uploaded by user ' . $user->name;
-            // Notify department admins
-            $user->notifyDepartmentAdmins($message);
-            // Notify the user
-            $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
-
-            flash()->success('The file is saved successfully!!');
-            return redirect(route('upload-file'));
+        if ($this->checkTotalFileSize(auth()->id(), auth()->user()->Department_id, $fileType, $file->getSize())) {
+            // Store the file temporarily
+            $filePath = $file->store('temp', 'local');
+            
+            // Scan and handle the file
+            $result = $this->scanAndHandleFile(storage_path("app/{$filePath}"), $file, $fileType, $folderName, $request);
+            
+            if ($result['status'] === 'success') {
+                flash()->success('The file is saved successfully!!');
+                return redirect(route('upload-file'));
+            } else {
+                flash()->error($result['message']);
+                return redirect(route('upload-file'));
+            }
         } else {
             flash()->error('You have reached the storage limit. File not saved.');
             return redirect(route('upload-file'));
         }
     }
-    protected function scanFileWithVirusTotal($file, VirusTotalService $virusTotalService)
-    {
-        // Scan the file using VirusTotal service
-        return $virusTotalService->scanFile($file->getPathname());
+    
+    private function scanAndHandleFile($filePath, $file, $fileType, $folderName, $request)
+{
+    $virusTotalService = app(VirusTotalService::class);
+    $scanResponse = $virusTotalService->scanFile($filePath);
+
+    \Log::info('VirusTotal Scan Response: ', $scanResponse); //Logs the response from VirusTotal
+
+    if (isset($scanResponse['response_code']) && $scanResponse['response_code'] == 1) { //VirusTotal returns a response_code of 1 when a scan is successfully initiated.
+        $reportResponse = $virusTotalService->getReport($scanResponse['resource']);
+
+        \Log::info('VirusTotal Report Response: ', $reportResponse); //Logs the report response
+
+        if (isset($reportResponse['positives'])) { //positives key indicates the number of antivirus
+            if ($reportResponse['positives'] == 0) { //no threats were detected.
+                // Move file to the final storage
+                $finalPath = $file->store("department_storage/{$folderName}", 'local');
+                //report for the file using the hash of the file
+                $this->createDepartmentStorage($request, $fileType, $finalPath, $file->getSize());
+
+                // Confirmation
+                $user = $request->user();
+                $message = 'A new file has been uploaded by user ' . $user->name;
+                // Notify department admins
+                $user->notifyDepartmentAdmins($message);
+                // Notify the user
+                $user->notify(new FileUploaded('Your file has been successfully uploaded.'));
+
+                return ['status' => 'success'];
+            } else {
+                // Handle file detected as malicious
+                return ['status' => 'error', 'message' => 'The file is flagged as malicious by VirusTotal.'];
+            }
+        } else {
+            // Handle cases where 'positives' key is not set
+            $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : 'The file scan result is not available.';
+            return ['status' => 'error', 'message' => $errorMessage];
+        }
+    } else {
+        // Handle error cases
+        $errorMessage = isset($scanResponse['verbose_msg']) ? $scanResponse['verbose_msg'] : 'Error scanning the file with VirusTotal.';
+        return ['status' => 'error', 'message' => $errorMessage];
     }
+}
+
+
+    
+
+
+
+
 
     protected function getFolderName($fileType)
     {
@@ -159,7 +194,7 @@ class DepartmentStorageController extends Controller
         $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)
                             ->where('user_id', auth()->id())
                             ->get();
-        $userName = auth()->user()->first_name;
+        $userName = auth()->user()->name;
 
         
         if (auth()->user()->role_id == 1) {

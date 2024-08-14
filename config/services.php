@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'virustotal' => [
+    'api_key' => env('VIRUS_TOTAL_API_KEY'),
+    ],
+
+
+
 ];

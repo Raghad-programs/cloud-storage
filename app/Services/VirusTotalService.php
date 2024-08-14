@@ -2,55 +2,62 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client; //for making HTTP requests.
 
 class VirusTotalService
 {
-    protected $apiKey;
-    protected $client;
+    protected $client; // instance of the Guzzle HTTP client.
+    protected $apiKey; //store the VirusTotal API key.
 
     public function __construct()
     {
-        $this->apiKey = 'cbdcd11036505b454a806464a94a8870213b85d1a121f3f21696955954288807';
-        $this->client = new Client([
-            'base_uri' => 'https://www.virustotal.com/vtapi/v2/',
-        ]);
+        $this->client = new Client(); // Creates a new Guzzle HTTP client instance for making requests.
+        $this->apiKey = env('VIRUS_TOTAL_API_KEY'); // Retrieves the API key from the .env file
     }
 
+
+    //Uploads a file to VirusTotal for scanning and returns the response.
     public function scanFile($filePath)
     {
-        $response = $this->client->post('file/scan', [
+    try {
+        //Sends a POST request to VirusTotal’s file scan endpoint.
+        $response = $this->client->post('https://www.virustotal.com/vtapi/v2/file/scan', [
             'multipart' => [
+        //multipart : format used to send files and form data together in a single request
+
+        //1 - Text Data
                 [
-                    'name' => 'apikey',
+                    'name'     => 'apikey',
                     'contents' => $this->apiKey,
                 ],
+        //2-File Data
                 [
-                    'name' => 'file',
+                    'name'     => 'file',
                     'contents' => fopen($filePath, 'r'),
+                    'filename' => basename($filePath),
                 ],
             ],
         ]);
 
-        // Parse the JSON response from VirusTotal API
-        $scanResult = json_decode($response->getBody()->getContents(), true);
-
-        // Check if response is valid and handle accordingly
-        if ($this->isValidScanResponse($scanResult)) {
-            return $scanResult;
-        } else {
-            return [
-                'response_code' => -1, // Example for handling invalid responses
-                'positives' => 0,      // Example for handling invalid responses
-                // Handle other VirusTotal scan results
-            ];
-        }
-    }
-
-    protected function isValidScanResponse($scanResult)
-    {
-        return isset($scanResult['response_code']) && isset($scanResult['positives']);
-        // Add more checks if necessary based on VirusTotal API documentation
+        return json_decode($response->getBody(), true);
+    } catch (\Exception $e) {
+        return [
+            'response_code' => 0,
+            'verbose_msg' => $e->getMessage(),
+        ];
     }
 }
 
+
+    public function getReport($resource)
+    {
+        $response = $this->client->post('https://www.virustotal.com/vtapi/v2/file/report', [
+            'form_params' => [
+                'apikey' => $this->apiKey,
+                'resource' => $resource,
+            ]
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+}
