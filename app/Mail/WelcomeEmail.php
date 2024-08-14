@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use Faker\Provider\Address;
+use Flasher\Prime\Notification\Envelope;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -23,6 +25,15 @@ class WelcomeEmail extends Mailable
         $this->name = $name;
     }
 
+    // public function envelope():Envelope
+    // {
+    //     return new Envelope(
+    //         subject:'Weolcome Email',
+    //         from: new Address('mailtrap@gmail.com','Admin')
+    //         //may add the admain name 
+    //     );
+    // }
+
     /**
      * Build the message.
      *
@@ -35,5 +46,6 @@ class WelcomeEmail extends Mailable
                     ->with([
                         'name' => $this->name,
                     ]);
+
     }
 }
