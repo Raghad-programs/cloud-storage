@@ -3,6 +3,7 @@
 @section('content') 
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<script src="{{asset("backend/js/Markread.js")}}"></script>
 
 <!-- Language Dropdown -->
 <ul class="navbar-nav">
@@ -264,6 +265,11 @@
           </div>
         </div>
     </div>
+    
+    <script>
+    var csrfToken = '{{ csrf_token() }}';
+    var markAllAsReadUrl = '{{ route('notifications.markAllAsRead') }}';
+</script>
 @endsection
 
 
@@ -295,3 +301,6 @@
         </div>
     </div>
 </div>
+
+
+

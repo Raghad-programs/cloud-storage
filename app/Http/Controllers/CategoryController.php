@@ -37,25 +37,30 @@ class CategoryController extends Controller
 }
 
 
-    public function showall()
+    public function showall(Request $request)
     {
-        $search =request()->search;
         $fileTypes = FileType::all();
+        $user = auth()->user(); // Get the authenticated user
 
+        // Start the query
+        // $query = DepartmentStorage::query();
 
-        $storageItems = DepartmentStorage::where(function ($query) use ($search) {
-            $sq = $search;
-            if (isset($sq) && $sq != null) {
-                $query->where(function ($q) use ($sq) {
-                        $q->where('title', 'like', '%'.$sq.'%');
-                    });
-            }
-        })->get();
+        // Filter by user's department
+        $query=DepartmentStorage::where('department_id', $user->Depatrment_id);
 
-        // $storageItems = DepartmentStorage::with('user',)->get();
+        if ($request->has('file_type') && $request->file_type !== 'all') {
+            $query->where('file_type', $request->file_type);
+        }
+    
+        if ($request->has('search') && $request->search !== null) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%');
+            });
+        }
 
-      
-        return view('dashboard.layouts.allcategory', [
+        $storageItems = $query->with('user')->get();
+
+         return view('dashboard.layouts.allcategory', [
             'storageItems' => $storageItems,
             'fileTypes' => $fileTypes,
         ]);
