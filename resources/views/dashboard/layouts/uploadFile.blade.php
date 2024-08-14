@@ -70,6 +70,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <input type="checkbox" id="responsibility-checkbox" name="responsibility" required>
+                                    <label for="responsibility-checkbox">
+                                        I confirm that I take full responsibility for the content I'm uploading and that it is not malicious.
+                                    </label>
+                                </div>
+                                <div class="form-group">
                                     <input type="file" class="form-control-file" id="file" name="file">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -82,4 +88,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('responsibility-checkbox').addEventListener('change', function() {
+            document.getElementById('upload-button').disabled = !this.checked;
+        });
+    </script>
 @endsection

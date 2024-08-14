@@ -39,11 +39,11 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         
         $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255'.$user->id,
-            'phone_number' => 'required|string|max:10',
-            'linkedin_url' => 'nullable|url|max:255'
+            'first_name' => 'string|max:255',
+            'last_name' => 'string|max:255',
+            'email' => 'string|email|max:255'.$user->id,
+            'phone_number' => 'string|max:10',
+            'linkedin' => 'url|max:255'
         ]);
     
         $user->update($validatedData);

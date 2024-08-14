@@ -11,15 +11,29 @@ use App\Models\FileType;
 
 class AdministrationController extends Controller
 {
-    public function administrationfiles()
+    public function administrationfiles(Request $request)
     {
-    $storageItems = DepartmentStorage::with(['department', 'category', 'user'])->get();
-
+    // $storageItems = DepartmentStorage::with(['department', 'category', 'user'])->get();
     $Category=Category::with('departmentStorages');
+    $fileTypes = FileType::all();
+    $query = DepartmentStorage::query();
+
+    if ($request->has('file_type') && $request->file_type !== 'all') {
+        $query->where('file_type', $request->file_type);
+    }
+
+    if ($request->has('search') && $request->search !== null) {
+        $query->where(function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->search . '%');
+        });
+    }
+
+    $storageItems = $query->with(['department', 'category', 'user'])->get();
 
     return view('dashboard.admin.administrationfiles', [
         'storageItems' => $storageItems,
         'category'=>$Category,
+        'fileTypes' => $fileTypes
     ]);
 
     }
