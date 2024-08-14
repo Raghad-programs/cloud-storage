@@ -141,7 +141,7 @@
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><i class="fa fa-linkedin-square mr-2" style="font-size:28px;color:#6083ff" ></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-1z "></path></svg>Linkdin</h6>
-                    <span class="text-secondary">{{ $user->linkedin_url }}</span>
+                    <a class="text-secondary" href="{{ $user->linkedin_url }}" >{{ $user->linkedin_url }}</a>
                   </li>
                </ul>
             </div>
