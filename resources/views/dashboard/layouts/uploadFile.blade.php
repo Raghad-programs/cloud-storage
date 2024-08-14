@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     <input type="checkbox" id="responsibility-checkbox" name="responsibility" required>
                                     <label for="responsibility-checkbox">
-                                        I confirm that I take full responsibility for the content I'm uploading and that it is not malicious.
+                                    I take responsibility for this content and confirm it is not malicious.                                    </label>
                                     </label>
                                 </div>
                                 <div class="form-group">
