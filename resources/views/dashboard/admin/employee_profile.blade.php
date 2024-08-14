@@ -11,7 +11,7 @@
                   <div class="d-flex flex-column align-items-center text-center">
                     <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
-                      <h4>{{$employee->name}}</h4>
+                      <h4> {{$employee->first_name }}&nbsp;{{$employee->last_name}}</h4>
                       <p class="text-secondary mb-1">{{$employee->department->department}} employee</p>                     
                     </div>
                   </div>
@@ -68,7 +68,7 @@
                       <h6 class="mb-0">Full Name</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    {{$employee->name}}
+                    {{$employee->first_name }}&nbsp;{{$employee->last_name}}
                     </div>
                   </div>
                   <hr>
@@ -78,6 +78,15 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {{$employee->email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">@lang('strings.phone')</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{$employee->phone_number}}
                     </div>
                   </div>
                   <hr>
