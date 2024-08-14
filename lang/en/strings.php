@@ -29,4 +29,17 @@
         'close' => 'Close',
         'save' =>'Save Changes',
         'edit_permission' => 'Edit Employee Max storage',
+        'dashboard' => 'Dashboard',
+        'categories'=>'Categories',
+        'upload' => 'Upload File',
+        'my_archival' => 'My Archival',
+        'all_files'=> 'All Files',
+        'employees' => 'Employees',
+        'file_types' => 'File Types',
+        'files' => 'Files',
+        'add_category' => 'Add a new category',
+        'category_name' => 'Category Name',
+        'category_ar' => 'Write category name in Arabic',
+        'category_en' => 'Write category name in English'
+
     ];

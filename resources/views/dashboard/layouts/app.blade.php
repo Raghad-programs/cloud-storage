@@ -4,7 +4,7 @@
     @else
     dir="ltr"
     @endif
-    >
+     >
 
 <head>
 <link rel="icon" type="image/png" sizes="512x512" href={{asset("backend/img/logo.png")}}>
@@ -34,7 +34,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="{{asset("backend/css/sb-admin-2.min.css")}}" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -43,48 +42,54 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex " id="accordionSidebar" style="padding:0px">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon ml-2">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon">
                 <i class="material-icons" style="font-size:43px">cloud_upload</i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Archive Cloud<sup></sup></div>
+                <div class="sidebar-brand-text mx-3">@lang('strings.cloud_archive')<sup></sup></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{route('dashboard')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+            <div class="sidebar-item">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('dashboard')}}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>@lang('strings.dashboard')</span></a>
+                </li>
+            </div>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Files
+                @lang('strings.files')
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item" >
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUploadFileMenu"
-                    aria-expanded="true" aria-controls="collapseUploadFileMenu">
+                    aria-expanded="true" aria-controls="collapseUploadFileMenu" >
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Categories</span>
+                    <span>@lang('strings.categories')</span>
                 </a>
                 <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                     <a href="{{ route('category.show.all') }}" class="collapse-item">
-                            <strong>All Files</strong>
+                            <strong>@lang('strings.all_files')</strong>
                         </a>
                     @foreach ($categories as $category)
                     <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
+                        @if (App::getLocale()=='en')
                         {{ $category->name }}
+                        @else
+                        {{ $category->name_ar }}
+                        @endif
                     </a>
 
                     <form id="category-form-{{ $category->id }}" action="{{ route('category.show', ['id' => $category->id]) }}" method="GET" style="display: none;">
@@ -94,7 +99,7 @@
 
                     @if(auth()->user()->isAdmin())
                     <a href="#" class="collapse-item" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
-                        Add a new category
+                        @lang('strings.add_category')
                      </a>
                     @endif
                     </div>
@@ -105,7 +110,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('upload-file')}}">
                     <i class="fa fa-cloud-upload"></i>
-                    <span>upload file</span></a>
+                    <span>@lang('strings.upload')</span></a>
             </li>
 
            
@@ -115,7 +120,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('show-file')}}">
                     <i class="fa fa-archive"></i>
-                    <span>my archival</span></a>
+                    <span>@lang('strings.my_archival')</span></a>
             </li>
 
 
@@ -126,13 +131,13 @@
             @if (auth()->user()->isAdmin())
             <!-- Heading -->
             <div class="sidebar-heading">
-                Admin
+                @lang('strings.admin')
             </div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('administration.files') }}">
                     <i class="fa fa-newspaper-o"></i>
-                    <span>All Files</span>
+                    <span>@lang('strings.all_files')</span>
                 </a>
             </li>
 
@@ -141,14 +146,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('table')}}">
                     <i class="fa fa-users"></i>
-                    <span>Employees</span></a>
+                    <span>@lang('strings.employees')</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
             <a class="nav-link" href="{{ route('getfile.types') }}">
             <i class="fa fa-file-archive-o"></i>
-                    <span>File types</span></a>
+                <span>@lang('strings.file_types')</span></a>
             </li>
             @endif
 
@@ -216,7 +221,7 @@
     <script src="{{asset("backend/js/demo/chart-pie-demo.js")}}"></script>
 
 </body>
-</html>
+
 
 
 <!-- Modal for new category -->
@@ -224,7 +229,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newCategoryModalLabel">Add a new category</h5>
+                <h5 class="modal-title" id="newCategoryModalLabel">@lang('strings.add_category')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -233,15 +238,19 @@
                 <form id="new-category-form" action="{{ route('category.store') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="categoryName">Category Name</label>
-                        <input type="text" class="form-control" id="categoryName" name="name" required>
+                        <label for="categoryName">@lang('strings.category_name')</label>
+                        <input type="text" class="form-control" id="categoryName" name="name" placeholder="@lang('strings.category_en')" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="categoryName" name="name" placeholder="@lang('strings.category_ar')" required>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="new-category-form" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('strings.close')</button>
+                <button type="submit" form="new-category-form" class="btn btn-primary">@lang('strings.save')</button>
             </div>
         </div>
     </div>
 </div>
+
