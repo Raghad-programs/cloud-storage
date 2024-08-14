@@ -138,6 +138,17 @@
                                 <input name="phone_number" type="text" class="form-control" value="{{ $user->phone_number }}">
                             </div>
                         </div>
+                        <hr>
+
+                        <!-- Linkedin -->
+                        <div class="row">
+                            <div class="col-sm-3 mt-2">
+                                <h6 class="mb-0">linkedin</h6>
+                            </div>
+                            <div class="col-sm-9">
+                                <input name="email" type="text" class="form-control" value="{{$user->linkedin_url}}">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -153,4 +164,29 @@
         </div>
     </div>
 </div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-primary">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

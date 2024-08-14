@@ -14,10 +14,14 @@
 <!-- Language Dropdown -->
 <ul class="navbar-nav">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-globe fa-fw"></i>
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ session('lang') == 'ar' ? 'Ar' : 'En' }}</span>
-            </a>
+        <a class="nav-link dropdown-toggle" type="submit" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-globe fa-fw"></i>
+          @if (session('locale') == 'ar')
+              Ar
+          @else
+            En
+          @endif
+         </a>
             <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" aria-labelledby="languageDropdown">
                 <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'en']) }}">
                     <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
