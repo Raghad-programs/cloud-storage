@@ -44,8 +44,8 @@ class CategoryController extends Controller
 
         // Start the query
         // $query = DepartmentStorage::query();
-
         // Filter by user's department
+        
         $query=DepartmentStorage::where('department_id', $user->Depatrment_id);
 
         if ($request->has('file_type') && $request->file_type !== 'all') {

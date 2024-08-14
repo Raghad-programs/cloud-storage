@@ -4,7 +4,6 @@
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 <script src="{{asset("backend/js/Markread.js")}}"></script>
-
 <!-- Language Dropdown -->
 <ul class="navbar-nav">
         <li class="nav-item dropdown no-arrow">
@@ -270,13 +269,6 @@
           </div>
         </div>
     </div>
-<<<<<<< HEAD
-    
-    <script>
-    var csrfToken = '{{ csrf_token() }}';
-    var markAllAsReadUrl = '{{ route('notifications.markAllAsRead') }}';
-</script>
-=======
 
     <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -302,7 +294,11 @@
     </div>
 </div>
 
->>>>>>> 60af6cb36b7440dd1b15e48a9364e7dff34f8155
+    
+    <script>
+    var csrfToken = '{{ csrf_token() }}';
+    var markAllAsReadUrl = '{{ route('notifications.markAllAsRead') }}';
+</script>
 @endsection
 
 
