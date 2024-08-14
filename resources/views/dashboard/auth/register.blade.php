@@ -39,13 +39,17 @@
     </style>
 </head>
 
-<body class="bg-gradient-primary d-flex align-items-center justify-content-center" style="height: 100vh;">
+<body class="bg-gradient-primary">
 
-    <div class="container">
-
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
+<div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
+            <div class="card o-hidden border-0 shadow-lg my-5 ">
+                <div class="card-body p-5 ">
+                <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -55,30 +59,22 @@
                     </ul>
                 </div>
                 @endif
-
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                            </div>
                             <form class="user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
                                     <input name="first_name" type="text" class="form-control form-control-user" id="exampleFirstName"
-                                        placeholder="First Name" value="{{ old('first_name') }}" >
+                                        placeholder="first_name" value="{{ old('first_name') }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <input name="last_name" type="text" class="form-control form-control-user" id="exampleLastName"
-                                        placeholder="Last Name" value="{{ old('last_name') }}" required>
+                                        placeholder="last_name" value="{{ old('last_name') }}" required>
                                 </div>
 
                                 <div class="form-group">
                                     <input name="phone_number" type="text" class="form-control form-control-user" id="examplePhoneNumber"
-                                        placeholder="Phone Number" value="{{ old('phone_number') }}" required>
+                                        placeholder="Phone Number : 0511111111" value="{{ old('phone_number') }}" required>
                                 </div>
 
                                 <div class="form-group">
@@ -112,12 +108,10 @@
                             </form>
                             <hr>
                         </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-
+                </div>
     </div>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>

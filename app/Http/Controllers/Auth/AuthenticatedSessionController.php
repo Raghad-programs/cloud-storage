@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // Send the welcome email
-        Mail::to($user->email)->send(new WelcomeEmail($user->name));
+       // Mail::to($user->email)->send(new WelcomeEmail($user->name));
 
         // Regenerate the session
         $request->session()->regenerate();
