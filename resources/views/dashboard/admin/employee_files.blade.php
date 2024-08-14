@@ -61,9 +61,6 @@
                                 <button class="btn btn-danger btn-circle text-gray-200 mb-1 delete-btn" data-id="{{ $storage->id }}" data-toggle="modal" data-target="#deleteModal-{{ $storage->id }}">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                <a type="submit" class="btn btn-circle bg-gradient-warning text-gray-200" href="{{route('edit.file' , $storage->id)}}">
-                                    <i class="fas fa-edit ml-1" style="color: bg-white; font-size:18px" ></i>
-                                </a>
                             </td>
                         </tr>
                         <div class="modal fade" id="deleteModal-{{ $storage->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
