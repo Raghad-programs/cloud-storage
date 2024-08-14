@@ -146,7 +146,7 @@
                                 <h6 class="mb-0">linkedin</h6>
                             </div>
                             <div class="col-sm-9">
-                                <input name="email" type="text" class="form-control" value="{{$user->linkedin_url}}">
+                                <input name="linkedin" type="text" class="form-control" value="{{$user->linkedin_url}}">
                             </div>
                         </div>
                     </div>

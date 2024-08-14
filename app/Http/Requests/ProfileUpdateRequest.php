@@ -20,6 +20,8 @@ class ProfileUpdateRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'phone_number' => ['required', 'string', 'max:10'],
+            'linkedin_url' => ['required', 'string'],
+
         ];
     }
 }
