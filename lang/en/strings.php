@@ -40,6 +40,13 @@
         'add_category' => 'Add a new category',
         'category_name' => 'Category Name',
         'category_ar' => 'Write category name in Arabic',
-        'category_en' => 'Write category name in English'
-
+        'category_en' => 'Write category name in English',
+        'store_success' => 'file has been uploaded successfully!',
+        'store_fail_limit' => 'You have reached the storage limit. File not saved.',
+        'fail_flagged' => 'The file is flagged as malicious by VirusTotal.',
+        'scan_not' => 'The file scan result is not available.',
+        'scan_not_time' =>  'The file scan did not complete in time.',
+        'error_scan' => 'Error scanning the file with VirusTotal.',
+        'file_update' => 'File :attribute has been updated',
+        'file_delete' => 'File :attribute has been deleted'
     ];
