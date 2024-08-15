@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Services\VirusTotalService;
 use App\Notifications\FileUploaded;
 use App\Notifications\FileDeleted;
-
+use App\lang;
 
 
 
@@ -65,14 +65,14 @@ class DepartmentStorageController extends Controller
             $result = $this->scanAndHandleFile(storage_path("app/{$filePath}"), $file, $fileType, $folderName, $request);
             
             if ($result['status'] === 'success') {
-                flash()->success('The file is saved successfully!!');
+                flash()->success(__('strings.store_success'));
                 return redirect(route('upload-file'));
             } else {
                 flash()->error($result['message']);
                 return redirect(route('upload-file'));
             }
         } else {
-            flash()->error('You have reached the storage limit. File not saved.');
+            flash()->error(__('strings.store_fail_limit'));
             return redirect(route('upload-file'));
         }
     }
@@ -108,7 +108,7 @@ class DepartmentStorageController extends Controller
 
                     return ['status' => 'success'];
                 } else {
-                    return ['status' => 'error', 'message' => 'The file is flagged as malicious by VirusTotal.'];
+                    return ['status' => 'error', 'message' => __('strings.fail_flagged')];
                 }
             } elseif (isset($reportResponse['response_code']) && $reportResponse['response_code'] == 1) {
                 // Report is not ready, retry after a delay
@@ -117,16 +117,16 @@ class DepartmentStorageController extends Controller
                 $retries--;
             } else {
                 // Handle cases where the report is not available or there's an error
-                $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : 'The file scan result is not available.';
+                $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : __('strings.scan_not');
                 return ['status' => 'error', 'message' => $errorMessage];
             }
         }
 
         // After retries, if the report is still not ready
-        return ['status' => 'error', 'message' => 'The file scan did not complete in time.'];
+        return ['status' => 'error', 'message' => __('strings.scan_not_time')];
     } else {
          // Handle error cases during file scanning
-        $errorMessage = isset($scanResponse['verbose_msg']) ? $scanResponse['verbose_msg'] : 'Error scanning the file with VirusTotal.';
+        $errorMessage = isset($scanResponse['verbose_msg']) ? $scanResponse['verbose_msg'] : __('strings.error_scan');
         return ['status' => 'error', 'message' => $errorMessage];
     }
 }
@@ -271,8 +271,9 @@ class DepartmentStorageController extends Controller
             'file_type' => $fileType->id,
             'description'=> $request->description,
         ]);
-
-        flash()->success('file "'.$request->title.'" has been updated');
+        // 'file "'.$request->title.'" has been updated'
+        flash()->success(__('strings.file_update', ['attribute' => $request->title]));
+      
         return redirect(route('show-file'));
     }
 
@@ -283,9 +284,9 @@ class DepartmentStorageController extends Controller
     {
         $Storagetitle = DepartmentStorage::findOrFail($id)->title;
         $Storage = DepartmentStorage::findOrFail($id)->delete();
-        flash()->success('file "'.$Storagetitle.'" has been deleted');
+        flash()->success(__('strings.file_delete' , ['attribute' => $Storagetitle]));
         $user = $request->user();
-        $message = 'A file has been deleted by user ' . $user->name;
+        $message = 'A file has been deleted by ' . $user->first_name." ".$user->last_name;
     
         // Notify department admins
         $user->notifyDepartmentAdminsOnDeletion($message);
