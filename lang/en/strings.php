@@ -48,5 +48,8 @@
         'scan_not_time' =>  'The file scan did not complete in time.',
         'error_scan' => 'Error scanning the file with VirusTotal.',
         'file_update' => 'File :attribute has been updated',
-        'file_delete' => 'File :attribute has been deleted'
+        'file_delete' => 'File :attribute has been deleted',
+        'category_create' => 'Category created successfully',
+        'cate_not_delete' => 'Cannot delete category as it has associated files.',
+        'category_delete' => 'Category deleted successfully.',
     ];

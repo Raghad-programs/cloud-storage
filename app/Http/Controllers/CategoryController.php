@@ -76,7 +76,7 @@ class CategoryController extends Controller
             'department_id' => auth()->user()->Depatrment_id,
         ]);
 
-        flash()->success('Category created successfully');
+        flash()->success(__('strings.category_create'));
         return redirect('dashboard');
     }
 
@@ -87,12 +87,12 @@ class CategoryController extends Controller
         $filesCount = DepartmentStorage::where('category_id', $category->id)->count();
 
         if ($filesCount > 0) {
-        flash()->error('Cannot delete category as it has associated files.');
+        flash()->error(__('strings.cate_not_delete'));
         return redirect()->back();
         } else {
         // Delete the category
         $category->delete();
-        flash()->success('Category deleted successfully.');
+        flash()->success(__('strings.category_delete'));
         return redirect()->route('dashboard');
         }
     }
