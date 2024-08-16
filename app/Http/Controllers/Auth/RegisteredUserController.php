@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Department;
-use App\Http\Controllers\MailController;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
 
@@ -61,9 +60,10 @@ class RegisteredUserController extends Controller
 
     event(new Registered($user));
 
-    // Send welcome email to the newly registered user
-    //$mailController = new MailController();
-   // $mailController->sendWelcomeMail($request->email);
+    // Send welcome email and current employee  
+    $current_employee = Auth::user();
+
+    Mail::to($user->email)->send(new WelcomeEmail($user,$current_employee));
 
     flash()->success('employee registration successsful!');
     return redirect(route('table', absolute: false));

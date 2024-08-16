@@ -2,50 +2,42 @@
 
 namespace App\Mail;
 
-use Faker\Provider\Address;
-use Flasher\Prime\Notification\Envelope;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
+    public $user;
+    public $current_employee;
 
     /**
      * Create a new message instance.
-     *
-     * @return void
      */
-    public function __construct($name)
+    public function __construct($user,$current_employee)
     {
-        $this->name = $name;
+        $this->user = $user;
+        $this->current_employee = $current_employee;
     }
-
-    // public function envelope():Envelope
-    // {
-    //     return new Envelope(
-    //         subject:'Weolcome Email',
-    //         from: new Address('mailtrap@gmail.com','Admin')
-    //         //may add the admain name 
-    //     );
-    // }
 
     /**
      * Build the message.
-     *
-     * @return $this
      */
     public function build()
     {
-        return $this->subject('Welcome to our application!')
-                    ->view('emails.welcome')
+        return $this->view('emails.welcome')
+                    ->subject('Welcome to CloudArchive')
                     ->with([
-                        'name' => $this->name,
+                        'firstName' => $this->user->first_name,
+                        'lastName' => $this->user->last_name,
+                        'departmentName' => $this->user->department->department,
+                        'employee_first_name' => $this->current_employee->first_name,
+                        'employee_last_name' => $this->current_employee->last_name,
+                        'employee_position' => $this->current_employee->department->department,
+                        'employee_email' => $this->current_employee->email,
                     ]);
-
     }
 }
