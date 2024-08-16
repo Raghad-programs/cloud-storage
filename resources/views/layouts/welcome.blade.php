@@ -24,12 +24,42 @@
             .justify-content-center {
                 justify-content: center;
             }
+			.navbar-nav {
+				visibility: hidden;
+				display: none;
+				background: transparent;
+			}
+
         </style>
 	</head>
+
 	<body class="is-preload">
 
 		<!-- Header -->
         <section id="header">
+		<nav class="navbar-nav">
+	<li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" type="submit" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-globe fa-fw"></i>
+         @if (session('locale') == 'ar')
+            Ar
+         @else
+            En
+         @endif
+          </a>
+            <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" aria-labelledby="languageDropdown">
+                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'en']) }}">
+                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
+                    English
+                </a>
+                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'ar']) }}">
+                <html xmlns="/lang/{$lang}" lang="ar" xml:lang="ar"> </html>
+                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
+                    العربية
+                </a>
+            </div>
+        </li>
+		</nav>
             <div class="inner">
                 <span class="icon solid major fa-cloud"></span>
                 <h1>Hi, Welcome to the <strong>Archive Cloud!</strong><br />
