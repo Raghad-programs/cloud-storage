@@ -1,11 +1,16 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
 <!DOCTYPE html>
-<html lang="en" @if(App::getlocale()=='ar')
+<html @if(App::getlocale()=='ar')
     dir="rtl"
+    lang="ar"
     @else
     dir="ltr"
+    lang="en" 
     @endif
      >
-
 <head>
 <link rel="icon" type="image/png" sizes="512x512" href={{asset("backend/img/logo.png")}}>
 
@@ -24,6 +29,8 @@
 
     <!-- profile style -->
     <link href="{{asset("backend/css/profile.css")}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <!-- <link href="{{asset("backend/css/sb-admin-2-rtl.css")}}" rel="stylesheet"> -->
 
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -37,54 +44,55 @@
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex " id="accordionSidebar" style="padding:0px">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-flex" id="accordionSidebar" style="padding:0px ;">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center " href="">
                 <div class="sidebar-brand-icon">
-                <i class="material-icons" style="font-size:43px">cloud_upload</i>
+                 <i class="material-icons" style="font-size:43px">cloud_upload</i>
                 </div>
-                <div class="sidebar-brand-text mx-3">@lang('strings.cloud_archive')<sup></sup></div>
+                <div class="sidebar-brand-text mx-3 {{$text_align}}">
+                    @lang('strings.cloud_archive')
+                 </div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <div class="sidebar-item">
+            <div class="sidebar-item ">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{route('dashboard')}}">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <a class="nav-link {{$text_align}} my-0" href="{{route('dashboard')}} ">
+                        <i class="fas fa-fw fa-tachometer-alt" ></i>
                         <span>@lang('strings.dashboard')</span></a>
                 </li>
             </div>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading {{$text_align}}">
                 @lang('strings.files')
             </div>
 
             <li class="nav-item" >
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUploadFileMenu"
+                <a class="nav-link collapsed {{$text_align}}" href="#" data-toggle="collapse" data-target="#collapseUploadFileMenu"
                     aria-expanded="true" aria-controls="collapseUploadFileMenu" >
                     <i class="fas fa-fw fa-folder"></i>
                     <span>@lang('strings.categories')</span>
                 </a>
-                <div id="collapseUploadFileMenu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseUploadFileMenu" class="collapse {{$text_align}}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a href="{{ route('category.show.all') }}" class="collapse-item">
+                    <a href="{{ route('category.show.all') }}" class="collapse-item {{$text_align}}">
                             <strong>@lang('strings.all_files')</strong>
                         </a>
                     @foreach ($categories as $category)
-                    <a href="#" class="collapse-item" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
+                    <a href="#" class="collapse-item {{$text_align}}" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
                         @if (App::getLocale()=='en')
                         {{ $category->name }}
                         @else
@@ -98,7 +106,7 @@
                     @endforeach
 
                     @if(auth()->user()->isAdmin())
-                    <a href="#" class="collapse-item" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
+                    <a href="#" class="collapse-item {{$text_align}}" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
                         @lang('strings.add_category')
                      </a>
                     @endif
@@ -108,7 +116,7 @@
 
                 <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('upload-file')}}">
+                <a class="nav-link {{$text_align}}" href="{{route('upload-file')}}">
                     <i class="fa fa-cloud-upload"></i>
                     <span>@lang('strings.upload')</span></a>
             </li>
@@ -118,7 +126,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('show-file')}}">
+                <a class="nav-link {{$text_align}}" href="{{route('show-file')}}">
                     <i class="fa fa-archive"></i>
                     <span>@lang('strings.my_archival')</span></a>
             </li>
@@ -130,12 +138,12 @@
 
             @if (auth()->user()->isAdmin())
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading {{$text_align}}">
                 @lang('strings.admin')
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('administration.files') }}">
+                <a class="nav-link {{$text_align}}" href="{{ route('administration.files') }}">
                     <i class="fa fa-newspaper-o"></i>
                     <span>@lang('strings.all_files')</span>
                 </a>
@@ -144,14 +152,14 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('table')}}">
+                <a class="nav-link {{$text_align}}" href="{{route('table')}}">
                     <i class="fa fa-users"></i>
                     <span>@lang('strings.employees')</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-            <a class="nav-link" href="{{ route('getfile.types') }}">
+            <a class="nav-link {{$text_align}}" href="{{ route('getfile.types') }}">
             <i class="fa fa-file-archive-o"></i>
                 <span>@lang('strings.file_types')</span></a>
             </li>
@@ -160,7 +168,7 @@
 
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <div class="text-center d-none d-md-inline ">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
