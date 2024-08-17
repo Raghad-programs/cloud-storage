@@ -7,14 +7,14 @@
     <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
     @if (app()->getLocale() == 'en')
-        <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} @lang('showfile.Files')</h3>
+        <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} @lang('showfileandtypes.Files')</h3>
         <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
+            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfileandtypes.Download_all_files')
         </a>
     @else
-        <h3 class="m-0 font-weight-bold text-primary">@lang('showfile.Files'){{ $userName }}</h3>
+        <h3 class="m-0 font-weight-bold text-primary">@lang('showfileandtypes.Files'){{ $userName }}</h3>
         <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
+            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfileandtypes.Download_all_files')
         </a>
     @endif
 </div>
@@ -23,13 +23,13 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>@lang('showfile.Title')</th>
-                            <th>@lang('showfile.Department_Name')</th>
-                            <th>@lang('showfile.Category_Name')</th>
-                            <th>@lang('showfile.File_Type')</th>
-                            <th>@lang('showfile.File')</th>
-                            <th>@lang('showfile.Created_At')</th>
-                            <th>@lang('showfile.actions')</th>
+                            <th>@lang('showfileandtypes.Title')</th>
+                            <th>@lang('showfileandtypes.Department_Name')</th>
+                            <th>@lang('showfileandtypes.Category_Name')</th>
+                            <th>@lang('showfileandtypes.File_Type')</th>
+                            <th>@lang('showfileandtypes.File')</th>
+                            <th>@lang('showfileandtypes.Created_At')</th>
+                            <th>@lang('showfileandtypes.Actions')</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 <a href="{{route('departmentStorage.view', $storage) }}" target="_blank">
-                                @lang('showfile.Click_to_view_file')
+                                @lang('showfileandtypes.Click_to_view_file')
                                 </a>
                             </td>
                             <td>{{ $storage->created_at }}</td>
@@ -72,18 +72,18 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">@lang('showfile.Confirm_Deletion')</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">@lang('showfileandtypes.Confirm_Deletion')</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">@lang('showfile.Deletion_massage')</div>
+                                    <div class="modal-body">@lang('showfileandtypes.Deletion_massage')</div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('showfile.Cancel')</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('showfileandtypes.Cancel')</button>
                                         <form method="POST" action="{{ route('destroy', $storage->id) }}" id="deleteForm-{{ $storage->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-primary">@lang('showfile.Delete')</button>
+                                            <button class="btn btn-primary">@lang('showfileandtypes.Delete')</button>
                                         </form>
                                     </div>
                                 </div>

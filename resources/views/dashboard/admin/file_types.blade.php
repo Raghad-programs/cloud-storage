@@ -1,3 +1,8 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
+
 @extends('dashboard.layouts.app')
 @section("title", "File Types")  
 @section('content')  
@@ -31,9 +36,9 @@
 </style>
 
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h2 class="text-gray-800 ">Already existing file types</h2>
+        <h2 class="text-gray-800 ">@lang('showfileandtypes.Already_existing_file_types')</h2>
         <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#newFileTypeModal">
-        Add New File Type
+        @lang('showfileandtypes.Create_New_File_Type')
         </a>
     </div>
 
@@ -43,10 +48,10 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>File Type</th>
-                    <th>Extension</th>
-                    <th>Created At</th>
-                    <th>Action</th>
+                    <th>@lang('showfileandtypes.File_Type')</th>
+                    <th>@lang('showfileandtypes.Extension')</th>
+                    <th>@lang('showfileandtypes.Created_At')</th>
+                    <th>@lang('showfileandtypes.Actions')</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,18 +75,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@lang('showfileandtypes.Confirm_Deletion')</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                         </div>
-                        <div class="modal-body">Select "Delete" below if you sure you want to delete this file type?</div>
+                        <div class="modal-body">@lang('showfileandtypes.file_type_deletion_massage')</div>
                         <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('showfileandtypes.Cancel')</button>
                         <form method="POST" action="{{ route('destroy.filetype', $fileType->id) }}" id="deleteForm-{{ $fileType->id }}">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-primary" type="submit">Delete</button>
+                        <button class="btn btn-primary" type="submit">@lang('showfileandtypes.Delete')</button>
                     </form>
                     </div>
                 </div>
@@ -117,27 +122,33 @@
 <!-- New File Type Modal -->
 <div class="modal fade" id="newFileTypeModal" tabindex="-1" role="dialog" aria-labelledby="newFileTypeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newFileTypeModalLabel">Create New File Type</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+        <div class="modal-content ">
+        <div class="modal-header d-flex">
+    <button type="button" class="close me-auto" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title ms-auto" id="newFileTypeModalLabel">
+        @lang('showfileandtypes.Create_New_File_Type')
+    </h5>
+</div>
+
+
+
+
             <div class="modal-body">
                 <form method="POST" action="{{ route('file-types.store') }}">
                     @csrf
-                    <div class="form-group">
-                        <label for="type">File Type</label>
-                        <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}">
+                    <div class="form-group {{$text_align}}">
+                        <label for="type">@lang('showfileandtypes.File_Type')</label>
+                        <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}" placeholder="@lang('showfileandtypes.Enter_File_Type')">
                         @error('type')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group" id="extensions-group">
-                        <label for="extensions">Extensions</label>
+                    <div class="form-group {{$text_align}}" id="extensions-group">
+                        <label for="extensions">@lang('showfileandtypes.Extension2')</label>
                         @foreach (old('extensions', []) as $extension)
                         <div class="input-group mb-2">
                             <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
@@ -149,7 +160,7 @@
                         </div>
                         @endforeach
                         <div class="input-group mb-2">
-                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-primary" onclick="addExtensionField()">
                                     <i class="fas fa-plus"></i>
@@ -172,7 +183,7 @@
                                 var newExtensionField = document.createElement('div');
                                 newExtensionField.classList.add('input-group', 'mb-2');
                                 newExtensionField.innerHTML = `
-                                    <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                    <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
                                             <i class="fas fa-minus"></i>
@@ -191,7 +202,7 @@
                         }
                                         </script>
 
-                    <button type="submit" class="btn btn-primary">Create File Type</button>
+                    <button type="submit" class="btn btn-primary">@lang('showfileandtypes.Create_File_Type')</button>
                 </form>
             </div>
             </div>
