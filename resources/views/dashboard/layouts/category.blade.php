@@ -11,7 +11,7 @@
         <!-- Topbar Search -->
         <form class="d-none d-sm-inline-block form-inline mr-2 my-2 my-md-0 navbar-search" action="{{ route('category.show', $category->id) }}" method="GET">
             <div class="input-group">
-                <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+                <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('strings.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
@@ -28,7 +28,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="filterDropdown">
                     <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
-                        All Types
+                        @lang('strings.filter_all_types')
                     </button>
                     @foreach($fileTypes as $type)
                         <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
@@ -36,7 +36,7 @@
                         </button>
                     @endforeach
                     <select name="file_type" class="form-control" style="display: none;">
-                        <option id="file_type_all" value="all">All Types</option>
+                        <option id="file_type_all" value="all">@lang('strings.filter_all_types')</option>
                         @foreach($fileTypes as $type)
                             <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
                         @endforeach
@@ -113,7 +113,7 @@
                                     <p class="card-text flex-grow-1">{{ $item->description ?? "No description" }}</p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Uploaded by {{ $item->user->name ?? "Deleted user" }}</small>
+                                <small class="text-muted">@lang('strings.uploaded_by') {{ $item->user->name ?? "Deleted user" }}</small>
                                 <a href="{{ route('departmentStorage.download', $item->id) }}" class="btn ">
                                     <!-- <i class="'fa fa-file-powerpoint-o"></i> -->
                                     <i class="fa fa-download" style="font-size:18px"></i>
@@ -134,21 +134,21 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@lang('strings.confirm_deletion')</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p><strong>Select "Delete" below if you are sure you want to delete this category.</strong></p>
-                <p style="color: red; font-size: 0.9rem;">Note that you can only delete a category if it has no files.</p>
+                <p>@lang('strings.delete_category_message')</p>
+                <p style="color: red; font-size: 0.9rem;">@lang('strings.delete_category_warning')</p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('strings.cancel')</button>
                 <form method="POST" id="deleteForm" action="{{route('category.destroy' , $category->id)}}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="submit" class="btn btn-primary">@lang('strings.delete')</button>
                 </form>
             </div>
         </div>
