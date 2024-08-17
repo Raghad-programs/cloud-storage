@@ -40,15 +40,15 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                                 </div>
 
 
-                                <div class="form-group  {{$text_align}}">
-                                    <label for="category_id" class="small">@lang('showfile.Category_Name')</label>
-                                    <select class="form-control form-control-sm" id="category_id" name="category_id">
-                                        <option value="{{$storage->category_id}}">{{$storage->category->name}}</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <div class="form-group {{$text_align}}">
+                                <label for="category_id" class="small">@lang('showfile.Category_Name')</label>
+                                <select class="form-control form-control-sm" id="category_id" name="category_id">
+                                    <option value="{{$storage->category_id}}">{{ app()->getLocale() == 'en' ? $storage->category->name : $storage->category->name_ar }}</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ app()->getLocale() == 'en' ? $category->name : $category->name_ar }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
 
                                 <div class="form-group  {{$text_align}}">
