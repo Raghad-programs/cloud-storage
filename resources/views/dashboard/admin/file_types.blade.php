@@ -80,9 +80,9 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                             <span aria-hidden="true">×</span>
                         </button>
                         </div>
-                        <div class="modal-body">@lang('showfileandtypes.file_type_deletion_massage')</div>
+                        <div class="modal-body {{$text_align}}">@lang('showfileandtypes.file_type_deletion_massage')</div>
                         <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('showfileandtypes.Cancel')</button>
+                        <button class="btn btn-secondary {{$text_align}}" type="button" data-dismiss="modal">@lang('showfileandtypes.Cancel')</button>
                         <form method="POST" action="{{ route('destroy.filetype', $fileType->id) }}" id="deleteForm-{{ $fileType->id }}">
                         @csrf
                         @method('DELETE')

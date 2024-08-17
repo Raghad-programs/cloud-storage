@@ -63,9 +63,8 @@ class AdministrationController extends Controller
         
     ]);
 
-    return redirect()
-        ->route('file-types.create')
-        ->with('success', 'File type created successfully.');
+    flash()->success(__('showfileandtypes.Flash_File_Type_creation'));
+    return redirect(route('getfile.types'));
 }
 
 
@@ -87,8 +86,8 @@ public function update(Request $request, $id)
     }
 
     $fileType->save();
-
-    return redirect()->route('getfile.types')->with('success', 'File type updated successfully.');
+    flash()->success(__('showfileandtypes.Flash_File_Type_update'));
+    return redirect()->route('getfile.types');
 }
 
 
@@ -111,7 +110,7 @@ public function destroy($id)
 {
     $fileType = FileType::findOrFail($id);
     $fileType->delete();
-    flash()->success('File type has been soft deleted.');
+    flash()->success(__('showfileandtypes.Flash_File_Type_deletion'));
     return back();
 } 
     
