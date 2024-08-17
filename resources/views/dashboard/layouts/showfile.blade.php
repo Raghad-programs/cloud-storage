@@ -5,12 +5,19 @@
 <div id="content">
     <!-- Begin Page Content -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
-            <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
-            </a>
-        </div>
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    @if (app()->getLocale() == 'en')
+        <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} @lang('showfile.Files')</h3>
+        <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
+        </a>
+    @else
+        <h3 class="m-0 font-weight-bold text-primary">@lang('showfile.Files'){{ $userName }}</h3>
+        <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files_ar')
+        </a>
+    @endif
+</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
