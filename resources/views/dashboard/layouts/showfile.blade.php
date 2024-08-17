@@ -14,7 +14,7 @@
     @else
         <h3 class="m-0 font-weight-bold text-primary">@lang('showfile.Files'){{ $userName }}</h3>
         <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files_ar')
+            <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
         </a>
     @endif
 </div>
@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 <a href="{{route('departmentStorage.view', $storage) }}" target="_blank">
-                                    Click to view file
+                                @lang('showfile.Click_to_view_file')
                                 </a>
                             </td>
                             <td>{{ $storage->created_at }}</td>
@@ -72,18 +72,18 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">@lang('showfile.Confirm_Deletion')</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">Select "Delete" below if you sure you want to delete this file?</div>
+                                    <div class="modal-body">@lang('showfile.Deletion_massage')</div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('showfile.Cancel')</button>
                                         <form method="POST" action="{{ route('destroy', $storage->id) }}" id="deleteForm-{{ $storage->id }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-primary">Delete</button>
+                                            <button class="btn btn-primary">@lang('showfile.Delete')</button>
                                         </form>
                                     </div>
                                 </div>
