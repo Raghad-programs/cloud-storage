@@ -22,26 +22,26 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                         </ul>
                     </div>
                      @endif
-                                <h1 class="h4 text-gray-900 mb-4">@lang('showfile.Update_File')</h1>
+                                <h1 class="h4 text-gray-900 mb-4">@lang('showfileandtypes.Update_File')</h1>
                             </div>
                                 <form class="user" action="{{route('update.file', $storage->id ) }}" method="POST" enctype="multipart/form-data">
                                  @csrf
                                  @method('PATCH')
                                  
                                 <div class="form-group {{$text_align}}" >
-                                <label for="category_id" class="small">@lang('showfile.File_Title')</label>
+                                <label for="category_id" class="small">@lang('showfileandtypes.File_Title')</label>
                                     <input type="text" class="form-control form-control-user" name="title" placeholder="File Title" value="{{$storage->title}}" required>
                                 </div>
 
                                 <div class="form-group  {{$text_align}}">
-                                <label for="category_id" class="small">@lang('showfile.File_Description')</label>
+                                <label for="category_id" class="small">@lang('showfileandtypes.File_Description')</label>
 
                                     <input type="text" class="form-control form-control-user" name="description" placeholder="File Description" value="{{$storage->description}}" required>
                                 </div>
 
 
                                 <div class="form-group {{$text_align}}">
-                                <label for="category_id" class="small">@lang('showfile.Category_Name')</label>
+                                <label for="category_id" class="small">@lang('showfileandtypes.Category_Name')</label>
                                 <select class="form-control form-control-sm" id="category_id" name="category_id">
                                     <option value="{{$storage->category_id}}">{{ app()->getLocale() == 'en' ? $storage->category->name : $storage->category->name_ar }}</option>
                                     @foreach ($categories as $category)
@@ -52,7 +52,7 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 
 
                                 <div class="form-group  {{$text_align}}">
-                                <label for="category_id" class="small">@lang('showfile.File_Type')</label>
+                                <label for="category_id" class="small">@lang('showfileandtypes.File_Type')</label>
                                     <select class="form-control" id="file_type" name="file_type">
                                     <option value="{{$storage->file_type}}">{{$storage->fileType->type}}</option>
                                         @foreach ($fileTypes as $fileType)
@@ -63,7 +63,7 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                @lang('showfile.Update')
+                                @lang('showfileandtypes.Update')
                                 </button>
                             </form>
                         </div>

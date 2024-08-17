@@ -1,18 +1,22 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
 @extends('dashboard.layouts.app')
 @section("title", "File Types Edit")  
 @section('content')  
 <div class="container-fluid" style="margin-top: 160px;">    <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit File Type</div>
+                <div class="card-header {{$text_align}}">@lang('showfileandtypes.Edit_File_Type')</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('update.filetype', $fileType->id) }}">
                         @method('PATCH')
                         @csrf
 
-                        <div class="form-group">
-                            <label for="type">File Type</label>
+                        <div class="form-group {{$text_align}}">
+                            <label for="type">@lang('showfileandtypes.File_Type')</label>
                             <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type', $fileType->type) }}">
                             @error('type')
                                 <span class="invalid-feedback" role="alert">
@@ -21,8 +25,8 @@
                             @enderror
                         </div>
 
-                        <div class="form-group" id="extensions-group">
-                            <label for="extensions">Extensions</label>
+                        <div class="form-group {{$text_align}}" id="extensions-group">
+                            <label for="extensions">@lang('showfileandtypes.Extension')</label>
                             @php
                                 $extensions = explode(',', $fileType->extensions);
                             @endphp
@@ -39,7 +43,7 @@
                                 </div>
                             @endforeach
                             <div class="input-group mb-2">
-                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+                                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-primary" onclick="addExtensionField()">
                                         <i class="fas fa-plus"></i>
@@ -53,7 +57,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Update File Type</button>
+                        <button type="submit" class="btn btn-primary">@lang('showfileandtypes.Update_File_Type')</button>
                     </form>
                 </div>
             </div>
@@ -67,7 +71,7 @@
         var newExtensionField = document.createElement('div');
         newExtensionField.classList.add('input-group', 'mb-2');
         newExtensionField.innerHTML = `
-            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="Enter extension">
+            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
             <div class="input-group-append">
                 <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
                     <i class="fas fa-minus"></i>
