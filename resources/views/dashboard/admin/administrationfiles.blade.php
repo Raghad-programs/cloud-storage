@@ -9,7 +9,7 @@
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('administration.files') }}" method="GET">
         <div class="input-group">
-            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('strings.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
@@ -26,7 +26,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="filterDropdown">
                 <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
-                    All Types
+                    @lang('strings.filter_all_types')
                 </button>
                 @foreach($fileTypes as $type)
                     <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
@@ -34,7 +34,7 @@
                     </button>
                 @endforeach
                 <select name="file_type" class="form-control" style="display: none;">
-                    <option id="file_type_all" value="all">All Types</option>
+                    <option id="file_type_all" value="all">@lang('strings.filter_all_types')</option>
                     @foreach($fileTypes as $type)
                         <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
                     @endforeach
@@ -44,7 +44,7 @@
     </form>
 </nav>
 <div class="container mt-4">
-    <h1 class="mb-4">All Files</h1>
+    <h1 class="mb-4">@lang('strings.all_files')</h1>
     <div class="row">
         @if (count($storageItems) > 0)
             @foreach ($storageItems as $item)
@@ -98,17 +98,17 @@
                             <p class="card-text">{{ $item->description ?? "No description" }}</p>
                         </div>
                         <div class="card-footer">
-    <small class="text-muted">Uploaded by {{  $item->user->name ?? 'Deleted User'}}</small>
+    <small class="text-muted">@lang('strings.uploaded_by') {{  $item->user->name ?? 'Deleted User'}}</small>
     <br>
-    <small class="text-muted">Department : {{ $item->department->department }}</small>
+    <small class="text-muted">@lang('strings.department') : {{ $item->department->department }}</small>
     <br>
     @if ($item->category)
-    <small class="text-muted">Section : {{ $item->category->name }}</small>
+    <small class="text-muted">@lang('strings.section') : {{ $item->category->name }}</small>
     <br>
     @endif
-    <small class="text-muted">Created At : {{ $item->created_at }}</small>
+    <small class="text-muted">@lang('strings.created_at') : {{ $item->created_at }}</small>
     <br>
-    <small class="text-muted">Updated At : {{ $item->updated_at }}</small>
+    <small class="text-muted">@lang('strings.updated_at') : {{ $item->updated_at }}</small>
 </div>
 
                     </a>
@@ -117,7 +117,7 @@
             @endforeach
         @else
             <div class="col-12 text-center">
-                <h3>No result found.</h3>
+                <h3>@lang('strings.no_results_found')</h3>
             </div>
         @endif
     </div>
