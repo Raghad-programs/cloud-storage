@@ -30,5 +30,8 @@ return [
     'Enter_File_Type'=>'ادخل اسم نوع الملف',
     'Edit_File_Type'=>'تعديل نوع الملف',
     'Update_File_Type'=>'تعديل نوع الملف',
+    'Flash_File_Type_creation'=>'تم حفظ نوع الملف بنجاح',
+    'Flash_File_Type_deletion'=>'تم حذف الملف بنجاح',
+    'Flash_File_Type_update'=>'تم تعديل نوع الملف بنجاح',
 
 ];

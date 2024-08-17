@@ -29,5 +29,8 @@ return [
     'Enter_File_Type'=>'Enter File Type Name',
     'Extension2'=>'Extension',
     'Edit_File_Type'=>'Edit File Type',
-    'Update_File_Type'=>'Update File Type'
+    'Update_File_Type'=>'Update File Type',
+    'Flash_File_Type_creation'=>'The file type has been added successfully',
+    'Flash_File_Type_deletion'=>'The file type has been deleted successfully',
+    'Flash_File_Type_update'=>'The file type has been deleted successfully',
 ];
