@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{ $storage->title }}</td>
                             <td>{{ $storage->department->department }}</td>
-                            <td>{{ $storage->category->name }}</td>
+                            <td>{{ app()->getLocale() == 'en' ? $storage->category->name : $storage->category->name_ar }}</td>
                             <td>
                                 @if ($storage->file_type == 1)
                                     Document
