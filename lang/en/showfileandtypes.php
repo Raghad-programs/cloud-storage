@@ -33,4 +33,12 @@ return [
     'Flash_File_Type_creation'=>'The file type has been added successfully',
     'Flash_File_Type_deletion'=>'The file type has been deleted successfully',
     'Flash_File_Type_update'=>'The file type has been deleted successfully',
+    'Upload_File'=>'Upload File',
+    'File_description'=>'File description',
+    'Select_Section'=>'Select Section',
+    'Select_File_Type'=>'Select File Type',
+    'responsibility_massaage'=>'I take responsibility for this content and confirm it is not malicious.',
+    'Choose_File'=>'Choose File',
+    'No_file_chosen'=>'No file chosen',
+    
 ];

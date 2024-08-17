@@ -33,5 +33,12 @@ return [
     'Flash_File_Type_creation'=>'تم حفظ نوع الملف بنجاح',
     'Flash_File_Type_deletion'=>'تم حذف الملف بنجاح',
     'Flash_File_Type_update'=>'تم تعديل نوع الملف بنجاح',
+    'Upload_File'=>'تحميل ملف',
+    'File_description'=>'وصف الملف',
+    'Select_Section'=>'اختر قسم',
+    'Select_File_Type'=>'اختر نوع الملف',
+    'responsibility_massaage'=>'أتحمل المسؤولية عن هذا المحتوى وأؤكد أنه ليس ضارًا.',
+    'Choose_File'=>'اختر ملف',
+    'No_file_chosen'=>'لم يتم اختيار ملف',
 
 ];
