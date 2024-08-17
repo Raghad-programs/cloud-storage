@@ -8,7 +8,7 @@
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} Files</h3>
             <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> Download all files
+                <i class="fas fa-download fa-sm text-white-50"></i> @lang('showfile.Download_all_files')
             </a>
         </div>
         <div class="card-body">
@@ -16,13 +16,13 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Department Name</th>
-                            <th>Category Name</th>
-                            <th>File Type</th>
-                            <th>File</th>
-                            <th>Created At</th>
-                            <th>actions</th>
+                            <th>@lang('showfile.Title')</th>
+                            <th>@lang('showfile.Department_Name')</th>
+                            <th>@lang('showfile.Category_Name')</th>
+                            <th>@lang('showfile.File_Type')</th>
+                            <th>@lang('showfile.File')</th>
+                            <th>@lang('showfile.Created_At')</th>
+                            <th>@lang('showfile.actions')</th>
                         </tr>
                     </thead>
                     <tbody>
