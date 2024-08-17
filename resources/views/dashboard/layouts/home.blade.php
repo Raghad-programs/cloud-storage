@@ -107,12 +107,12 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="/profile/{{auth()->user()->id}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    @lang('strings.profile')
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                    @lang('strings.logout')
                 </a>
             </div>
         </li>
@@ -135,8 +135,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Documents You
-                            uploaded </div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> @lang('home.Total_Documents') </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $DocumentsForUser }}</div>
                     </div>
                     <div class="col-auto">
@@ -155,7 +154,7 @@
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                        Total Consumed Storage
+                        @lang('home.total_consumed_storage')
                     </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                         {{ $formattedTotalStorageUsed }}
@@ -176,7 +175,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Total Documents(For Department)</div>
+                            @lang('home.total_documents_department')</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $documentsPerDepartment }}</div>
                     </div>
                     <div class="col-auto">
@@ -194,7 +193,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Storage Usage by you
+                           @lang('home.storage_usage_by_you')
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
@@ -248,21 +247,7 @@
             <div class="card shadow mb-4" style="height: 100%;">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Document Upload Overview</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">@lang('home.document_upload_overview')</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -278,21 +263,8 @@
             <div class="card shadow mb-4" style="height: 100%;">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">File Types</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">@lang('home.file_types')</h6>
+                    
                 </div>
                 <!-- Card Body -->
                 <div>
@@ -311,7 +283,7 @@
             <div class="col-lg-7 mb-4">
                 <div class="card shadow mb-4" style="width: 670px">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Departments</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">@lang('home.departments')</h6>
                     </div>
                     <div class="card-body" style="min-height: 200px;">
                         @foreach ($topDepartments as $department)
@@ -334,7 +306,7 @@
                 <div class="col-lg-5 mb-4">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" style="height: 50px;">
-                            <h6 class="m-0 font-weight-bold text-primary">Recent Files</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">@lang('home.recent_files')</h6>
                         </div>
                         <div class="card-body"
                             style="display: flex; flex-direction: column; justify-content: space-between; overflow: auto;">
@@ -356,7 +328,7 @@
                             <div>
                                 <a href="{{ route('departmentStorage.view', $recentUpload) }}" target="_blank"
                                     class="text-decoration-none text-primary">
-                                    Browse more &rarr;
+                                    @lang('home.browse_more') &rarr;
                                 </a>
                             </div>
                         </div>
@@ -366,10 +338,10 @@
                     <div class="col-lg-5 mb-4">
                         <div class="card shadow mb-4" style="width: 450px; height: 150px;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Recent Files</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">@lang('home.recent_files')</h6>
                             </div>
                             <div class="card-body" style="height: 100%; overflow-y: auto;">
-                                <p>No recent files to display.</p>
+                                <p>@lang('home.no_recent')</p>
                             </div>
                         </div>
                     </div>
