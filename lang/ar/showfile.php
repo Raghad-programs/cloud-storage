@@ -2,7 +2,7 @@
 
 return [
 
-    'Files' =>'الملفات',
+    'Files' =>'ملفات',
     'Title'=>'العنوان',
     'Department_Name'=>'اسم القسم',
     'Category_Name'=>'اسم القسم الفرعي',

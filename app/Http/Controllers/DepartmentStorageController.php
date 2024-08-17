@@ -205,17 +205,17 @@ class DepartmentStorageController extends Controller
         $departmentStorages = DepartmentStorage::where('department_id', $currentUserDepartment)
                             ->where('user_id', auth()->id())
                             ->get();
-        $userName = auth()->user()->name;
+        $userfirstName = auth()->user()->first_name;
 
         
         if (auth()->user()->role_id == 1) {
             return view('dashboard.layouts.showfile')
             ->with('departmentStorages', $departmentStorages)
-            ->with('userName', $userName);
+            ->with('userName', $userfirstName);
         } else {
             return view('dashboard.layouts.showfile')
             ->with('departmentStorages', $departmentStorages)
-            ->with('userName', $userName);
+            ->with('userName', $userfirstName);
         }
     }
     
