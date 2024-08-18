@@ -65,7 +65,7 @@ class RegisteredUserController extends Controller
 
     Mail::to($user->email)->send(new WelcomeEmail($user,$current_employee));
 
-    flash()->success('employee registration successsful!');
+    flash()->success('showfileandtypes.Register_Account_success');
     return redirect(route('table', absolute: false));
 }
 }

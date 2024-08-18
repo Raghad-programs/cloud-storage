@@ -40,5 +40,16 @@ return [
     'responsibility_massaage'=>'أتحمل المسؤولية عن هذا المحتوى وأؤكد أنه ليس ضارًا.',
     'Choose_File'=>'اختر ملف',
     'No_file_chosen'=>'لم يتم اختيار ملف',
+    'Register_new_user'=>'تسجيل موظف جديد',
+    'first_name'=>'الإسم الأول',
+    'last_name'=>'الإسم الأخير',
+    'Phone_Number'=>'رقم الجوال : 0511111111',
+    'Email_Address'=>'الإيميل الشخصي',
+    'Password'=>'كلمة السر',
+    'Repeat_Password'=>'إعادة كلمة السر',
+    'Select_Department'=>'اختر القسم',
+    'Register_Account'=>'تسجيل الحساب',
+    'Register_Account_success'=>'تم تسجيل الموظف بنجاح',
+
 
 ];

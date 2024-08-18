@@ -40,5 +40,15 @@ return [
     'responsibility_massaage'=>'I take responsibility for this content and confirm it is not malicious.',
     'Choose_File'=>'Choose File',
     'No_file_chosen'=>'No file chosen',
+    'Register_new_user'=>'Register new user',
+    'first_name'=>'first name',
+    'last_name'=>'last name',
+    'Phone_Number'=>'Phone Number : 0511111111',
+    'Email_Address'=>'Email Address',
+    'Password'=>'Password',
+    'Repeat_Password'=>'Repeat Password',
+    'Select_Department'=>'Select Department',
+    'Register_Account'=>'Register Account',
+    'Register_Account_success'=>'employee registration successsful!',
     
 ];

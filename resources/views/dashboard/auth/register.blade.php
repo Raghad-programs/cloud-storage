@@ -1,3 +1,8 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +53,7 @@
             <div class="card o-hidden border-0 shadow-lg my-5 ">
                 <div class="card-body p-5 ">
                 <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                <h1 class="h4 text-gray-900 mb-4">@lang('showfileandtypes.Register_new_user')</h1>
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -63,39 +68,50 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <input name="first_name" type="text" class="form-control form-control-user" id="exampleFirstName"
-                                        placeholder="first_name" value="{{ old('first_name') }}" required>
+                                    <input name="first_name" type="text" class="form-control form-control-user {{$text_align}}" id="exampleFirstName"
+                                        placeholder="@lang('showfileandtypes.first_name')" value="{{ old('first_name') }}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <input name="last_name" type="text" class="form-control form-control-user" id="exampleLastName"
-                                        placeholder="last_name" value="{{ old('last_name') }}" required>
+                                    <input name="last_name" type="text" class="form-control form-control-user {{$text_align}}" id="exampleLastName"
+                                        placeholder="@lang('showfileandtypes.last_name')" value="{{ old('last_name') }}" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <input name="phone_number" type="text" class="form-control form-control-user" id="examplePhoneNumber"
-                                        placeholder="Phone Number : 0511111111" value="{{ old('phone_number') }}" required>
+                                <div class="form-group ">
+                                    <input name="phone_number" type="text" class="form-control form-control-user {{$text_align}}" id="examplePhoneNumber"
+                                        placeholder="@lang('showfileandtypes.Phone_Number')" value="{{ old('phone_number') }}" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address" value="{{ old('email') }}" required>
+                                <div class="form-group ">
+                                    <input name="email" type="email" class="form-control form-control-user {{$text_align}}" id="exampleInputEmail"
+                                        placeholder="@lang('showfileandtypes.Email_Address')" value="{{ old('email') }}" required>
                                 </div>
-
-                                <div class="form-group row">
+                                @if (app()->getLocale() == 'en')
+                                <div class="form-group row ">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input name="password" type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password" required>
+                                        <input name="password" type="password" class="form-control form-control-user {{$text_align}}"
+                                            id="exampleInputPassword" placeholder="@lang('showfileandtypes.Password')" required>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input name="password_confirmation" type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password" required>
+                                    <div class="col-sm-6 ">
+                                        <input name="password_confirmation" type="password" class="form-control form-control-user {{$text_align}}"
+                                            id="exampleRepeatPassword" placeholder="@lang('showfileandtypes.Repeat_Password')" required>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <select class="form-select form-control form-control-user" id="department" name="department" required>
-                                        <option value="" disabled selected>Select Department</option>
+                                @else
+                                <div class="form-group row ">
+                                    <div class="col-sm-6 ">
+                                        <input name="password_confirmation" type="password" class="form-control form-control-user {{$text_align}}"
+                                            id="exampleRepeatPassword" placeholder="@lang('showfileandtypes.Repeat_Password')" required>
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input name="password" type="password" class="form-control form-control-user {{$text_align}}"
+                                            id="exampleInputPassword" placeholder="@lang('showfileandtypes.Password')" required>
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="form-group ">
+                                    <select class="form-select form-control form-control-user {{$text_align}}" id="department" name="department" required>
+                                        <option value="" disabled selected>@lang('showfileandtypes.Select_Department')</option>
                                         @foreach ($departments as $department)
                                             <option value="{{ $department->id }}">{{ $department->department }}</option>
                                         @endforeach
@@ -103,7 +119,7 @@
                                 </div>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Register Account
+                                @lang('showfileandtypes.Register_Account')
                                 </button>
                             </form>
                             <hr>
