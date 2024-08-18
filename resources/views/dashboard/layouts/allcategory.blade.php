@@ -9,7 +9,7 @@
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('category.show.all') }}" method="GET">
         <div class="input-group">
-            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('strings.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('allcategory.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
@@ -26,7 +26,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="filterDropdown">
                 <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
-                    @lang('strings.filter_all_types')
+                    @lang('allcategory.filter_all_types')
                 </button>
                 @foreach($fileTypes as $type)
                     <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
@@ -34,7 +34,7 @@
                     </button>
                 @endforeach
                 <select name="file_type" class="form-control" style="display: none;">
-                    <option id="file_type_all" value="all">@lang('strings.filter_all_types')</option>
+                    <option id="file_type_all" value="all">@lang('allcategory.filter_all_types')</option>
                     @foreach($fileTypes as $type)
                         <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
                     @endforeach
@@ -101,7 +101,7 @@
                             <p class="card-text flex-grow-1">{{ $item->description ?? "No description" }}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
-                            <small class="text-muted">@lang('strings.uploaded_by') {{ $item->user->name ?? "Deleted user" }}</small>
+                            <small class="text-muted">@lang('allcategory.uploaded_by') {{ $item->user->name ?? "Deleted user" }}</small>
                             <a href="{{ route('departmentStorage.download', $item->id) }}" class="btn ">
                                 <i class="fa fa-download" style="font-size:18px"></i>
                             </a>
@@ -112,7 +112,7 @@
             @endforeach
         @else
             <div class="col-12 text-center">
-                <h3>@lang('strings.no_results_found')</h3>
+                <h3>@lang('allcategory.no_results_found')</h3>
             </div>
         @endif
     </div>
