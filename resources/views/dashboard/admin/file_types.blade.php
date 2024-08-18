@@ -32,6 +32,23 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
         width: 100%;
         height: auto; /* Ensure height is based on content */
     }
+    .modal-header {
+    position: relative;
+    }
+
+    .close-button {
+        top: 5;
+    }
+
+    html[lang="en"] .close-button {
+        right: 10px;
+    }
+
+    html[lang="ar"] .close-button {
+        left: 10px;
+        right: auto;
+    }
+
 
 </style>
 
@@ -123,14 +140,15 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 <div class="modal fade" id="newFileTypeModal" tabindex="-1" role="dialog" aria-labelledby="newFileTypeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content ">
-        <div class="modal-header d-flex">
-    <button type="button" class="close me-auto" data-dismiss="modal" aria-label="Close">
+        <div class="modal-header d-flex justify-content-center">
+    <button type="button" class="close position-absolute close-button" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h5 class="modal-title ms-auto" id="newFileTypeModalLabel">
+    <h5 class="modal-title text-center" id="newFileTypeModalLabel">
         @lang('showfileandtypes.Create_New_File_Type')
     </h5>
 </div>
+
 
 
 

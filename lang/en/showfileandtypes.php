@@ -24,7 +24,7 @@ return [
     'Extension'=>'Extension',
     'Create_New_File_Type'=>'Create New File Type',
     'file_type_deletion_massage'=>'Select "Delete" below if you sure you want to delete this file type',
-    'Create_File_Type'=>'Create_File_Type',
+    'Create_File_Type'=>'Create File Type',
     'Enter_Extension'=>'Enter Extension',
     'Enter_File_Type'=>'Enter File Type Name',
     'Extension2'=>'Extension',
