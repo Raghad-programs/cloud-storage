@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'employees' => 'الموظفون',
+    'employees' => 'الموظفين',
     'register_employee' => 'تسجيل موظف جديد',
     'search_employee' => 'ابحث عن موظف',
     'first_name' => 'الاسم الأول',
