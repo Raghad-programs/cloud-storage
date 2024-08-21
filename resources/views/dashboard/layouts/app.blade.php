@@ -41,6 +41,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="{{asset("backend/css/sb-admin-2.min.css")}}" rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body id="page-top">
@@ -227,7 +228,7 @@
     <!-- Page level custom scripts -->
     <script src="{{asset("backend/js/demo/chart-area-demo.js")}}"></script>
     <script src="{{asset("backend/js/demo/chart-pie-demo.js")}}"></script>
-
+   @livewireScripts
 </body>
 
 
