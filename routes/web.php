@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdministrationController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\DepartmentStorage;
+use App\Livewire\DepartmentStorageView;
 use App\Http\Controllers\downloadallController;
 use App\Http\Controllers\NotificationController;
 
@@ -95,7 +96,6 @@ Route::middleware(['head-auth'])->group(function () {
     Route::delete('/employees/{id}', [EmployeesController::class, 'destroy'])->name('user.destroy');
 
 });
-
 
 
 
