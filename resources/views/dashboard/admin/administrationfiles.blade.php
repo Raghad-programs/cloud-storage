@@ -9,7 +9,7 @@
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('administration.files') }}" method="GET">
         <div class="input-group">
-            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('strings.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('administrationfiles.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
@@ -26,7 +26,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="filterDropdown">
                 <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_all').selected = true; this.form.submit();">
-                    @lang('strings.filter_all_types')
+                    @lang('administrationfiles.filter_all_types')
                 </button>
                 @foreach($fileTypes as $type)
                     <button class="dropdown-item" onclick="event.preventDefault(); document.getElementById('file_type_{{ $type->id }}').selected = true; this.form.submit();">
@@ -34,7 +34,7 @@
                     </button>
                 @endforeach
                 <select name="file_type" class="form-control" style="display: none;">
-                    <option id="file_type_all" value="all">@lang('strings.filter_all_types')</option>
+                    <option id="file_type_all" value="all">@lang('administrationfiles.filter_all_types')</option>
                     @foreach($fileTypes as $type)
                         <option id="file_type_{{ $type->id }}" value="{{ $type->id }}" {{ request('file_type') == $type->id ? 'selected' : '' }}>{{ $type->type }}</option>
                     @endforeach
@@ -98,17 +98,17 @@
                             <p class="card-text">{{ $item->description ?? "No description" }}</p>
                         </div>
                         <div class="card-footer">
-    <small class="text-muted">@lang('strings.uploaded_by') {{  $item->user->name ?? 'Deleted User'}}</small>
+    <small class="text-muted">@lang('administrationfiles.uploaded_by') {{  $item->user->name ?? 'Deleted User'}}</small>
     <br>
     <small class="text-muted">@lang('strings.department') : {{ $item->department->department }}</small>
     <br>
     @if ($item->category)
-    <small class="text-muted">@lang('strings.section') : {{ $item->category->name }}</small>
+    <small class="text-muted">@lang('administrationfiles.section') : {{ $item->category->name }}</small>
     <br>
     @endif
-    <small class="text-muted">@lang('strings.created_at') : {{ $item->created_at }}</small>
+    <small class="text-muted">@lang('administrationfiles.created_at') : {{ $item->created_at }}</small>
     <br>
-    <small class="text-muted">@lang('strings.updated_at') : {{ $item->updated_at }}</small>
+    <small class="text-muted">@lang('administrationfiles.updated_at') : {{ $item->updated_at }}</small>
 </div>
 
                     </a>

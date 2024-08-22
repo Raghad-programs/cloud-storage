@@ -2,36 +2,47 @@
 @section("title", "Employees")  
 @section('content')  
     <!-- Begin Page Content -->
-    <div class="card shadow mb-4">
+<div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
-    <h3 class="m-0 font-weight-bold text-primary">{{auth()->user()->department->department}} @lang('strings.employees')</h3>
-    <a href="{{ route('register') }}" class="btn btn-primary" data-toggle="tooltip" title="@lang('strings.register_employee')">
-        <i class="fa fa-user-plus"></i>
-    </a>
+        <h3 class="m-0 font-weight-bold text-primary">@lang('strings.employees') {{auth()->user()->department->department}} </h3>
+        <a href="{{ route('register') }}" class="btn btn-primary" data-toggle="tooltip" title="@lang('employees.register_employee')">
+            <i class="fa fa-user-plus"></i>
+        </a>
+    </div>
 </div>
 
-<!-- search bar -->
-<form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3  navbar-search mt-2" action="" method="GET">
-    <div class="input-group">
-        <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="@lang('strings.search_employee')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">
-                <i class="fas fa-search fa-sm"></i>
-            </button>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <div class="d-flex align-items-center">
+        <!-- Topbar Search -->
+        <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3  navbar-search mt-2 search-bar" action="" method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="@lang('employees.search_employee')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
         </div>
-    </div>
-</form>
+    </nav>
+
+<style>
+    .search-bar {
+        width: 250px; /* Adjust this width as needed */
+    }
+</style>
 
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>@lang('strings.first_name')</th>
-                <th>@lang('strings.last_name')</th>
+                <th>@lang('employees.first_name')</th>
+                <th>@lang('employees.last_name')</th>
                 <th>@lang('strings.department')</th>
                 <th>@lang('strings.email')</th>
-                <th>@lang('strings.created_at')</th>
-                <th>@lang('strings.actions')</th>
+                <th>@lang('employees.created_at')</th>
+                <th>@lang('employees.actions')</th>
             </tr>
         </thead>
         <tbody>
@@ -65,18 +76,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">@lang('strings.confirm_deletion')</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@lang('employees.confirm_deletion')</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">@lang('strings.delete_confirmation')</div>
+            <div class="modal-body">@lang('employees.delete_confirmation')</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('strings.cancel')</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">@lang('employees.cancel')</button>
                 <form method="POST" id="deleteForm">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-primary">@lang('strings.delete')</button>
+                    <button type="submit" class="btn btn-primary">@lang('employees.delete')</button>
                 </form>
             </div>
         </div>
