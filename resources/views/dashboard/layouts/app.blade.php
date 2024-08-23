@@ -206,9 +206,29 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+    <a class="scroll-to-top rounded" href="#page-top" 
+    style="{{ app()->getLocale() == 'ar' ? 'left: 20px; right: auto;' : '' }}">
+    <i class="fas fa-angle-up"></i>
     </a>
+
+    <style>
+    .scroll-to-top {
+    justify-content: center; /* Centers the arrow horizontally */
+    align-items: center;     /* Centers the arrow vertically */
+    width: 27x;             /* Set a width for the box */
+    height: 27px;            /* Set a height for the box */
+    position: fixed;         /* Fixes the position on the screen */
+    bottom: 20px;            /* Position from the bottom of the screen */
+    right: 20px;             /* Default position from the right of the screen */
+    z-index: 1000;           /* Ensures it is above other content */
+    }
+
+    .scroll-to-top i {
+    font-size: 24px;         /* Size of the arrow icon */
+    color: #333;             /* Color of the arrow */
+    }
+
+    </style>
 
    
 
