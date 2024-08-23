@@ -1,5 +1,11 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
+
+
 <div>
-<div class="table-responsive">
+<div class="table-responsive {{$text_align}}">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
