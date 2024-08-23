@@ -1,5 +1,5 @@
 <?php
-$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+    $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 ?>
 
 <!DOCTYPE html>
@@ -233,11 +233,11 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 
 
 <!-- Modal for new category -->
-<div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+<div class="modal fade " id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newCategoryModalLabel">@lang('strings.add_category')</h5>
+        <div class="modal-content {{$text_align}}">
+            <div class="modal-header ">
+                <h5 class="modal-title  " id="newCategoryModalLabel">@lang('strings.add_category')</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -262,3 +262,12 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
     </div>
 </div>
 
+
+@if (app()->getLocale()=='ar')
+    <style>
+    .modal-header .close {
+        margin-right: auto; /* Push the close button to the left */
+        margin-left: 0; /* Remove any default right margin */
+    }
+    </style>
+@endif

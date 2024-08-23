@@ -91,6 +91,8 @@ class DepartmentStorageController extends Controller
         //The retry mechanism gives the VirusTotal scan some time to complete.
         // Instead of trying to get the report immediately after scanning.
         $retries = 5;
+        $retryInterval = 10; // Initial wait time in seconds
+
         while ($retries > 0) { //will attempt to retrieve the scan report 5 times
             $reportResponse = $virusTotalService->getReport($resource);  // Attempt to get the report
 
@@ -112,9 +114,10 @@ class DepartmentStorageController extends Controller
                 }
             } elseif (isset($reportResponse['response_code']) && $reportResponse['response_code'] == 1) {
                 // Report is not ready, retry after a delay
-                sleep(10); // wait for 10 seconds before retrying between each retry
+                sleep($retryInterval);
+                $retryInterval *= 2; // Double the wait time for the next retry
+                $retries--;// wait for 10 seconds before retrying between each retry
                 //This gives VirusTotal more time to complete the scan.
-                $retries--;
             } else {
                 // Handle cases where the report is not available or there's an error
                 $errorMessage = isset($reportResponse['verbose_msg']) ? $reportResponse['verbose_msg'] : __('strings.scan_not');
@@ -123,7 +126,9 @@ class DepartmentStorageController extends Controller
         }
 
         // After retries, if the report is still not ready
-        return ['status' => 'error', 'message' => __('strings.scan_not_time')];
+        if ($retries == 0) {
+            return ['status' => 'error', 'message' => __('strings.scan_not_time')];
+        }
     } else {
          // Handle error cases during file scanning
         $errorMessage = isset($scanResponse['verbose_msg']) ? $scanResponse['verbose_msg'] : __('strings.error_scan');
