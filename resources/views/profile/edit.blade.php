@@ -1,3 +1,9 @@
+<?php
+$auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+$text_align =  app()->getLocale() == 'ar' ? 'text-right' :'text-left';
+$margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
+?>
+
 @extends('dashboard.layouts.app')
 @section("title", "Edit profile")  
 @section('content') 
@@ -12,27 +18,23 @@
 
 
     <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
-
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-     
-            <!-- Dropdown - Messages -->
-          
-
-        <!-- Nav Item - Alerts -->
+    <ul class="navbar-nav {{$auto}}">
+<!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+       aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
         <span class="badge badge-danger badge-counter">{{ auth()->user()->unreadNotifications->count() }}</span>
     </a>
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-        aria-labelledby="alertsDropdown">
-        <h6 class="dropdown-header">
+         aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header d-flex justify-content-between align-items-center">
             Alerts Center
+            <a href="{{route('notifications.markAllAsRead')}}" class=" btn-link text-gray-500 " id="markAllAsRead">Mark all as read</a>
         </h6>
+        @if(auth()->user()->unreadNotifications->count() > 0)
         @foreach(auth()->user()->unreadNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="mr-3">
@@ -46,39 +48,53 @@
                 </div>
             </a>
         @endforeach
-        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+        @else
+        <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                    <div class="icon-circle bg-light">
+                        <i class="fas fa-info-circle text-gray-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="small text-gray-500">No new notifications</div>
+                </div>
+            </a>
+        @endif
+
     </div>
 </li>
+
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+            <a class="nav-link dropdown-toggle {{$margin}}-3" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->first_name}}&nbsp;{{auth()->user()->last_name}}</span>
-                <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{$user->first_name }}&nbsp;{{$user->last_name}}</span>
+                <img class="img-profile rounded-circle mr-1" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
              <!-- Dropdown - User Information -->
-             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/profile/{{auth()->user()->id}}">
+             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in {{$text_align}}" aria-labelledby="userDropdown">
+                <a class="dropdown-item " href="/profile/{{auth()->user()->id}}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    @lang('strings.profile')
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-400 mr-0"></i>
+                    @lang('strings.logout')
                 </a>
             </div>
         </li>
 
     </ul>
 
+
 </nav>
 
 
 
-<div class="container mt-5">
+<div class="container ">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <!-- User profile card -->
@@ -88,7 +104,11 @@
                         <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
                             <h4>{{ $user->first_name }} {{ $user->last_name }}</h4>
-                            <p class="text-secondary mb-1">{{ $user->department->department }} user</p>
+                            @if (app()->getLocale()=='en')
+                            <p class="text-secondary mb-1">{{ $user->department->department }} @lang('strings.employee')</p>
+                            @else
+                            <p class="text-secondary mb-1"> @lang('strings.employee') {{ $user->department->department }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -98,22 +118,18 @@
             <form action="{{ route('profile.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="card mb-1">
+                <div class="card mb-2">
                     <div class="card-body">
-                        <!-- Full name -->
+                        <!-- Full name -->               
                         <div class="row">
                             <div class="col-sm-3 mt-2">
-                                <h6 class="mb-0">Full Name</h6>
+                                <h6 class="mb-0">@lang('strings.full_name')</h6>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-10 ml-3">
-                                    <input name="first_name" type="text" class="form-control" value="{{ $user->first_name }}">
-                                </div>
+                            <div class="col-sm-4">
+                                <input name="first_name" type="text" class="form-control" value="{{ $user->first_name }}">
                             </div>
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <input name="last_name" type="text" class="form-control" value="{{ $user->last_name }}">
-                                </div>
+                            <div class="col-sm-4">
+                                <input name="last_name" type="text" class="form-control" value="{{ $user->last_name }}">
                             </div>
                         </div>
                         <hr>
@@ -121,7 +137,7 @@
                         <!-- Email -->
                         <div class="row">
                             <div class="col-sm-3 mt-2">
-                                <h6 class="mb-0">Email</h6>
+                                <h6 class="mb-0">@lang('strings.email')</h6>
                             </div>
                             <div class="col-sm-9">
                                 <input name="email" type="text" class="form-control" value="{{$user->email}}">
@@ -132,7 +148,7 @@
                         <!-- Phone number -->
                         <div class="row">
                             <div class="col-sm-3 mt-2">
-                                <h6 class="mb-0">Phone number</h6>
+                                <h6 class="mb-0">@lang('strings.phone')</h6>
                             </div>
                             <div class="col-sm-9">
                                 <input name="phone_number" type="text" class="form-control" value="{{ $user->phone_number }}">
@@ -143,7 +159,7 @@
                         <!-- Linkedin -->
                         <div class="row">
                             <div class="col-sm-3 mt-2">
-                                <h6 class="mb-0">linkedin</h6>
+                                <h6 class="mb-0">@lang('strings.linkdin')</h6>
                             </div>
                             <div class="col-sm-9">
                                 <input name="linkedin" type="text" class="form-control" value="{{$user->linkedin_url}}">
@@ -153,7 +169,7 @@
                 </div>
 
                 <!-- Update profile button -->
-                <div class="card">
+                <div class="card mb-2">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <button type="submit" class="btn btn-primary btn-user btn-block">Update profile</button>
