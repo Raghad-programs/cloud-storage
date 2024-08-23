@@ -1,39 +1,76 @@
+<?php
+$text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
+?>
+
+
 @extends('dashboard.layouts.app')
 @section("title", "Employees")  
 @section('content')  
     <!-- Begin Page Content -->
-<div class="card shadow mb-4">
+    <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <h3 class="m-0 font-weight-bold text-primary">@lang('strings.employees') {{auth()->user()->department->department}} </h3>
-        <a href="{{ route('register') }}" class="btn btn-primary" data-toggle="tooltip" title="@lang('employees.register_employee')">
-            <i class="fa fa-user-plus"></i>
-        </a>
-    </div>
-</div>
-
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-    <div class="d-flex align-items-center">
-        <!-- Topbar Search -->
-        <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3  navbar-search mt-2 search-bar" action="" method="GET">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="@lang('employees.search_employee')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
+        @if (app()->getLocale() == 'en')
+            <h3 class="m-0 font-weight-bold text-primary">
+                @lang('strings.employees') {{ auth()->user()->department->department }} department
+            </h3>
+        @else
+            <h3 class="m-0 font-weight-bold text-primary">
+                @lang('strings.employees2') {{ auth()->user()->department->department }} 
+            </h3>
+        @endif
+        <div class="d-flex justify-content-end align-items-center">
+            <!-- Search form -->
+            <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3 navbar-search mt-2 search-bar" action="" method="GET">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="@lang('employees.search_employee')" aria-label="Search" aria-describedby="basic-addon2" value="{{ request('search') }}">
+                    @if (app()->getLocale() == 'en')
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                    @else
+                    <div class="input-group-append2">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                    @endif
                 </div>
-            </div>
-        </form>
+            </form>
+            <!-- Register button -->
+            <a href="{{ route('register') }}" class="btn btn-primary ml-3 d-flex align-items-center" style="height: 38px; margin-top: -8px;" data-toggle="tooltip" title="@lang('employees.register_employee')">
+                <i class="fa fa-user-plus"></i>
+            </a>
         </div>
-    </nav>
+    </div>
+
+
 
 <style>
-    .search-bar {
-        width: 250px; /* Adjust this width as needed */
-    }
-</style>
+/* Default LTR (left-to-right) styles */
+.input-group {
+    direction: ltr;
+}
 
-<div class="table-responsive">
+/* RTL (right-to-left) styles for Arabic */
+html[dir="rtl"] .input-group {
+    direction: rtl;
+}
+
+html[dir="rtl"] .input-group .form-control {
+    text-align: right; /* Align text inside the input field to the right */
+}
+.input-group-append .btn {
+    border-radius: 0px 7px 7px 0px; 
+}
+.input-group-append2 .btn {
+    border-radius: 7px 0px 0px 7px; 
+}
+
+</style>
+<div class="card-body">
+<div class="table-responsive {{$text_align}}">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -68,7 +105,9 @@
             </tr>
             @endforelse
         </tbody>
+        </div>
     </table>
+</div>
 </div>
 
 <!-- Delete modal -->
