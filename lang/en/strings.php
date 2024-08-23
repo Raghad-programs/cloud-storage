@@ -26,6 +26,8 @@
         'no_data' => 'No file upload data available.',
         'total_upload_size' => 'Total Upload Size',
         'enter_mb' => 'Enter the total upload size in MB',
+        'mb' => 'MB',
+        'gb' => 'GB',
         'close' => 'Close',
         'save' =>'Save Changes',
         'edit_permission' => 'Edit Employee Max storage',
@@ -52,5 +54,5 @@
         'category_create' => 'Category created successfully',
         'cate_not_delete' => 'Cannot delete category as it has associated files.',
         'category_delete' => 'Category deleted successfully.',
-        
+        'linkdin' => 'LinkdIn'
     ];
