@@ -153,45 +153,76 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 
 
 
-            <div class="modal-body">
-                <form method="POST" action="{{ route('file-types.store') }}">
-                    @csrf
-                    <div class="form-group {{$text_align}}">
-                        <label for="type">@lang('showfileandtypes.File_Type')</label>
-                        <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}" placeholder="@lang('showfileandtypes.Enter_File_Type')">
-                        @error('type')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group {{$text_align}}" id="extensions-group">
-                        <label for="extensions">@lang('showfileandtypes.Extension2')</label>
-                        @foreach (old('extensions', []) as $extension)
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary" onclick="addExtensionField()">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        @error('extensions.*')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+<div class="modal-body">
+    <form method="POST" action="{{ route('file-types.store') }}">
+        @csrf
+        <div class="form-group {{$text_align}}">
+            <label for="type">@lang('showfileandtypes.File_Type')</label>
+            <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}" placeholder="@lang('showfileandtypes.Enter_File_Type')">
+            @error('type')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+        <div class="form-group {{$text_align}}" id="extensions-group">
+            <label for="extensions">@lang('showfileandtypes.Extension2')</label>
+            @foreach (old('extensions', []) as $extension)
+            <div class="input-group mb-2">
+                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" value="{{ $extension }}">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" onclick="removeExtensionField(this)">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            @endforeach
+            <div class="input-group mb-2">
+                <input type="text" class="form-control @error('extensions.*') is-invalid @enderror extensions" name="extensions[]" placeholder="@lang('showfileandtypes.Enter_Extension')">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-primary" onclick="addExtensionField()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            @error('extensions.*')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
 
+        <button type="submit" class="btn btn-primary">@lang('showfileandtypes.Create_File_Type')</button>
+    </form>
+    <style>
+        /* Default LTR (left-to-right) styles */
+.input-group-append .btn {
+    border-radius: 0px 7px 7px 0px; /* Default rounded corners for LTR */
+}
+
+/* RTL (right-to-left) styles for Arabic */
+html[dir="rtl"] .input-group-append .btn {
+    border-radius: 7px 0px 0px 7px; /* Adjusted rounded corners for RTL */
+}
+
+html[dir="rtl"] .input-group .form-control {
+    text-align: right; /* Align text inside the input field to the right */
+}
+
+html[dir="rtl"] .input-group {
+    direction: rtl;
+}
+
+html[dir="rtl"] .input-group-append {
+    order: 0; /* Ensure the "+" button stays on the left side in RTL */
+}
+
+html[dir="rtl"] .input-group-append .btn {
+    border-radius: 7px 0px 0px 7px; /* Ensure proper corner radius in RTL */
+}
+
+    </style>
+    
 <script>
                         function addExtensionField() {
                             var extensionsGroup = document.getElementById('extensions-group');
@@ -219,10 +250,8 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                             extensionField.remove();
                         }
                                         </script>
+</div>
 
-                    <button type="submit" class="btn btn-primary">@lang('showfileandtypes.Create_File_Type')</button>
-                </form>
-            </div>
             </div>
         </div>
     </div>
