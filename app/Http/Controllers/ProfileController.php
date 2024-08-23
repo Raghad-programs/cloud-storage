@@ -82,51 +82,59 @@ class ProfileController extends Controller
     }
 
     public function show($id)
-{
-    $user = User::findOrFail($id);
-    if (auth()->user()->can('viewAny', $user)) {
-        // User is authorized, proceed with the action
-
-
+    {
+        $user = User::findOrFail($id);
+        if (auth()->user()->can('viewAny', $user)) {
+            // User is authorized, proceed with the action
+    
             $filesNumber = DepartmentStorage::where('department_id', $user->Depatrment_id)
-            ->where('user_id', $id)
-            ->count();
-        $participationPercentages = $this->calculateParticipationPercentages($user);
-        $userStorageLimitInMB = $this->getEmployeeStorage($user->id);
-        $currentUserDepartment = $user->Depatrment_id; //user department
-        $categories = Category::where('department_id', $currentUserDepartment)->get();
-        $fileSizes = [];
-        $totalFileSize = 0;
-        foreach ($categories as $category) {
-        $categoryFileSize = DepartmentStorage::where('department_id', $currentUserDepartment)
+                ->where('user_id', $id)
+                ->count();
+            $participationPercentages = $this->calculateParticipationPercentages($user);
+            $userStorageLimitInMB = $this->getEmployeeStorage($user->id);
+            $currentUserDepartment = $user->Depatrment_id; //user department
+            $categories = Category::where('department_id', $currentUserDepartment)->get();
+    
+            $fileSizesEn = [];
+            $fileSizesAr = [];
+            $totalFileSize = 0;
+    
+            foreach ($categories as $category) {
+                $categoryFileSize = DepartmentStorage::where('department_id', $currentUserDepartment)
                     ->where('category_id', $category->id)
                     ->where('user_id', $id)
                     ->sum('file_size');
-        $fileSizes[$category->name] = round($categoryFileSize / 1024/ 1024, 2); // Convert bytes to MB and round to 2 decimal places
+                
+                $sizeInMB = round($categoryFileSize / 1024 / 1024, 2); // Convert bytes to MB and round to 2 decimal places
+    
+                $fileSizesEn[$category->name] = $sizeInMB;
+                $fileSizesAr[$category->name_ar] = $sizeInMB;
+            }
+    
+            $totalFileSize = DepartmentStorage::where('user_id', $id)
+                ->sum('file_size');
+    
+            $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2);
+            $usagePercentage = ($totalFileSize / ($userStorageLimitInMB * 1024 * 1024)) * 100;
+    
+            return view('profile.partials.profile')->with([
+                'user' => $user,
+                'filesNumber' => $filesNumber,
+                'userStorageLimit' => $userStorageLimitInMB,
+                'usagePercentage' => $usagePercentage,
+                'participationPercentages' => $participationPercentages,
+                'fileSizesEn' => $fileSizesEn,
+                'fileSizesAr' => $fileSizesAr,
+                'totalFileSize' => $totalFileSizeInMB
+            ]);
+        } else {
+            // User is not authorized, handle the unauthorized access
+            flash()->error('Unauthorized to access that profile');
+            return back();
+            // abort(403, 'Unauthorized');
         }
-        $totalFileSize = DepartmentStorage::where('user_id', $id)
-        ->sum('file_size');
-
-        $totalFileSizeInMB = round($totalFileSize / 1024 / 1024, 2);
-        $usagePercentage = ($totalFileSize / ($userStorageLimitInMB * 1024 * 1024)) * 100;
-
-        return view('profile.partials.profile')->with([
-        'user' => $user,
-        'filesNumber' => $filesNumber,
-        'userStorageLimit' => $userStorageLimitInMB,
-        'usagePercentage' => $usagePercentage,
-        'participationPercentages' => $participationPercentages,
-        'fileSizes'=> $fileSizes,
-        'totalFileSize' => $totalFileSizeInMB
-        ]);
-    } else {
-        // User is not authorized, handle the unauthorized access
-        flash()->error('Unauthorized to access that profile');
-        return back();
-        // abort(403, 'Unauthorized');
     }
-}
-
+    
 private function calculateParticipationPercentages($user)
     {
         $totalFiles = DepartmentStorage::where('department_id', $user->Depatrment_id)
