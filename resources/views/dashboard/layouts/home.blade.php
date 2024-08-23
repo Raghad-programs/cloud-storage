@@ -1,3 +1,9 @@
+<?php
+
+$auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+?>
+
+
 @extends('dashboard.layouts.app')
 @section("title", "Dashboard")  
 @section('content')  
@@ -41,12 +47,7 @@
     </button>
 
     <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
-
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-     
-            <!-- Dropdown - Messages -->
-          
+    <ul class="navbar-nav {{$auto}}">
 
         <!-- Nav Item - Alerts -->
 <!-- Nav Item - Alerts -->
@@ -97,11 +98,11 @@
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
+        <li class="nav-item dropdown no-arrow ">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{auth()->user()->first_name}}&nbsp;{{auth()->user()->last_name}}</span>
-                <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
+                <img class="img-profile rounded-circle mr-1" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

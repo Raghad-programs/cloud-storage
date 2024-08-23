@@ -52,4 +52,5 @@
         'category_create' => 'Category created successfully',
         'cate_not_delete' => 'Cannot delete category as it has associated files.',
         'category_delete' => 'Category deleted successfully.',
+        
     ];
