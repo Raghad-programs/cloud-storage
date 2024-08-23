@@ -55,5 +55,7 @@
         'cate_not_delete' => 'Cannot delete category as it has associated files.',
         'category_delete' => 'Category deleted successfully.',
         'linkdin' => 'LinkdIn',
-        'employees2'=>'Employees for'
+        'employees2'=>'Employees for',
+        'leave' => 'Ready to Leave?',
+        'select_logout' => 'Select "Logout" below if you are ready to end your current session.',
     ];
