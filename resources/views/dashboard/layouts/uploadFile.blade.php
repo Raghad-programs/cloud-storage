@@ -61,9 +61,15 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                                 <div class="form-group">
                                     <select class="form-control" id="category_id" name="category_id">
                                         <option value="">@lang('showfileandtypes.Select_Section')</option>
+                                        @if (app()->getLocale() == 'en')
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
+                                        @else
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name_ar }}</option>
+                                        @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="form-group">
