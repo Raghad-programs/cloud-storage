@@ -1,5 +1,4 @@
 <?php
-
 $auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
 ?>
 

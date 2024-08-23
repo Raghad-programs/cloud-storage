@@ -1,3 +1,8 @@
+<?php
+$auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+$text_align =  app()->getLocale() == 'ar' ? 'text-right' :'text-left';
+?>
+
 @extends('dashboard.layouts.app')
 @section("title", "Edit profile")  
 @section('content') 
@@ -37,7 +42,7 @@
 
 
     <!-- Topbar Navbar -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav {{$auto}}">
 <!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
@@ -90,7 +95,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{$user->first_name }}&nbsp;{{$user->last_name}}</span>
-                <img class="img-profile rounded-circle" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
+                <img class="img-profile rounded-circle mr-1" src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg">
             </a>
              <!-- Dropdown - User Information -->
              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -114,13 +119,8 @@
 <div class="container mt-4">
     <div class="main-body">
           <div class="row gutters-sm">
-
-        
-
-            <div class="col-md-4 mb-3">
-
-
-            <div class="card">
+             <div class="col-md-4 mb-3">
+               <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-column justify-content-center align-items-center text-center">
                     <img src="https://i.pinimg.com/originals/68/3d/8f/683d8f58c98a715130b1251a9d59d1b9.jpg" alt="Admin" class="rounded-circle" width="150">
@@ -128,7 +128,11 @@
                         <h4>
                         {{$user->first_name }}&nbsp;{{$user->last_name}}
                       </h4>
-                        <p class="text-secondary mb-1">{{$user->department->department}} @lang('strings.employee')</p>
+                      @if (app()->getLocale()== 'en')
+                      <p class="text-secondary mb-1">{{$user->department->department}} @lang('strings.employee')</p>
+                      @else
+                      <p class="text-secondary mb-1"> @lang('strings.employee') {{$user->department->department}}</p>
+                      @endif
                     </div>
                     <a href="{{route('profile.edit' , $user->id)}}" class="btn btn-primary btn-user btn-circle">
                         <i class="far fa-edit"></i>
@@ -140,7 +144,7 @@
             <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0"><i class="fa fa-linkedin-square mr-2" style="font-size:28px;color:#6083ff" ></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-1z "></path></svg>Linkdin</h6>
+                    <h6 class="mb-0" style="color:#6083ff"><i class="fa fa-linkedin-square mr-1 ml-1" style="font-size:28px; color:#6083ff" ></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-1z "></path></svg>@lang('strings.linkdin')</h6>
                     <a class="text-secondary" href="{{ $user->linkedin_url }}" >{{ $user->linkedin_url }}</a>
                   </li>
                </ul>
@@ -150,11 +154,15 @@
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><i class="fas fa-hdd fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>@lang('strings.max_Storage')</h6>
-                    <span class="text-secondary">{{ round($userStorageLimit /1024 ,2) }} GB</span>
+                    <span class="text-secondary">{{ round($userStorageLimit /1024 ,2) }} @lang('strings.gb')</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><i class="fa fa-folder fa-x text-gray-700 mr-2"></i><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>@lang('strings.storage_used')</h6>
+                    @if (app()->getLocale()== 'en')
                     <span class="text-secondary">{{ round($usagePercentage, 2) }}%</span>
+                    @else
+                    <span class="text-secondary">%{{ round($usagePercentage, 2) }}</span>
+                    @endif
                   </li>
                 </ul>
               </div>
@@ -170,7 +178,7 @@
               @endif
             </div>
             <div class="col-md-8">
-              <div class="card mb-3">
+              <div class="card mb-3 {{$text_align}}">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
@@ -227,7 +235,11 @@
                             @foreach ($participationPercentages as $category => $percentage)
                             <div class="d-flex justify-content-between">
                                 <small>{{ $category }}</small>
+                                @if (app()->getLocale()== 'en')
                                 <small>{{ $percentage }}%</small>
+                                @else
+                                <small>%{{ $percentage }}</small>
+                                @endif
                             </div>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
@@ -249,7 +261,7 @@
                             @foreach ($fileSizes as $category => $size)
                             <div class="d-flex justify-content-between">
                                 <small>{{ $category }}</small>
-                                <small>{{ $size }} MB</small>
+                                <small>{{ $size }} @lang('strings.mb')</small>
                             </div>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $size / (2 * 1024) * 100 }}%" aria-valuenow="{{ $size }}" aria-valuemin="0" aria-valuemax="2048"></div>
@@ -257,7 +269,7 @@
                             @endforeach
                             <div class="d-flex justify-content-between">
                                 <small>@lang('strings.total_consumed')</small>
-                                <small>{{ $totalFileSize}} MB</small>
+                                <small>{{ $totalFileSize}} @lang('strings.mb')</small>
                             </div>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $usagePercentage }}%" aria-valuenow="{{ $usagePercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
