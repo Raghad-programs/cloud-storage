@@ -46,14 +46,18 @@
                                 </div>
                                 @endif
                                 <div class="form-group">
-                                    <input name="email" type="email" class="form-control form-control-user"
-                                        id="exampleInputEmail" aria-describedby="emailHelp"
-                                        placeholder="@lang('strings.enter_email')">
-                                </div>
-                                <div class="form-group">
-                                    <input name="password" type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="@lang('strings.password')">
-                                </div>
+                                <input name="email" type="email" class="form-control form-control-user"
+                                    id="exampleInputEmail" aria-describedby="emailHelp"
+                                    placeholder="@lang('strings.enter_email')">
+                            </div>
+                            <div class="form-group position-relative">
+                                <input name="password" type="password" class="form-control form-control-user"
+                                    id="exampleInputPassword" placeholder="@lang('strings.password')">
+                                <span class="position-absolute" id="togglePassword" style="cursor: pointer; right: 10px; top: 50%; transform: translateY(-50%);">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                            </div>
+
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
                                         <input type="checkbox" class="custom-control-input" id="customCheck" name="remember">
@@ -68,6 +72,7 @@
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="{{ route('password.request') }}">@lang('strings.forgot')</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -87,5 +92,19 @@
     <script src="backend/js/sb-admin-2.min.js"></script>
 
 </body>
+<script>
+                                const togglePassword = document.getElementById('togglePassword');
+                                const password = document.getElementById('exampleInputPassword');
 
+                                togglePassword.addEventListener('click', function (e) {
+                                    // toggle the type attribute
+                                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                                    password.setAttribute('type', type);
+
+                                    // toggle the eye icon
+                                    this.querySelector('i').classList.toggle('fa-eye');
+                                    this.querySelector('i').classList.toggle('fa-eye-slash');
+                                });
+                            </script>
+                            
 </html>

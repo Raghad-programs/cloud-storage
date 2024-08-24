@@ -88,27 +88,34 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
                                 </div>
                                 @if (app()->getLocale() == 'en')
                                 <div class="form-group row ">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                            
+                                    <div class="col-sm-5 position-relative">
                                         <input name="password" type="password" class="form-control form-control-user {{$text_align}}"
                                             id="exampleInputPassword" placeholder="@lang('showfileandtypes.Password')" required>
                                     </div>
-                                    <div class="col-sm-6 ">
+                                    <div class="col-sm-5 mb-sm-0 position-relative">
                                         <input name="password_confirmation" type="password" class="form-control form-control-user {{$text_align}}"
                                             id="exampleRepeatPassword" placeholder="@lang('showfileandtypes.Repeat_Password')" required>
                                     </div>
+                                    <div class="col-2 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-eye" onclick="togglePasswordVisibility()" style="cursor: pointer; font-size: 1.5rem;"></i>
+                                </div>
                                 </div>
                                 @else
-                                <div class="form-group row ">
-                                    <div class="col-sm-6 ">
-                                        <input name="password_confirmation" type="password" class="form-control form-control-user {{$text_align}}"
-                                            id="exampleRepeatPassword" placeholder="@lang('showfileandtypes.Repeat_Password')" required>
-                                    </div>
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input name="password" type="password" class="form-control form-control-user {{$text_align}}"
-                                            id="exampleInputPassword" placeholder="@lang('showfileandtypes.Password')" required>
-                                    </div>
+                                <div class="form-group row">
+                                <div class="col-2 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-eye" onclick="togglePasswordVisibility()" style="cursor: pointer; font-size: 1.5rem;"></i>
                                 </div>
-                                @endif
+                                <div class="col-sm-5 position-relative">
+                                    <input name="password_confirmation" type="password" class="form-control form-control-user {{$text_align}}"
+                                        id="exampleRepeatPassword" placeholder="@lang('showfileandtypes.Repeat_Password')" required>
+                                </div>
+                                <div class="col-sm-5 mb-sm-0 position-relative">
+                                    <input name="password" type="password" class="form-control form-control-user {{$text_align}}"
+                                        id="exampleInputPassword" placeholder="@lang('showfileandtypes.Password')" required>
+                                </div>
+                            </div>
+                            @endif
                                 <div class="form-group ">
                                     <select class="form-select form-control form-control-user {{$text_align}}" id="department" name="department" required>
                                         <option value="" disabled selected>@lang('showfileandtypes.Select_Department')</option>
@@ -140,5 +147,18 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
     <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
 
 </body>
+
+<script>
+function togglePasswordVisibility() {
+    const passwordField = document.getElementById('exampleInputPassword');
+    const repeatPasswordField = document.getElementById('exampleRepeatPassword');
+    
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    
+    passwordField.setAttribute('type', type);
+    repeatPasswordField.setAttribute('type', type);
+}
+</script>
+
 
 </html>
