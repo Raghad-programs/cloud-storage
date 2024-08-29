@@ -24,49 +24,41 @@
             .justify-content-center {
                 justify-content: center;
             }
+			
 			.navbar-nav {
-				visibility: hidden;
-				display: none;
-				background: transparent;
-			}
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+            }
 
         </style>
+
 	</head>
 
 	<body class="is-preload">
 
+	
 		<!-- Header -->
         <section id="header">
 		<nav class="navbar-nav">
-	<li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" type="submit" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-globe fa-fw"></i>
-         @if (session('locale') == 'ar')
-            Ar
-         @else
-            En
-         @endif
-          </a>
-            <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in" aria-labelledby="languageDropdown">
-                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'en']) }}">
-                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
-                    English
-                </a>
-                <a class="dropdown-item" href="{{ route('change.language', ['lang' => 'ar']) }}">
-                <html xmlns="/lang/{$lang}" lang="ar" xml:lang="ar"> </html>
-                    <i class="fas fa-language fa-sm fa-fw mr-2 text-gray-400"></i>
-                    العربية
-                </a>
-            </div>
-        </li>
-		</nav>
+        <li><i class="fas fa-globe fa-fw"></i>
+		
+	<a  href="{{ route('change.language', ['lang' => 'en']) }}">
+      En /
+ </a>
+	<a  href="{{ route('change.language', ['lang' => 'ar']) }}">
+      Ar
+</a>
+	</li>
+</nav>
+
             <div class="inner">
                 <span class="icon solid major fa-cloud"></span>
-                <h1>Hi, Welcome to the <strong>Archive Cloud!</strong><br />
+                <h1>@lang('welcome.welcome_message')<br />
                </h1>
-                <p>Your powerful, on-demand computing resource is ready to help you achieve your goals.</p>
+                <p>@lang('welcome.welcome_description')</p>
                 <ul class="actions special">
-                    <li><a href="#one" class="button scrolly">Discover</a></li>
+                    <li><a href="#one" class="button scrolly">@lang('welcome.discover')</a></li>
                 </ul>
             </div>
         </section>
@@ -77,10 +69,10 @@
         <div class="row gtr-150 justify-content-center">
             <div class="col-6 col-12-medium">
                 <header class="major">
-                    <h2>Do you have an account?</h2>
+                    <h2>@lang('welcome.do_you_have_account')</h2>
                 </header>
                 <ul class="actions special">
-                    <li><a href="/login" class="button wide primary">Login</a></li>
+                    <li><a href="/login" class="button wide primary">@lang('welcome.login')</a></li>
                 </ul>
             </div>
         </div>
@@ -105,16 +97,14 @@
 						</div>
 						<div class="col-6 col-12-medium">
 							<header class="major">
-								<h2>About our company </h2>
+								<h2>@lang('welcome.about_company') </h2>
 							</header>
-							<p>About us
-							Qassim Technical Association aims to enrich technical content, and create an environment and forum for those interested in technology. It was initially an association supervised by the Emirate of Qassim Region, and was launched by His Highness Prince Dr. Faisal bin Mishaal, may God protect him and his family, on June 24, 2020. It was then transformed into a registered association with License 2074 from the Ministry of Human Resources and Social Development.
+							<p>@lang('welcome.about_us')
 							</p>
-							<p>Vision
-							To be a leading technical reference in the Qassim region, and a stimulating environment for exchanging knowledge and experiences and building partnerships
+							<p>
+							@lang('welcome.vision')
 							</p>
-							<p>Message
-							To enhance the culture of technical giving and raise the level of capabilities, skills and technical awareness</p>
+							<p>@lang('welcome.message')</p>
 						</div>
 					</div>
 				</div>
@@ -146,3 +136,10 @@
 
 	</body>
 </html>
+
+<script>
+document.getElementById('language-toggle').addEventListener('click', function() {
+    var dropdown = document.getElementById('language-dropdown');
+    dropdown.classList.toggle('show');
+});
+</script>

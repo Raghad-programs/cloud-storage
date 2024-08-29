@@ -19,15 +19,16 @@ class LocalizationMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        $locale = Session::get('locale') ?? 'en';
-        Session::put('locale' , $locale);
-        App::setLocale($locale);
+        // $locale = Session::get('locale') ?? 'en';
+        // Session::put('locale' , $locale);
+        // App::setLocale($locale);
+
         // if($request->hasHeader('Accept-Language')){
         //     App::setLocale($request->header("Accept-Language"));
         // }
-        // if(Session::has('lang')){
-        //     App::setLocale(Session::get('lang'));
-        // }
+        if(Session::has('locale')){
+            App::setLocale(session()->get('locale'));
+        }
         return $next($request);
     }
 }
