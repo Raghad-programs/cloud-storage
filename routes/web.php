@@ -21,17 +21,9 @@ use App\Http\Controllers\NotificationController;
 Route::get('/' , [WelcomeController::class ,'index'])->name('welcome');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
-// Route::get('/lang/{lang}' , [LangController::class, 'change'])->name('change.language');
-
+Route::get('/lang/{lang}' , [LangController::class, 'change'])->name('change.language');
+ Route::get('/lang/{lang}/welcome' , [LangController::class, 'changeWelcome'])->name('change.welcome');
 Route::middleware(['auth-check'])->group(function () {
-
-    Route::get('/lang/{lang}' , [LangController::class, 'change'])->name('change.language');
-
-    Route::get('/lang/{lang}' , [LangController::class, 'changeWelcome'])->name('change.language');
-    // Route::get('lang/{locale}',function ($locale){
-    //     session()->put('locale', $locale);
-    //     return redirect()->route('welcome');
-    // });
 
     Route::get('/dashboard' , [DashboardController::class , 'index'])->name('dashboard');
 
