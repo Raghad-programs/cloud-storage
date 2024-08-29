@@ -43,10 +43,10 @@
 		<nav class="navbar-nav">
         <li><i class="fas fa-globe fa-fw"></i>
 		
-	<a  href="{{ route('change.language', ['lang' => 'en']) }}">
+	<a  href="{{ route('change.welcome', ['lang' => 'en']) }}">
       En /
  </a>
-	<a  href="{{ route('change.language', ['lang' => 'ar']) }}">
+	<a  href="{{ route('change.welcome', ['lang' => 'ar']) }}">
       Ar
 </a>
 	</li>
