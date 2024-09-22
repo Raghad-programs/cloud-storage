@@ -1,3 +1,9 @@
+<?php
+    $auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+    $text_align =  app()->getLocale() == 'ar' ? 'text-right' :'text-left';
+    $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
+?>
+
 @extends('dashboard.layouts.app')
 
 @section('title', $category->name)
@@ -47,7 +53,7 @@
     </div>
 
     @if(auth()->user()->isAdmin())
-    <div class="ml-auto">
+    <div class="{{$auto}} ">
         <button class="btn btn-danger btn-circle text-gray-200 mb-1 delete-btn" data-toggle="modal" data-target="#deleteModal">
             <i class="fas fa-trash"></i>
         </button>
