@@ -1,3 +1,8 @@
+<?php
+    $auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+    $text_align =  app()->getLocale() == 'ar' ? 'text-right' :'text-left';
+    $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
+?>
 @extends('dashboard.layouts.app')
 
 @section("title", "All Files")  
@@ -45,7 +50,7 @@
 </nav>
 
 <div class="container mt-4">
-    <h1 class="mb-4">@lang('strings.all_files')</h1>
+    <h1 class="mb-4 {{$text_align}}">@lang('strings.all_files')</h1>
     <div class="row">
         @if (count($storageItems) > 0)
             @foreach ($storageItems as $item)

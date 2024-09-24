@@ -63,7 +63,13 @@
 
 <div id="resultsContainer">
     <div class="container mt-4">
-        <h1 class="mb-4">{{ $category->name }}</h1>
+        <h1 class="mb-4 {{$text_align}}">
+        @if (app()->getLocale()== 'ar')
+        {{ $category->name_ar }}
+        @else
+        {{ $category->name }}
+        @endif
+        </h1>
         <div class="row">
             @if(count($storageItems) > 0)
                 @foreach ($storageItems as $item)
