@@ -156,6 +156,16 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
 <div class="modal-body">
     <form method="POST" action="{{ route('file-types.store') }}">
         @csrf
+        @if ($errors->any())
+    <div class="alert alert-danger  {{$text_align}}">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         <div class="form-group {{$text_align}}">
             <label for="type">@lang('showfileandtypes.File_Type')</label>
             <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" name="type" value="{{ old('type') }}" placeholder="@lang('showfileandtypes.Enter_File_Type')">

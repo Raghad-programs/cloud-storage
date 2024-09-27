@@ -18,7 +18,7 @@ class EmployeesController extends Controller
         $users = User::where('Depatrment_id', auth()->user()->Depatrment_id);
     
         if (isset($search) && $search !== null) {
-            $users->where('name', 'LIKE', '%' . $search . '%');
+            $users->where('first_name', 'LIKE', '%' . $search . '%');
         }
     
         $users = $users->get();

@@ -6,6 +6,11 @@
     <!-- Begin Page Content -->
     <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex justify-content-between align-items-center">
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
     @if (app()->getLocale() == 'en')
         <h3 class="m-0 font-weight-bold text-primary">{{ $userName }} @lang('showfileandtypes.Files')</h3>
         <a href="{{ route('download.all') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">

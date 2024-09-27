@@ -45,27 +45,33 @@ class AdministrationController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'type' => 'required|string|max:255|regex:/^[a-zA-Z]+$/',
-        'extensions' => 'required|array',
-        'extensions.*' => 'string|max:255|regex:/^[a-zA-Z]+$/'
-    ], [
-        'type.regex' => 'The file type must start with a letter and contain only letters.',
-        'extensions.*.regex' => 'The extensions must start with a letter and contain only letters.'
-    ]);
-
-    $extensions = implode(',', $request->input('extensions')); // Convert the array to a comma-separated string
-
-    $fileType = FileType::create([
-        'type' => $request->input('type'),
-        'extensions' => $extensions, // Store the comma-separated string
-        
-    ]);
-
-    flash()->success(__('showfileandtypes.Flash_File_Type_creation'));
-    return redirect(route('getfile.types'));
-}
+    {
+        // Validate the input fields
+        $validated = $request->validate([
+            'type' => 'required|string|max:255|regex:/^[a-zA-Z]+$/',
+            'extensions' => 'required|array',
+            'extensions.*' => 'string|max:255|regex:/^[a-zA-Z]+$/'
+        ], [
+            'type.regex' => __('showfileandtypes.x1'),
+            'extensions.*.regex' => __('showfileandtypes.x2')
+        ]);
+    
+        // If validation passes, process the data
+        $extensions = implode(',', $request->input('extensions')); // Convert the array to a comma-separated string
+    
+        // Create the new file type
+        FileType::create([
+            'type' => $request->input('type'),
+            'extensions' => $extensions, // Store the comma-separated string
+        ]);
+    
+        // Flash success message
+        flash()->success(__('showfileandtypes.Flash_File_Type_creation'));
+    
+        // Redirect to the file types list
+        return redirect(route('getfile.types'));
+    }
+    
 
 
 public function update(Request $request, $id)
