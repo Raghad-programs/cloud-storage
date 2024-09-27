@@ -66,7 +66,7 @@
 
             <!-- Nav Item - Dashboard -->
             <div class="sidebar-item ">
-                <li class="nav-item active">
+                <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a class="nav-link {{$text_align}} my-0" href="{{route('dashboard')}} ">
                         <i class="fas fa-fw fa-tachometer-alt" ></i>
                         <span>@lang('strings.dashboard')</span></a>
@@ -89,11 +89,11 @@
                 </a>
                 <div id="collapseUploadFileMenu" class="collapse {{$text_align}}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <a href="{{ route('category.show.all') }}" class="collapse-item {{$text_align}}">
+                    <a href="{{ route('category.show.all') }}" class="collapse-item {{$text_align}} {{ request()->routeIs('category.show.all') ? 'active' : '' }}">
                             <strong>@lang('strings.all_files')</strong>
                         </a>
                     @foreach ($categories as $category)
-                    <a href="#" class="collapse-item {{$text_align}}" onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
+                    <a href="#" class="collapse-item {{$text_align}} " onclick="event.preventDefault(); document.getElementById('category-form-{{ $category->id }}').submit();">
                         @if (App::getLocale()=='en')
                         {{ $category->name }}
                         @else
@@ -107,7 +107,7 @@
                     @endforeach
 
                     @if(auth()->user()->isAdmin())
-                    <a href="#" class="collapse-item {{$text_align}}" data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
+                    <a href="#" class="collapse-item {{$text_align}} " data-toggle="modal" data-target="#newCategoryModal" style=" color: #6c757d; text-decoration: none;">
                         @lang('strings.add_category')
                      </a>
                     @endif
@@ -116,7 +116,7 @@
             </li>
 
                 <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item {{request()->routeIs('upload-file') ? 'active' : '' }}">
                 <a class="nav-link {{$text_align}}" href="{{route('upload-file')}}">
                     <i class="fa fa-cloud-upload"></i>
                     <span>@lang('strings.upload')</span></a>
@@ -126,7 +126,7 @@
            
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <li class="nav-item {{request()->routeIs('show-file') ? 'active' : '' }}">
                 <a class="nav-link {{$text_align}}" href="{{route('show-file')}}">
                     <i class="fa fa-archive"></i>
                     <span>@lang('strings.my_archival')</span></a>
@@ -143,7 +143,7 @@
                 @lang('strings.admin')
             </div>
 
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('administration.files') ? 'active' : '' }}">
                 <a class="nav-link {{$text_align}}" href="{{ route('administration.files') }}">
                     <i class="fa fa-newspaper-o"></i>
                     <span>@lang('strings.all_files')</span>
@@ -152,14 +152,14 @@
 
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item  {{ request()->routeIs('table') ? 'active' : '' }}">
                 <a class="nav-link {{$text_align}}" href="{{route('table')}}">
                     <i class="fa fa-users"></i>
                     <span>@lang('strings.employees')</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item {{request()->routeIs('getfile.types') ? 'active' : '' }}">
             <a class="nav-link {{$text_align}}" href="{{ route('getfile.types') }}">
             <i class="fa fa-file-archive-o"></i>
                 <span>@lang('strings.file_types')</span></a>

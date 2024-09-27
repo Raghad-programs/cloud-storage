@@ -137,11 +137,11 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> @lang('home.Total_Documents') </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $DocumentsForUser }}</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 {{$text_align}}"> @lang('home.Total_Documents') </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 {{$text_align}}">{{ $DocumentsForUser }}</div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fa fa-user-circle-o fa-2x text-gray-300"></i>
+                    <div class="col-auto text-right">
+                        <i class="fa fa-user-circle-o fa-2x text-gray-300 "></i>
                     </div>
                 </div>
             </div>
@@ -155,10 +155,10 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1 {{$text_align}}">
                         @lang('home.total_consumed_storage')
                     </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    <div class="h5 mb-0 font-weight-bold text-gray-800 {{$text_align}}">
                         {{ $formattedTotalStorageUsed }}
                     </div>
                 </div>
@@ -176,9 +176,9 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1 {{$text_align}}">
                             @lang('home.total_documents_department')</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $documentsPerDepartment }}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 {{$text_align}}">{{ $documentsPerDepartment }}</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa fa-folder fa-2x text-gray-300"></i>
@@ -194,16 +194,34 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1 {{$text_align}}">
                            @lang('home.storage_usage_by_you')
                         </div>
+                        @if (app()->getLocale()=='ar')
+
+                        <div class="row no-gutters align-items-center">
+                            <div class="col">
+                                <div class="progress progress-sm ml-2 ">
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                        style="width: {{ $userUsedStoragePercentage }}%"
+                                        aria-valuenow="{{ $userUsedStoragePercentage }}" aria-valuemin="0"
+                                        aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="h5 mb-0 ml-3 font-weight-bold text-gray-800 ">
+                                    %{{ $userUsedStoragePercentage }}</div>
+                            </div>
+                        </div>
+                        @else
+
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800 ">
                                     {{ $userUsedStoragePercentage }}%</div>
                             </div>
                             <div class="col">
-                                <div class="progress progress-sm mr-2">
+                                <div class="progress progress-sm mr-2 ">
                                     <div class="progress-bar bg-info" role="progressbar"
                                         style="width: {{ $userUsedStoragePercentage }}%"
                                         aria-valuenow="{{ $userUsedStoragePercentage }}" aria-valuemin="0"
@@ -211,6 +229,7 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-hdd fa-2x text-gray-300"></i>
@@ -265,7 +284,7 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
             <div class="card shadow mb-4" style="height: 100%;">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">@lang('home.file_types')</h6>
+                    <h6 class="m-0 font-weight-bold text-primary {{$text_align}}">@lang('home.file_types')</h6>
                     
                 </div>
                 <!-- Card Body -->
@@ -285,7 +304,7 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
             <div class="col-lg-7 mb-4">
                 <div class="card shadow mb-4" style="width: 670px">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">@lang('home.departments')</h6>
+                        <h6 class="m-0 font-weight-bold text-primary {{$text_align}}">@lang('home.departments')</h6>
                     </div>
                     <div class="card-body" style="min-height: 200px;">
                         @foreach ($topDepartments as $department)
@@ -308,7 +327,7 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
                 <div class="col-lg-5 mb-4">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3" style="height: 50px;">
-                            <h6 class="m-0 font-weight-bold text-primary">@lang('home.recent_files')</h6>
+                            <h6 class="m-0 font-weight-bold text-primary {{$text_align}}">@lang('home.recent_files')</h6>
                         </div>
                         <div class="card-body"
                             style="display: flex; flex-direction: column; justify-content: space-between; overflow: auto;">
@@ -324,10 +343,10 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
                                 </div>
                             @endif
                             <div>
-                                <h5>{{ $recentUpload->title }}</h5>
-                                <p>{{ $recentUpload->description }}</p>
+                                <h5 class="{{$text_align}}">{{ $recentUpload->title }}</h5>
+                                <p class="{{$text_align}}">{{ $recentUpload->description }}</p>
                             </div>
-                            <div>
+                            <div class="{{$text_align}}">
                                 <a href="{{ route('departmentStorage.view', $recentUpload) }}" target="_blank"
                                     class="text-decoration-none text-primary">
                                     @lang('home.browse_more') &rarr;
@@ -340,10 +359,10 @@ $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
                     <div class="col-lg-5 mb-4">
                         <div class="card shadow mb-4" style="width: 450px; height: 150px;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">@lang('home.recent_files')</h6>
+                                <h6 class="m-0 font-weight-bold text-primary {{$text_align}}">@lang('home.recent_files')</h6>
                             </div>
                             <div class="card-body" style="height: 100%; overflow-y: auto;">
-                                <p>@lang('home.no_recent')</p>
+                                <p class="{{$text_align}}">@lang('home.no_recent')</p>
                             </div>
                         </div>
                     </div>

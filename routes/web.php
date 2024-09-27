@@ -22,7 +22,7 @@ Route::get('/' , [WelcomeController::class ,'index'])->name('welcome');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
 Route::get('/lang/{lang}' , [LangController::class, 'change'])->name('change.language');
-
+ Route::get('/lang/{lang}/welcome' , [LangController::class, 'changeWelcome'])->name('change.welcome');
 Route::middleware(['auth-check'])->group(function () {
 
     Route::get('/dashboard' , [DashboardController::class , 'index'])->name('dashboard');

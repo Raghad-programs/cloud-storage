@@ -1,3 +1,9 @@
+<?php
+    $auto = app()->getLocale() == 'ar' ? 'mr-auto' :'ml-auto';
+    $text_align =  app()->getLocale() == 'ar' ? 'text-right' :'text-left';
+    $margin =  app()->getLocale() == 'ar' ? 'ml' :'mr';
+?>
+
 @extends('dashboard.layouts.app')
 
 @section('title', $category->name)
@@ -47,7 +53,7 @@
     </div>
 
     @if(auth()->user()->isAdmin())
-    <div class="ml-auto">
+    <div class="{{$auto}} ">
         <button class="btn btn-danger btn-circle text-gray-200 mb-1 delete-btn" data-toggle="modal" data-target="#deleteModal">
             <i class="fas fa-trash"></i>
         </button>
@@ -57,7 +63,13 @@
 
 <div id="resultsContainer">
     <div class="container mt-4">
-        <h1 class="mb-4">{{ $category->name }}</h1>
+        <h1 class="mb-4 {{$text_align}}">
+        @if (app()->getLocale()== 'ar')
+        {{ $category->name_ar }}
+        @else
+        {{ $category->name }}
+        @endif
+        </h1>
         <div class="row">
             @if(count($storageItems) > 0)
                 @foreach ($storageItems as $item)
