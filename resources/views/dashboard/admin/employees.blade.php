@@ -22,7 +22,9 @@ $text_align = app()->getLocale() == 'ar' ? 'text-right' :'';
             <!-- Search form -->
             <form class="d-none d-sm-inline-block form-inline ml-md-1 mb-3 navbar-search mt-2 search-bar" action="" method="GET">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" placeholder="@lang('employees.search_employee')" aria-label="Search" aria-describedby="basic-addon2" value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control bg-light border-0 small border border-bottom-primary" 
+                    placeholder="@lang('employees.search_employee')" aria-label="Search" aria-describedby="basic-addon2" 
+                    value="{{ request('search') }}">
                     @if (app()->getLocale() == 'en')
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">

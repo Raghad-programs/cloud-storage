@@ -60,7 +60,7 @@
                     @lang('strings.cloud_archive')
                  </div>
             </a>
-
+            
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -178,6 +178,21 @@
         </ul>
         <!-- End of Sidebar -->
 
+        <!-- Flash Messages -->
+        <div class="flash-message" style="text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }}; position: fixed; bottom: 10px; {{ app()->getLocale() == 'ar' ? 'left: 10px;' : 'right: 10px;' }}">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -223,10 +238,12 @@
     z-index: 1000;           /* Ensures it is above other content */
     }
 
-    .scroll-to-top i {
-    font-size: 24px;         /* Size of the arrow icon */
-    color: #333;             /* Color of the arrow */
-    }
+
+.text-right {
+    text-align: right;
+}
+
+    
 
     </style>
 

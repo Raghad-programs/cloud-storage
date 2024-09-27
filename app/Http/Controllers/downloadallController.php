@@ -57,7 +57,7 @@ class downloadallController extends Controller
         return response()->json(['error' => 'Error creating ZIP archive'], 500);
     }
 
-    flash()->success('Files have been downloaded successfully');
+    flash()->success('showfileandtypes.x3');
     return response()->download($zipName)->deleteFileAfterSend(true);
 }  
 }

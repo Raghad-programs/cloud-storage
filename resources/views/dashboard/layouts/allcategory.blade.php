@@ -5,20 +5,33 @@
 ?>
 @extends('dashboard.layouts.app')
 
-@section("title", "All Files")  
+@section("title", content: "All Files")  
 
 @section('content')
 
+<style>
+   .rotated-button {
+    transform: rotate(180deg); /* Rotate the button */
+}
 
+.rotated-button i {
+    transform: rotate(-180deg); /* Rotate the icon back to its original position */
+}
+
+
+
+</style>
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline ml-md-3 my-2 my-md-0 navbar-search" action="{{ route('category.show.all') }}" method="GET">
         <div class="input-group">
             <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="@lang('allcategory.search_placeholder')" aria-label="Search" aria-describedby="basic-addon2" value="{{request('search') }}">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
-                    <i class="fas fa-search fa-sm"></i>
-                </button>
+            <button class="btn btn-primary rotated-button" type="submit">
+    <i class="fas fa-search fa-sm"></i>
+</button>
+
+
             </div>
         </div>
     </form>

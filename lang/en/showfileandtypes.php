@@ -50,5 +50,8 @@ return [
     'Select_Department'=>'Select Department',
     'Register_Account'=>'Register Account',
     'Register_Account_success'=>'employee registration successsful!',
+    'x1'=>'The file type must start with a letter and contain only letters.',
+    'x2'=>'The extensions must start with a letter and contain only letters.',
+    'x3'=>'Files have been downloaded successfully',
     
 ];
